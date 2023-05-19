@@ -73,6 +73,17 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
   }
 
   @override
+  void backRegisterInfo() {
+    final _$actionInfo = _$_RegisterViewModelBaseActionController.startAction(
+        name: '_RegisterViewModelBase.backRegisterInfo');
+    try {
+      return super.backRegisterInfo();
+    } finally {
+      _$_RegisterViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setImage(int index, File? image) {
     final _$actionInfo = _$_RegisterViewModelBaseActionController.startAction(
         name: '_RegisterViewModelBase.setImage');
