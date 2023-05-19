@@ -14,7 +14,7 @@ class StandartButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: context.lowBorderRadius,
         ),
-        backgroundColor: AppColors.blue,
+        backgroundColor: AppColors.blueRibbon,
       ),
       onPressed: onPressed,
       child: Container(
