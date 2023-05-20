@@ -3,7 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/auth/login/viewmodel/login_viewmodel.dart';
 import 'package:sneepy/feature/auth/register/view/register_view.dart';
-import 'package:sneepy/product/widgets/button/standart_button.dart';
+import 'package:sneepy/product/widgets/button/standart_text_button.dart';
 import 'package:sneepy/product/widgets/input/standart_textfield.dart';
 
 class LoginView extends StatelessWidget {
@@ -48,7 +48,7 @@ class LoginView extends StatelessWidget {
                 }),
               ),
               context.emptySizedHeightBoxLow3x,
-              StandartButton(
+              StandartTextButton(
                 text: 'Giriş Yap',
                 onPressed: () {},
               ),

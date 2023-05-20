@@ -7,7 +7,7 @@ import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/auth/register/viewmodel/register_viewmodel.dart';
 import 'package:sneepy/feature/home/view/home_view.dart';
 import 'package:sneepy/product/constant/colors.dart';
-import 'package:sneepy/product/widgets/button/standart_button.dart';
+import 'package:sneepy/product/widgets/button/standart_text_button.dart';
 import 'package:sneepy/product/widgets/input/standart_textfield.dart';
 
 class RegisterView extends StatelessWidget {
@@ -61,7 +61,7 @@ class RegisterView extends StatelessWidget {
                 const SizedBox(height: 25),
                 // const Spacer(),
                 Observer(builder: (_) {
-                  return StandartButton(
+                  return StandartTextButton(
                     text: _vm.screenMode != 3 ? 'Devam et' : 'Tamamla',
                     onPressed: () {
                       if (_vm.screenMode != 3) {

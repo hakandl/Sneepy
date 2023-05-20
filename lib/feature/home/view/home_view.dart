@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
+import 'package:sneepy/feature/friends/view/friends_view.dart';
 import 'package:sneepy/feature/home/viewmodel/home_viewmodel.dart';
 import 'package:sneepy/product/constant/colors.dart';
 import 'package:sneepy/product/widgets/button/standart_circle_button.dart';
@@ -15,8 +16,6 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.blueRibbon,
-        toolbarHeight: 64,
         leading: IconButton(onPressed: () {}, icon: const Icon(Icons.filter_list_rounded)),
         title: const CircleAvatar(
           backgroundImage: NetworkImage(
@@ -24,15 +23,13 @@ class HomeView extends StatelessWidget {
           radius: 24,
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.group_outlined)),
+          IconButton(
+            icon: const Icon(Icons.group_outlined),
+            onPressed: () {
+              context.navigateToPage(const FriendsView());
+            },
+          ),
         ],
-        iconTheme: const IconThemeData(
-          color: AppColors.white,
-        ),
-        actionsIconTheme: const IconThemeData(
-          color: AppColors.white,
-        ),
-        centerTitle: true,
       ),
       body: Column(
         children: [
@@ -69,8 +66,7 @@ class HomeView extends StatelessWidget {
                                   if (details.localPosition.direction > 1.0) {
                                     _swipeCardPageController.previousPage(
                                         duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
-                                  }
-                                  if (details.localPosition.direction < 1.0) {
+                                  } else if (details.localPosition.direction < 1.0) {
                                     _swipeCardPageController.nextPage(
                                         duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
                                   }
