@@ -22,14 +22,12 @@ abstract class _RegisterViewModelBase with Store {
     if (screenMode == 3) {
       registerProgressVaue = 1;
     }
-    print(registerProgressVaue);
   }
 
   @action
   void backRegisterInfo() {
     screenMode--;
     registerProgressVaue -= 0.33;
-    print(registerProgressVaue);
   }
 
   @action

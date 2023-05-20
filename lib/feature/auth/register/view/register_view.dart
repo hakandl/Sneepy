@@ -67,7 +67,7 @@ class RegisterView extends StatelessWidget {
                       if (_vm.screenMode != 3) {
                         _vm.nextRegisterInfo();
                       } else {
-                        context.navigateToPage(HomeView());
+                        context.navigateToPage(const HomeView());
                       }
                     },
                   );
