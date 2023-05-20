@@ -13,6 +13,7 @@ class StandartCircleButton extends StatelessWidget {
         shape: const CircleBorder(),
         fixedSize: const Size(70, 70),
         backgroundColor: backgroundColor,
+        padding: EdgeInsets.zero,
       ),
       onPressed: onPressed,
       child: Container(

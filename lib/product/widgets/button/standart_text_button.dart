@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sneepy/product/constant/colors.dart';
 
-class StandartButton extends StatelessWidget {
-  const StandartButton({super.key, required this.text, required this.onPressed});
+class StandartTextButton extends StatelessWidget {
+  const StandartTextButton({super.key, required this.text, required this.onPressed, this.backgroundColor});
   final String text;
+  final Color? backgroundColor;
   final VoidCallback onPressed;
 
   @override
@@ -14,7 +15,7 @@ class StandartButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: context.lowBorderRadius,
         ),
-        backgroundColor: AppColors.blueRibbon,
+        backgroundColor: backgroundColor ?? AppColors.blueRibbon,
       ),
       onPressed: onPressed,
       child: Container(
@@ -23,7 +24,9 @@ class StandartButton extends StatelessWidget {
         height: 50,
         child: Text(
           text,
-          style: context.textTheme.titleMedium?.copyWith(color: AppColors.white),
+          style: context.textTheme.titleMedium?.copyWith(
+            color: AppColors.white,
+          ),
         ),
       ),
     );
