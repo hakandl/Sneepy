@@ -9,6 +9,7 @@ import 'package:sneepy/feature/home/view/home_view.dart';
 import 'package:sneepy/product/constant/colors.dart';
 import 'package:sneepy/product/widgets/button/standart_text_button.dart';
 import 'package:sneepy/product/widgets/input/standart_textfield.dart';
+import 'package:sneepy/product/widgets/text/title_large_text.dart';
 
 class RegisterView extends StatelessWidget {
   RegisterView({super.key});
@@ -85,10 +86,7 @@ class RegisterView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Kayıt olmak için bu gerekli bilgileri girmelisin.',
-          style: context.textTheme.titleLarge,
-        ),
+        const TitleLargeText(text: 'Kayıt olmak için bu gerekli bilgileri girmelisin.'),
         context.emptySizedHeightBoxLow3x,
         nameInput,
         context.emptySizedHeightBoxLow,
@@ -103,40 +101,10 @@ class RegisterView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Şimdi de bazı kişisel bilgilerin ile devam edelim.',
-          style: context.textTheme.titleLarge,
-        ),
+        const TitleLargeText(text: 'Şimdi de bazı kişisel bilgilerin ile devam edelim.'),
         context.emptySizedHeightBoxLow3x,
         ageInput,
         context.emptySizedHeightBoxLow,
-        /* Container(
-          decoration: BoxDecoration(
-            borderRadius: context.lowBorderRadius,
-            border: Border.all(),
-            color: AppColors.athensGray,
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          height: 50,
-          width: double.infinity,
-          child: DropdownButton<String>(
-            borderRadius: context.lowBorderRadius,
-            underline: const SizedBox.shrink(),
-            items: const <DropdownMenuItem<String>>[
-              DropdownMenuItem(child: Text('child')),
-              DropdownMenuItem(child: Text('child')),
-            ],
-            value: 'aa',
-            onChanged: (value) {},
-            hint: const Text('AAAA'),
-            isExpanded: true,
-            padding: EdgeInsets.zero,
-            icon: const Icon(
-              Icons.keyboard_arrow_down,
-              size: 20,
-            ),
-          ),
-        ) */
       ],
     );
   }
@@ -152,10 +120,7 @@ class RegisterView extends StatelessWidget {
 
     return Column(
       children: [
-        Text(
-          'Son olarak da birkaç fotoğraf ekleyelim.',
-          style: context.textTheme.titleLarge,
-        ),
+        const TitleLargeText(text: 'Son olarak da birkaç fotoğraf ekleyelim.'),
         const SizedBox(height: 25),
         Expanded(
           child: GridView.builder(

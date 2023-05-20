@@ -3,8 +3,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/auth/login/viewmodel/login_viewmodel.dart';
 import 'package:sneepy/feature/auth/register/view/register_view.dart';
+import 'package:sneepy/product/constant/colors.dart';
 import 'package:sneepy/product/widgets/button/standart_text_button.dart';
 import 'package:sneepy/product/widgets/input/standart_textfield.dart';
+import 'package:sneepy/product/widgets/text/title_medium_text.dart';
+
+import '../../../../product/widgets/text/headline_large_text.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});
@@ -22,10 +26,7 @@ class LoginView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Spacer(),
-              Text(
-                'Giriş Yap',
-                style: context.textTheme.headlineLarge,
-              ),
+              const HeadlineLargeText(text: 'Giriş Yap'),
               context.emptySizedHeightBoxNormal,
               const SizedBox(
                 height: 50,
@@ -56,9 +57,12 @@ class LoginView extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Hesabın yok mu?'),
+                  const TitleMediumText(text: 'Hesabın yok mu?'),
                   TextButton(
-                    child: const Text('Kayıt ol'),
+                    child: const TitleMediumText(
+                      text: 'Kayıt ol',
+                      color: AppColors.blueRibbon,
+                    ),
                     onPressed: () {
                       context.navigateToPage(RegisterView());
                     },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/friends/view/friends_view.dart';
+import 'package:sneepy/feature/profie/view/profile_view.dart';
 import 'package:sneepy/product/constant/colors.dart';
 import 'package:sneepy/product/widgets/button/standart_circle_button.dart';
 import 'package:sneepy/product/widgets/card/friend_card.dart';
@@ -13,10 +14,16 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(onPressed: () {}, icon: const Icon(Icons.filter_list_rounded)),
-        title: const CircleAvatar(
-          backgroundImage: NetworkImage(
+        title: CircleAvatar(
+          backgroundImage: const NetworkImage(
               'https://media.gettyimages.com/id/1347431090/photo/fit-woman-standing-outdoors-after-a-late-afternoon-trail-run.jpg?s=612x612&w=gi&k=20&c=H9W6QxJoLP607i_BE7kT-VtxNGtaT7E6U4XIn03IHLg='),
           radius: 24,
+          child: InkWell(
+            borderRadius: context.normalBorderRadius,
+            onTap: () {
+              context.navigateToPage(const ProfileView());
+            },
+          ),
         ),
         actions: [
           IconButton(

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sneepy/product/constant/colors.dart';
+import 'package:sneepy/product/widgets/text/headline_medium_text.dart';
 
 import '../../../feature/home/viewmodel/home_viewmodel.dart';
+import '../text/headline_small_text.dart';
 
 class FriendCard extends StatelessWidget {
   FriendCard({super.key});
@@ -86,18 +88,12 @@ class FriendCard extends StatelessWidget {
                       end: Alignment.topCenter,
                     ),
                   ),
-                  child: Column(
+                  child: const Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'data',
-                        style: context.textTheme.headlineMedium?.copyWith(color: AppColors.athensGray),
-                      ),
-                      Text(
-                        'data',
-                        style: context.textTheme.headlineSmall?.copyWith(color: AppColors.athensGray),
-                      ),
+                      HeadlineMediumText(text: 'text', color: AppColors.athensGray),
+                      HeadlineSmallText(text: 'text', color: AppColors.athensGray),
                     ],
                   ),
                 ),
