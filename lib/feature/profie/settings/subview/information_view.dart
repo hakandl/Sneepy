@@ -25,16 +25,16 @@ class InformationView extends StatelessWidget {
               children: [
                 const TitleMediumText(text: 'İsim'),
                 context.emptySizedHeightBoxLow,
-                const StandartTextField(
+                StandartTextField(
                   text: 'text',
-                  prefix: Icon(FontAwesomeIcons.user),
+                  prefix: const Icon(FontAwesomeIcons.user),
                 ),
                 context.emptySizedHeightBoxLow3x,
                 const TitleMediumText(text: 'Yaş'),
                 context.emptySizedHeightBoxLow,
-                const StandartTextField(
+                StandartTextField(
                   text: 'text',
-                  prefix: Icon(FontAwesomeIcons.arrowUp19),
+                  prefix: const Icon(FontAwesomeIcons.arrowUp19),
                 ),
                 context.emptySizedHeightBoxLow3x,
                 StandartTextButton(

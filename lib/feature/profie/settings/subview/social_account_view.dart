@@ -27,21 +27,21 @@ class SocialAccountView extends StatelessWidget {
                   children: [
                     const TitleMediumText(text: 'Snapchat'),
                     context.emptySizedHeightBoxLow,
-                    const StandartTextField(
+                    StandartTextField(
                       text: 'text',
                       prefix: Icon(FontAwesomeIcons.snapchat),
                     ),
                     context.emptySizedHeightBoxLow3x,
                     const TitleMediumText(text: 'Instagram'),
                     context.emptySizedHeightBoxLow,
-                    const StandartTextField(
+                    StandartTextField(
                       text: 'text',
                       prefix: Icon(FontAwesomeIcons.instagram),
                     ),
                     context.emptySizedHeightBoxLow3x,
                     const TitleMediumText(text: 'Twitter'),
                     context.emptySizedHeightBoxLow,
-                    const StandartTextField(
+                    StandartTextField(
                       text: 'text',
                       prefix: Icon(FontAwesomeIcons.twitter),
                     ),
