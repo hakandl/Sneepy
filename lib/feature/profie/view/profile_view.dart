@@ -62,25 +62,25 @@ class ProfileView extends StatelessWidget {
                         context.emptySizedHeightBoxLow3x,
                         const TitleMediumText(text: 'Yaş'),
                         context.emptySizedHeightBoxLow,
-                        const StandartTextField(
+                        StandartTextField(
                           text: 'text',
-                          prefix: Icon(FontAwesomeIcons.arrowUp19),
+                          prefix: const Icon(FontAwesomeIcons.arrowUp19),
                           enabled: false,
                         ),
                         context.emptySizedHeightBoxLow3x,
                         const TitleMediumText(text: 'Cinsiyet'),
                         context.emptySizedHeightBoxLow,
-                        const StandartTextField(
+                        StandartTextField(
                           text: 'text',
-                          prefix: Icon(FontAwesomeIcons.marsAndVenus),
+                          prefix: const Icon(FontAwesomeIcons.marsAndVenus),
                           enabled: false,
                         ),
                         context.emptySizedHeightBoxLow3x,
                         const TitleMediumText(text: 'Email'),
                         context.emptySizedHeightBoxLow,
-                        const StandartTextField(
+                        StandartTextField(
                           text: 'text',
-                          prefix: Icon(FontAwesomeIcons.envelope),
+                          prefix: const Icon(FontAwesomeIcons.envelope),
                           enabled: false,
                         ),
                       ],
@@ -95,25 +95,25 @@ class ProfileView extends StatelessWidget {
                         context.emptySizedHeightBoxLow3x,
                         const TitleMediumText(text: 'Snapchat'),
                         context.emptySizedHeightBoxLow,
-                        const StandartTextField(
+                        StandartTextField(
                           text: 'text',
-                          prefix: Icon(FontAwesomeIcons.snapchat),
+                          prefix: const Icon(FontAwesomeIcons.snapchat),
                           enabled: false,
                         ),
                         context.emptySizedHeightBoxLow3x,
                         const TitleMediumText(text: 'Instagram'),
                         context.emptySizedHeightBoxLow,
-                        const StandartTextField(
+                        StandartTextField(
                           text: 'text',
-                          prefix: Icon(FontAwesomeIcons.instagram),
+                          prefix: const Icon(FontAwesomeIcons.instagram),
                           enabled: false,
                         ),
                         context.emptySizedHeightBoxLow3x,
                         const TitleMediumText(text: 'Twitter'),
                         context.emptySizedHeightBoxLow,
-                        const StandartTextField(
+                        StandartTextField(
                           text: 'text',
-                          prefix: Icon(FontAwesomeIcons.twitter),
+                          prefix: const Icon(FontAwesomeIcons.twitter),
                           enabled: false,
                         ),
                       ],
