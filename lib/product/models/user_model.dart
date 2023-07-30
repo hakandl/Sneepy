@@ -44,7 +44,7 @@ class UserModel {
     instagram = json['instagram'];
     twitter = json['twitter'];
     point = json['point'];
-    seenUsers = json['seenUsers'].cast<String>();
+    seenUsers = json['seenUsers'];
     if (json['photos'] != null) {
       photos = <Photos>[];
       json['photos'].forEach((v) {
