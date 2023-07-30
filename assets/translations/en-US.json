@@ -1,0 +1,47 @@
+{
+  "buttons": {
+    "login": "Log In",
+    "register": "Register",
+    "complete": "Complete",
+    "continue": "Continue",
+    "update": "Update",
+    "accept": "Accept",
+    "delete": "Delete"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "login": {
+      "login": "Log In",
+      "dontYouHaveAnAccount": "Don't you have an account?"
+    },
+    "register": {
+      "youMustEnterThisRequiredInformationToRegister": "You must enter this required information to register.",
+      "nowLetsContinueWithSomeOfYourPersonalInformation": "Now let's continue with some of your personal information.",
+      "enterTheUsernameOfTheSocialMediaAccountsYouWantToShare": "Enter the username of the social media accounts you want to share.",
+      "finallyLetsAddSomePhotos": "Finally, let's add some photos.",
+      "name": "Name",
+      "age": "Age",
+      "gender": "Gender",
+      "country": "Country",
+      "snapchat": "Snapchat",
+      "instagram": "Instagram",
+      "twitter": "Twitter"
+    }
+  },
+  "profile": {
+    "profile": "Profile",
+    "someInformation": "Some Information",
+    "socialAccounts": "Social Accounts"
+  },
+  "friendRequest": {
+    "friendRequests": "Friend Requests"
+  },
+  "settings": {
+    "settings": "Settings",
+    "updateInformation": "Update Information",
+    "updateUsernames": "Update Usernames",
+    "updatePhotos": "Update Photos"
+  },
+  "thereIsProblem": "There's a problem."
+}

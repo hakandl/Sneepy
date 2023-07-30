@@ -1,0 +1,47 @@
+{
+  "buttons": {
+    "login": "Giriş Yap",
+    "register": "Kayıt Ol",
+    "complete": "Tamamla",
+    "continue": "Devam et",
+    "update": "Güncelle",
+    "accept": "Kabul et",
+    "delete": "Sil"
+  },
+  "auth": {
+    "email": "E posta",
+    "password": "Şifre",
+    "login": {
+      "login": "Giriş Yap",
+      "dontYouHaveAnAccount": "Hesabın yok mu?"
+    },
+    "register": {
+      "youMustEnterThisRequiredInformationToRegister": "Kayıt olmak için bu gerekli bilgileri girmelisin.",
+      "nowLetsContinueWithSomeOfYourPersonalInformation": "Şimdi de bazı kişisel bilgilerin ile devam edelim.",
+      "enterTheUsernameOfTheSocialMediaAccountsYouWantToShare": "Paylaşmak istediğin sosyal medya hesaplarının kullanıcı adını gir.",
+      "finallyLetsAddSomePhotos": "Son olarak da birkaç fotoğraf ekleyelim.",
+      "name": "Ad",
+      "age": "Yaş",
+      "gender": "Cinsiyet",
+      "country": "Ülke",
+      "snapchat": "Snapchat",
+      "instagram": "Instagram",
+      "twitter": "Twitter"
+    }
+  },
+  "profile": {
+    "profile": "Profil",
+    "someInformation": "Bazı Bilgiler",
+    "socialAccounts": "Sosyal Hesaplar"
+  },
+  "friendRequest": {
+    "friendRequests": "Arkadaşlık İstekleri"
+  },
+  "settings": {
+    "settings": "Ayarlar",
+    "updateInformation": "Bilgileri Güncelle",
+    "updateUsernames": "Kullanıcı Adlarını Güncelle",
+    "updatePhotos": "Fotoğrafları Güncelle"
+  },
+  "thereIsProblem": "Bir sorun var."
+}
