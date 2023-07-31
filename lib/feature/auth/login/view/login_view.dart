@@ -1,11 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/auth/login/viewmodel/login_viewmodel.dart';
 import 'package:sneepy/feature/auth/register/view/register_view.dart';
+import 'package:sneepy/feature/home/view/home_view.dart';
 import 'package:sneepy/product/constant/colors.dart';
+import 'package:sneepy/product/init/language/locale_keys.g.dart';
 import 'package:sneepy/product/widgets/button/standart_text_button.dart';
-import 'package:sneepy/product/widgets/input/standart_textfield.dart';
+import 'package:sneepy/product/widgets/dialog/standart_dialog.dart';
 import 'package:sneepy/product/widgets/text/title_medium_text.dart';
 
 import '../../../../product/widgets/text/headline_large_text.dart';
@@ -20,59 +22,80 @@ class LoginView extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: context.horizontalPaddingNormal,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Spacer(),
-              const HeadlineLargeText(text: 'Giriş Yap'),
+              HeadlineLargeText(text: LocaleKeys.auth_login_login.tr()),
               context.emptySizedHeightBoxNormal,
-              const SizedBox(
-                height: 50,
-                child: StandartTextField(text: 'Email'),
-              ),
+              _vm.emailInput,
               context.emptySizedHeightBoxLow,
-              SizedBox(
-                height: 50,
-                child: Observer(builder: (_) {
-                  return StandartTextField(
-                    text: 'Şifre',
-                    obscureText: _vm.isShowPassword,
-                    suffix: IconButton(
-                      icon: Icon(_vm.isShowPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined),
-                      onPressed: () {
-                        _vm.showPassword();
-                      },
-                    ),
-                  );
-                }),
-              ),
+              _vm.passwordInput,
               context.emptySizedHeightBoxLow3x,
               StandartTextButton(
-                text: 'Giriş Yap',
-                onPressed: () {},
+                text: LocaleKeys.auth_login_login.tr(),
+                isLoading: _vm.isLoading,
+                onPressed: () => _login(context),
               ),
               const Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const TitleMediumText(text: 'Hesabın yok mu?'),
-                  TextButton(
-                    child: const TitleMediumText(
-                      text: 'Kayıt ol',
-                      color: AppColors.blueRibbon,
-                    ),
-                    onPressed: () {
-                      context.navigateToPage(RegisterView());
-                    },
-                  ),
-                ],
-              )
+              const DontYouHaveAnAccountWidget()
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _login(BuildContext context) async {
+    final response = await _vm.login();
+    if (response.success == false) {
+      if (context.mounted) {
+        showStandartDialog(
+          context,
+          title: LocaleKeys.thereIsProblem.tr(),
+          content: Text(
+            response.message ?? LocaleKeys.thereIsProblem.tr(),
+          ),
+        );
+      }
+    } else {
+      if (context.mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeView(),
+          ),
+        );
+      }
+    }
+  }
+}
+
+class DontYouHaveAnAccountWidget extends StatelessWidget {
+  const DontYouHaveAnAccountWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        TitleMediumText(
+          text: LocaleKeys.auth_login_dontYouHaveAnAccount.tr(),
+        ),
+        TextButton(
+          child: TitleMediumText(
+            text: LocaleKeys.buttons_register.tr(),
+            color: AppColors.blueRibbon,
+          ),
+          onPressed: () {
+            context.navigateToPage(RegisterView());
+          },
+        ),
+      ],
     );
   }
 }
