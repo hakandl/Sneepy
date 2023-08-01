@@ -1,6 +1,8 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:sneepy/product/init/language/locale_keys.g.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'response_model.g.dart';
+
+@JsonSerializable()
 class ResponseModel {
   bool? success;
   String? message;
@@ -12,18 +14,12 @@ class ResponseModel {
     this.data,
   });
 
-  ResponseModel.fromJson(Map<String, dynamic> json) {
-    success = json['success'] ?? false;
-    message = json['message'] ?? LocaleKeys.thereIsProblem.tr();
-    data = json['data'];
+  factory ResponseModel.fromJson(Map<String, dynamic> json) {
+    return _$ResponseModelFromJson(json);
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> json = <String, dynamic>{};
-    json['success'] = success;
-    json['message'] = message;
-    json['data'] = data;
-    return json;
+    return _$ResponseModelToJson(this);
   }
 
   /* factory BaseModel.defaultError(Map<String, dynamic> json) => BaseModel(

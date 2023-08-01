@@ -1,4 +1,10 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'user_model.g.dart';
+
+@JsonSerializable()
 class UserModel {
+  @JsonKey(name: '_id')
   String? id;
   String? name;
   String? email;
@@ -14,6 +20,7 @@ class UserModel {
   List<FriendRequests>? friendRequests;
   String? createdAt;
   String? updatedAt;
+  String? token;
 
   UserModel({
     this.id,
@@ -31,84 +38,39 @@ class UserModel {
     this.friendRequests,
     this.createdAt,
     this.updatedAt,
+    this.token,
   });
 
-  UserModel.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
-    name = json['name'];
-    email = json['email'];
-    password = json['password'];
-    age = json['age'];
-    gender = json['gender'];
-    snapchat = json['snapchat'];
-    instagram = json['instagram'];
-    twitter = json['twitter'];
-    point = json['point'];
-    seenUsers = json['seenUsers'];
-    if (json['photos'] != null) {
-      photos = <Photos>[];
-      json['photos'].forEach((v) {
-        photos!.add(Photos.fromJson(v));
-      });
-    }
-    if (json['friendRequests'] != null) {
-      friendRequests = <FriendRequests>[];
-      json['friendRequests'].forEach((v) {
-        friendRequests!.add(FriendRequests.fromJson(v));
-      });
-    }
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return _$UserModelFromJson(json);
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = id;
-    data['name'] = name;
-    data['email'] = email;
-    data['password'] = password;
-    data['age'] = age;
-    data['gender'] = gender;
-    data['snapchat'] = snapchat;
-    data['instagram'] = instagram;
-    data['twitter'] = twitter;
-    data['point'] = point;
-    data['seenUsers'] = seenUsers;
-    if (photos != null) {
-      data['photos'] = photos!.map((v) => v.toJson()).toList();
-    }
-    if (friendRequests != null) {
-      data['friendRequests'] = friendRequests!.map((v) => v.toJson()).toList();
-    }
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
-    return data;
+    return _$UserModelToJson(this);
   }
 }
 
+@JsonSerializable()
 class Photos {
   String? photo;
   String? publicId;
+  @JsonKey(name: '_id')
   String? id;
 
   Photos({this.photo, this.publicId, this.id});
 
-  Photos.fromJson(Map<String, dynamic> json) {
-    photo = json['photo'];
-    publicId = json['publicId'];
-    id = json['_id'];
+  factory Photos.fromJson(Map<String, dynamic> json) {
+    return _$PhotosFromJson(json);
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['photo'] = photo;
-    data['publicId'] = publicId;
-    data['_id'] = id;
-    return data;
+    return _$PhotosToJson(this);
   }
 }
 
+@JsonSerializable()
 class FriendRequests {
+  @JsonKey(name: '_id')
   String? id;
   String? name;
   int? age;
@@ -118,44 +80,22 @@ class FriendRequests {
   String? twitter;
   List<Photos>? photos;
 
-  FriendRequests(
-      {this.id,
-      this.name,
-      this.age,
-      this.gender,
-      this.snapchat,
-      this.instagram,
-      this.twitter,
-      this.photos});
+  FriendRequests({
+    this.id,
+    this.name,
+    this.age,
+    this.gender,
+    this.snapchat,
+    this.instagram,
+    this.twitter,
+    this.photos,
+  });
 
-  FriendRequests.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
-    name = json['name'];
-    age = json['age'];
-    gender = json['gender'];
-    snapchat = json['snapchat'];
-    instagram = json['instagram'];
-    twitter = json['twitter'];
-    if (json['photos'] != null) {
-      photos = <Photos>[];
-      json['photos'].forEach((v) {
-        photos!.add(Photos.fromJson(v));
-      });
-    }
+  factory FriendRequests.fromJson(Map<String, dynamic> json) {
+    return _$FriendRequestsFromJson(json);
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = id;
-    data['name'] = name;
-    data['age'] = age;
-    data['gender'] = gender;
-    data['snapchat'] = snapchat;
-    data['instagram'] = instagram;
-    data['twitter'] = twitter;
-    if (photos != null) {
-      data['photos'] = photos!.map((v) => v.toJson()).toList();
-    }
-    return data;
+    return _$FriendRequestsToJson(this);
   }
 }
