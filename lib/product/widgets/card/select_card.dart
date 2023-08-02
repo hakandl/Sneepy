@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 
 class SelectCard extends StatelessWidget {
   const SelectCard(
-      {super.key,
-      required this.title,
-      required this.leading,
-      required this.trailing});
+      {super.key, required this.title, this.leading, this.trailing});
   final Widget title;
-  final Widget leading;
-  final Widget trailing;
+  final Widget? leading;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
