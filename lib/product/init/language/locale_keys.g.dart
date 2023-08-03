@@ -23,11 +23,13 @@ abstract class LocaleKeys {
       'auth.register.nowLetsContinueWithSomeOfYourPersonalInformation';
   static const auth_register_enterTheUsernameOfTheSocialMediaAccountsYouWantToShare =
       'auth.register.enterTheUsernameOfTheSocialMediaAccountsYouWantToShare';
-  static const auth_register_finallyLetsAddSomePhotos =
-      'auth.register.finallyLetsAddSomePhotos';
+  static const auth_register_finallyLetsAddPhoto =
+      'auth.register.finallyLetsAddPhoto';
   static const auth_register_name = 'auth.register.name';
   static const auth_register_age = 'auth.register.age';
   static const auth_register_gender = 'auth.register.gender';
+  static const auth_register_woman = 'auth.register.woman';
+  static const auth_register_man = 'auth.register.man';
   static const auth_register_country = 'auth.register.country';
   static const auth_register_snapchat = 'auth.register.snapchat';
   static const auth_register_instagram = 'auth.register.instagram';
