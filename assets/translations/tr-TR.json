@@ -28,7 +28,8 @@
       "country": "Ülke",
       "snapchat": "Snapchat",
       "instagram": "Instagram",
-      "twitter": "Twitter"
+      "twitter": "Twitter",
+      "toRegisterYouNeedToUploadPhotoToYourProfile": "Kayıt olmak için profiline bir fotoğraf yüklemen gerekli."
     }
   },
   "profile": {

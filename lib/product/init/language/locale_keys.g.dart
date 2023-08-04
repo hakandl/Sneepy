@@ -34,6 +34,8 @@ abstract class LocaleKeys {
   static const auth_register_snapchat = 'auth.register.snapchat';
   static const auth_register_instagram = 'auth.register.instagram';
   static const auth_register_twitter = 'auth.register.twitter';
+  static const auth_register_toRegisterYouNeedToUploadPhotoToYourProfile =
+      'auth.register.toRegisterYouNeedToUploadPhotoToYourProfile';
   static const auth_register = 'auth.register';
   static const auth = 'auth';
   static const profile_profile = 'profile.profile';

@@ -28,7 +28,8 @@
       "country": "Country",
       "snapchat": "Snapchat",
       "instagram": "Instagram",
-      "twitter": "Twitter"
+      "twitter": "Twitter",
+      "toRegisterYouNeedToUploadPhotoToYourProfile": "To register, you need to upload a photo to your profile."
     }
   },
   "profile": {
