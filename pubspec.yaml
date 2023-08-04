@@ -45,6 +45,7 @@ dependencies:
   json_serializable: ^6.7.1
   json_annotation: ^4.8.1
   hive_flutter: ^1.1.0
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:
