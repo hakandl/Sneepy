@@ -42,6 +42,10 @@
   },
   "settings": {
     "settings": "Ayarlar",
+    "personalInformation": "Kişisel Bilgiler",
+    "usernames": "Kullanıcı Adları",
+    "photos": "Fotoğraflar",
+    "licenses": "Lisanslar",
     "updateInformation": "Bilgileri Güncelle",
     "updateUsernames": "Kullanıcı Adlarını Güncelle",
     "updatePhotos": "Fotoğrafları Güncelle"

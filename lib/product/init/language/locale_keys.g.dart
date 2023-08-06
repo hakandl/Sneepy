@@ -45,6 +45,10 @@ abstract class LocaleKeys {
   static const friendRequest_friendRequests = 'friendRequest.friendRequests';
   static const friendRequest = 'friendRequest';
   static const settings_settings = 'settings.settings';
+  static const settings_personalInformation = 'settings.personalInformation';
+  static const settings_usernames = 'settings.usernames';
+  static const settings_photos = 'settings.photos';
+  static const settings_licenses = 'settings.licenses';
   static const settings_updateInformation = 'settings.updateInformation';
   static const settings_updateUsernames = 'settings.updateUsernames';
   static const settings_updatePhotos = 'settings.updatePhotos';

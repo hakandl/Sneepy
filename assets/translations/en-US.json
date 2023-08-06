@@ -42,6 +42,10 @@
   },
   "settings": {
     "settings": "Settings",
+    "personalInformation": "Personal Information",
+    "usernames": "Usernames",
+    "photos": "Photos",
+    "licenses": "Licenses",
     "updateInformation": "Update Information",
     "updateUsernames": "Update Usernames",
     "updatePhotos": "Update Photos"
