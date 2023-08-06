@@ -5,14 +5,14 @@ import 'package:sneepy/product/constant/colors.dart';
 class StandartTextField extends StatelessWidget {
   StandartTextField(
       {super.key,
-      required this.text,
+      this.text,
       this.obscureText,
       this.suffix,
       this.prefix,
       this.enabled,
       this.keyboardType});
   final TextEditingController controller = TextEditingController();
-  final String text;
+  final String? text;
   final bool? obscureText;
   final bool? enabled;
   final Widget? prefix;
