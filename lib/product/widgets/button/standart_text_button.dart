@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:sneepy/product/constant/colors.dart';
+import 'package:sneepy/product/constants/colors.dart';
 
 import '../text/title_medium_text.dart';
 
 class StandartTextButton extends StatelessWidget {
   const StandartTextButton(
-      {super.key, required this.text, required this.onPressed, this.backgroundColor, this.isLoading});
+      {super.key,
+      required this.text,
+      required this.onPressed,
+      this.backgroundColor,
+      this.isLoading});
   final String text;
   final Color? backgroundColor;
   final bool? isLoading;

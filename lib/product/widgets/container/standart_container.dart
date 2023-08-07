@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
-import '../../constant/colors.dart';
+import '../../constants/colors.dart';
 
 class StandartContainer extends StatelessWidget {
   const StandartContainer({super.key, required this.child});

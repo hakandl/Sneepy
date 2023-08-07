@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:sneepy/product/constant/endpoints.dart';
+import 'package:sneepy/product/constants/endpoints.dart';
 import 'package:sneepy/product/models/response_model.dart';
 import 'package:sneepy/product/models/user_model.dart';
 import 'package:sneepy/product/services/service_manager.dart';
