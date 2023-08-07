@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/auth/login/viewmodel/login_viewmodel.dart';
 import 'package:sneepy/feature/auth/register/view/register_view.dart';
 import 'package:sneepy/feature/home/view/home_view.dart';
-import 'package:sneepy/product/constant/colors.dart';
+import 'package:sneepy/product/constants/colors.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
 import 'package:sneepy/product/widgets/button/standart_text_button.dart';
 import 'package:sneepy/product/widgets/dialog/standart_dialog.dart';
@@ -28,19 +29,23 @@ class LoginView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Spacer(),
-              HeadlineLargeText(text: LocaleKeys.auth_login_login.tr()),
+              HeadlineLargeText(
+                text: LocaleKeys.auth_login_login.tr(),
+              ),
               context.emptySizedHeightBoxNormal,
               _vm.emailInput,
               context.emptySizedHeightBoxLow,
               _vm.passwordInput,
               context.emptySizedHeightBoxLow3x,
-              StandartTextButton(
-                text: LocaleKeys.auth_login_login.tr(),
-                isLoading: _vm.isLoading,
-                onPressed: () => _login(context),
-              ),
+              Observer(builder: (_) {
+                return StandartTextButton(
+                  text: LocaleKeys.auth_login_login.tr(),
+                  isLoading: _vm.isLoading,
+                  onPressed: () => _login(context),
+                );
+              }),
               const Spacer(),
-              const DontYouHaveAnAccountWidget()
+              const DontYouHaveAnAccountWidget(),
             ],
           ),
         ),
@@ -92,7 +97,9 @@ class DontYouHaveAnAccountWidget extends StatelessWidget {
             color: AppColors.blueRibbon,
           ),
           onPressed: () {
-            context.navigateToPage(RegisterView());
+            context.navigateToPage(
+              RegisterView(),
+            );
           },
         ),
       ],
