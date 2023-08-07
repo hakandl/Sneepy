@@ -72,6 +72,7 @@ class Photos {
 class FriendRequests {
   @JsonKey(name: '_id')
   String? id;
+  int? sentType;
   String? name;
   int? age;
   String? gender;
@@ -82,6 +83,7 @@ class FriendRequests {
 
   FriendRequests({
     this.id,
+    this.sentType,
     this.name,
     this.age,
     this.gender,

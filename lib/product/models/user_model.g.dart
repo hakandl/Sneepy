@@ -65,6 +65,7 @@ Map<String, dynamic> _$PhotosToJson(Photos instance) => <String, dynamic>{
 FriendRequests _$FriendRequestsFromJson(Map<String, dynamic> json) =>
     FriendRequests(
       id: json['_id'] as String?,
+      sentType: json['sentType'] as int?,
       name: json['name'] as String?,
       age: json['age'] as int?,
       gender: json['gender'] as String?,
@@ -79,6 +80,7 @@ FriendRequests _$FriendRequestsFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$FriendRequestsToJson(FriendRequests instance) =>
     <String, dynamic>{
       '_id': instance.id,
+      'sentType': instance.sentType,
       'name': instance.name,
       'age': instance.age,
       'gender': instance.gender,
