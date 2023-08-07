@@ -1,32 +1,48 @@
-import 'dart:io';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/auth/register/viewmodel/register_viewmodel.dart';
 import 'package:sneepy/feature/home/view/home_view.dart';
-import 'package:sneepy/product/constant/colors.dart';
+import 'package:sneepy/product/constants/colors.dart';
+import 'package:sneepy/product/constants/enums/gender.dart';
+import 'package:sneepy/product/constants/enums/number.dart';
+import 'package:sneepy/product/constants/strings.dart';
+import 'package:sneepy/product/init/language/locale_keys.g.dart';
+import 'package:sneepy/product/models/response_model.dart';
 import 'package:sneepy/product/widgets/button/standart_text_button.dart';
-import 'package:sneepy/product/widgets/input/standart_textfield.dart';
+import 'package:sneepy/product/widgets/card/select_card.dart';
+import 'package:sneepy/product/widgets/dialog/standart_dialog.dart';
+import 'package:sneepy/product/widgets/modal/standart_modal_bottom_sheet.dart';
 import 'package:sneepy/product/widgets/text/title_large_text.dart';
 
-class RegisterView extends StatelessWidget {
-  RegisterView({super.key});
+part 'register_step_views.dart';
 
+class RegisterView extends StatefulWidget {
+  const RegisterView({super.key});
+
+  @override
+  State<RegisterView> createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<RegisterView> {
   final _vm = RegisterViewModel();
 
-  final nameInput = const StandartTextField(text: 'Ad');
-  final emailInput = const StandartTextField(text: 'Email');
-  final passwordInput = const StandartTextField(text: 'Şifre', obscureText: true);
+  @override
+  void initState() {
+    super.initState();
+    getCountries();
+  }
 
-  final ageInput = const StandartTextField(text: 'Yaş');
+  Future<void> getCountries() async {
+    await _vm.allCountries();
+  }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (_vm.registerProgressVaue >= 0.34) {
+        if (_vm.registerProgressVaue > _vm.value) {
           _vm.backRegisterInfo();
           return false;
         }
@@ -35,45 +51,76 @@ class RegisterView extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: context.horizontalPaddingNormal,
             child: Column(
               children: [
-                const SizedBox(height: 25),
+                context.emptySizedHeightBoxLow3x,
                 Observer(builder: (_) {
                   return LinearProgressIndicator(
                     value: _vm.registerProgressVaue,
-                    backgroundColor: const Color(0xffD1D4DB),
+                    color: AppColors.ebonyClay,
+                    backgroundColor: AppColors.athensGray,
                   );
                 }),
-                const SizedBox(height: 25),
+                context.emptySizedHeightBoxLow3x,
                 Observer(
                   builder: (_) {
                     return Expanded(
                       child: Column(
                         children: [
-                          if (_vm.screenMode == 1) _registerStep1Section(context),
-                          if (_vm.screenMode == 2) _registerStep2Section(context),
-                          if (_vm.screenMode == 3) Expanded(child: _registerStep3Section(context)),
+                          if (_vm.screenMode == 1)
+                            RegisterStep1Section(
+                              vm: _vm,
+                            ),
+                          if (_vm.screenMode == 2)
+                            RegisterStep2Section(
+                              vm: _vm,
+                            ),
+                          if (_vm.screenMode == 3)
+                            RegisterStep3Section(
+                              vm: _vm,
+                            ),
+                          if (_vm.screenMode == 4)
+                            Expanded(
+                              child: RegisterStep4Section(
+                                vm: _vm,
+                              ),
+                            ),
                         ],
                       ),
                     );
                   },
                 ),
-                const SizedBox(height: 25),
-                // const Spacer(),
                 Observer(builder: (_) {
                   return StandartTextButton(
-                    text: _vm.screenMode != 3 ? 'Devam et' : 'Tamamla',
-                    onPressed: () {
-                      if (_vm.screenMode != 3) {
-                        _vm.nextRegisterInfo();
-                      } else {
-                        context.navigateToPage(const HomeView());
+                    text: _vm.screenMode != 4
+                        ? LocaleKeys.buttons_continue.tr()
+                        : LocaleKeys.buttons_complete.tr(),
+                    isLoading: _vm.isLoading,
+                    onPressed: () async {
+                      if (_vm.screenMode == 1) {
+                        await register(context);
+                      } else if (_vm.screenMode == 2 || _vm.screenMode == 3) {
+                        await update(context);
+                      } else if (_vm.screenMode == 4) {
+                        if (_vm.image != null) {
+                          goToHomeView(context);
+                        } else {
+                          showStandartDialog(
+                            context,
+                            title: LocaleKeys.thereIsProblem.tr(),
+                            content: Text(
+                              LocaleKeys
+                                  .auth_register_toRegisterYouNeedToUploadPhotoToYourProfile
+                                  .tr(),
+                            ),
+                          );
+                        }
                       }
                     },
                   );
                 }),
-                const SizedBox(height: 25),
+                context.emptySizedHeightBoxLow3x,
               ],
             ),
           ),
@@ -82,93 +129,44 @@ class RegisterView extends StatelessWidget {
     );
   }
 
-  Column _registerStep1Section(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const TitleLargeText(text: 'Kayıt olmak için bu gerekli bilgileri girmelisin.'),
-        context.emptySizedHeightBoxLow3x,
-        nameInput,
-        context.emptySizedHeightBoxLow,
-        emailInput,
-        context.emptySizedHeightBoxLow,
-        passwordInput,
-      ],
-    );
-  }
-
-  Column _registerStep2Section(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const TitleLargeText(text: 'Şimdi de bazı kişisel bilgilerin ile devam edelim.'),
-        context.emptySizedHeightBoxLow3x,
-        ageInput,
-        context.emptySizedHeightBoxLow,
-      ],
-    );
-  }
-
-  Widget _registerStep3Section(BuildContext context) {
-    Future<File?> selectImage() async {
-      final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (pickedFile != null) {
-        return File(pickedFile.path);
+  Future<void> register(BuildContext context) async {
+    final response = await _vm.register();
+    if (response.success == true) {
+      _vm.nextRegisterInfo();
+    } else {
+      if (context.mounted) {
+        responseError(context, response);
       }
-      return null;
     }
+  }
 
-    return Column(
-      children: [
-        const TitleLargeText(text: 'Son olarak da birkaç fotoğraf ekleyelim.'),
-        const SizedBox(height: 25),
-        Expanded(
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              childAspectRatio: 9 / 16,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () async {
-                  final image = await selectImage();
-                  if (image != null) {
-                    _vm.setImage(index, image);
-                  }
-                },
-                borderRadius: context.normalBorderRadius,
-                child: Observer(
-                  builder: (context) => Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(),
-                      borderRadius: context.normalBorderRadius,
-                      color: AppColors.athensGray,
-                    ),
-                    child: _vm.images[index] != null
-                        ? ClipRRect(
-                            borderRadius: context.normalBorderRadius,
-                            child: Image.file(
-                              _vm.images[index]!,
-                              fit: BoxFit.cover,
-                            ),
-                          )
-                        : const Icon(
-                            Icons.add_circle_outline,
-                            size: 72,
-                            color: AppColors.blueRibbon,
-                          ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      ],
+  Future<void> update(BuildContext context) async {
+    final response = await _vm.update();
+    if (response.success == true) {
+      _vm.nextRegisterInfo();
+    } else {
+      if (context.mounted) {
+        responseError(context, response);
+      }
+    }
+  }
+
+  Future<dynamic> goToHomeView(BuildContext context) {
+    return Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomeView(),
+      ),
     );
   }
+}
+
+void responseError(BuildContext context, ResponseModel response) {
+  showStandartDialog(
+    context,
+    title: LocaleKeys.thereIsProblem.tr(),
+    content: Text(
+      response.message ?? LocaleKeys.thereIsProblem.tr(),
+    ),
+  );
 }
