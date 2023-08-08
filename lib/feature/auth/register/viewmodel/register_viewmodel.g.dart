@@ -42,24 +42,51 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
     });
   }
 
-  late final _$imagesAtom =
-      Atom(name: '_RegisterViewModelBase.images', context: context);
+  late final _$isLoadingAtom =
+      Atom(name: '_RegisterViewModelBase.isLoading', context: context);
 
   @override
-  ObservableList<File?> get images {
-    _$imagesAtom.reportRead();
-    return super.images;
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
   }
 
   @override
-  set images(ObservableList<File?> value) {
-    _$imagesAtom.reportWrite(value, super.images, () {
-      super.images = value;
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
+  late final _$imageAtom =
+      Atom(name: '_RegisterViewModelBase.image', context: context);
+
+  @override
+  File? get image {
+    _$imageAtom.reportRead();
+    return super.image;
+  }
+
+  @override
+  set image(File? value) {
+    _$imageAtom.reportWrite(value, super.image, () {
+      super.image = value;
     });
   }
 
   late final _$_RegisterViewModelBaseActionController =
       ActionController(name: '_RegisterViewModelBase', context: context);
+
+  @override
+  void changeLoading() {
+    final _$actionInfo = _$_RegisterViewModelBaseActionController.startAction(
+        name: '_RegisterViewModelBase.changeLoading');
+    try {
+      return super.changeLoading();
+    } finally {
+      _$_RegisterViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void nextRegisterInfo() {
@@ -84,11 +111,11 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
   }
 
   @override
-  void setImage(int index, File? image) {
+  void setImage(File? image) {
     final _$actionInfo = _$_RegisterViewModelBaseActionController.startAction(
         name: '_RegisterViewModelBase.setImage');
     try {
-      return super.setImage(index, image);
+      return super.setImage(image);
     } finally {
       _$_RegisterViewModelBaseActionController.endAction(_$actionInfo);
     }
@@ -99,7 +126,8 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
     return '''
 screenMode: ${screenMode},
 registerProgressVaue: ${registerProgressVaue},
-images: ${images}
+isLoading: ${isLoading},
+image: ${image}
     ''';
   }
 }
