@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:sneepy/product/cache/hive_manager.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
 import 'package:sneepy/product/models/response_model.dart';
 import 'package:sneepy/product/widgets/input/standart_textfield.dart';
@@ -35,6 +36,7 @@ abstract class _LoginViewModelBase with Store {
       password: passwordInput.controller.text,
     );
     changeLoading();
+    await HiveManager.save(key: BoxKeyNames.token.name, value: response.data);
     return response;
   }
 }
