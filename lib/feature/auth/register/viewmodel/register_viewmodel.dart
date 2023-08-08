@@ -142,7 +142,7 @@ abstract class _RegisterViewModelBase with Store {
     changeLoading();
     if (response.success == true) {
       userToken = response.data['token'];
-      await HiveManager.save(key: 'token', value: response.data);
+      await HiveManager.save(key: BoxKeyNames.token.name, value: response.data);
     }
     return response;
   }
