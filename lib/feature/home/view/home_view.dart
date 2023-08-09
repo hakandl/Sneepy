@@ -1,35 +1,79 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/friends/view/friends_view.dart';
+import 'package:sneepy/feature/home/viewmodel/home_viewmodel.dart';
 import 'package:sneepy/feature/profie/view/profile_view.dart';
-import 'package:sneepy/product/constant/colors.dart';
+import 'package:sneepy/product/constants/colors.dart';
+import 'package:sneepy/product/constants/enums/number.dart';
+import 'package:sneepy/product/constants/strings.dart';
+import 'package:sneepy/product/services/user_service.dart';
 import 'package:sneepy/product/widgets/button/standart_circle_button.dart';
 import 'package:sneepy/product/widgets/card/friend_card.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  final _vm = HomeViewModel();
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future<void> getData() async {
+    await _vm.getUsers();
+    await _vm.getMe();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {}, icon: const Icon(Icons.filter_list_rounded)),
-        title: CircleAvatar(
-          backgroundImage: const NetworkImage(
-              'https://media.gettyimages.com/id/1347431090/photo/fit-woman-standing-outdoors-after-a-late-afternoon-trail-run.jpg?s=612x612&w=gi&k=20&c=H9W6QxJoLP607i_BE7kT-VtxNGtaT7E6U4XIn03IHLg='),
-          radius: 24,
-          child: InkWell(
-            borderRadius: context.normalBorderRadius,
-            onTap: () {
-              context.navigateToPage(const ProfileView());
-            },
+        leading: IconButton(
+          onPressed: () async {
+            await UserService().getUsers();
+          },
+          icon: const Icon(
+            Icons.filter_list_rounded,
           ),
+        ),
+        title: Observer(
+          builder: (_) {
+            return _vm.isLoading
+                ? const CircularProgressIndicator(
+                    color: AppColors.white,
+                  )
+                : CircleAvatar(
+                    backgroundImage: CachedNetworkImageProvider(
+                      _vm.me.photos?.firstOrNull?.photo ?? AppStrings.empty,
+                    ),
+                    radius: 24,
+                    child: InkWell(
+                      borderRadius: context.normalBorderRadius,
+                      onTap: () {
+                        context.navigateToPage(
+                          const ProfileView(),
+                        );
+                      },
+                    ),
+                  );
+          },
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.group_outlined),
             onPressed: () {
-              context.navigateToPage(const FriendsView());
+              context.navigateToPage(
+                const FriendsView(),
+              );
             },
           ),
         ],
@@ -37,18 +81,27 @@ class HomeView extends StatelessWidget {
       body: Column(
         children: [
           context.emptySizedHeightBoxLow,
-          Expanded(
-            child: PageView.builder(
-              itemCount: 10,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: context.horizontalPaddingLow,
-                  child: FriendCard(),
-                );
-              },
-            ),
-          ),
+          Observer(builder: (_) {
+            return Expanded(
+              child: _vm.isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : PageView.builder(
+                      itemCount: _vm.users.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final currentUser = _vm.users[index];
+                        return Padding(
+                          padding: context.horizontalPaddingLow,
+                          child: FriendCard(
+                            user: currentUser,
+                          ),
+                        );
+                      },
+                    ),
+            );
+          }),
           context.emptySizedHeightBoxLow,
           Row(
             children: [
@@ -56,9 +109,9 @@ class HomeView extends StatelessWidget {
                 child: StandartCircleButton(
                   backgroundColor: AppColors.persimmon,
                   onPressed: () {},
-                  child: const Icon(
+                  child: Icon(
                     Icons.cancel_outlined,
-                    size: 35,
+                    size: NumberEnum.thirty.value,
                     color: AppColors.white,
                   ),
                 ),
@@ -67,9 +120,9 @@ class HomeView extends StatelessWidget {
                 child: StandartCircleButton(
                   backgroundColor: AppColors.caribbeanGreen,
                   onPressed: () {},
-                  child: const Icon(
+                  child: Icon(
                     Icons.verified_outlined,
-                    size: 35,
+                    size: NumberEnum.thirty.value,
                     color: AppColors.white,
                   ),
                 ),
