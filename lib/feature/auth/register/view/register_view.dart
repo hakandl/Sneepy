@@ -42,7 +42,7 @@ class _RegisterViewState extends State<RegisterView> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (_vm.registerProgressVaue > _vm.value) {
+        if (_vm.registerProgressValue > _vm.value) {
           _vm.backRegisterInfo();
           return false;
         }
@@ -57,7 +57,7 @@ class _RegisterViewState extends State<RegisterView> {
                 context.emptySizedHeightBoxLow3x,
                 Observer(builder: (_) {
                   return LinearProgressIndicator(
-                    value: _vm.registerProgressVaue,
+                    value: _vm.registerProgressValue,
                     color: AppColors.ebonyClay,
                     backgroundColor: AppColors.athensGray,
                   );
@@ -68,19 +68,19 @@ class _RegisterViewState extends State<RegisterView> {
                     return Expanded(
                       child: Column(
                         children: [
-                          if (_vm.screenMode == 1)
+                          if (_vm.screenMode == NumberEnum.one.value)
                             RegisterStep1Section(
                               vm: _vm,
                             ),
-                          if (_vm.screenMode == 2)
+                          if (_vm.screenMode == NumberEnum.two.value)
                             RegisterStep2Section(
                               vm: _vm,
                             ),
-                          if (_vm.screenMode == 3)
+                          if (_vm.screenMode == NumberEnum.three.value)
                             RegisterStep3Section(
                               vm: _vm,
                             ),
-                          if (_vm.screenMode == 4)
+                          if (_vm.screenMode == NumberEnum.four.value)
                             Expanded(
                               child: RegisterStep4Section(
                                 vm: _vm,
@@ -93,31 +93,35 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 Observer(builder: (_) {
                   return StandartTextButton(
-                    text: _vm.screenMode != 4
+                    text: _vm.screenMode != NumberEnum.four.value
                         ? LocaleKeys.buttons_continue.tr()
                         : LocaleKeys.buttons_complete.tr(),
                     isLoading: _vm.isLoading,
-                    onPressed: () async {
-                      if (_vm.screenMode == 1) {
-                        await register(context);
-                      } else if (_vm.screenMode == 2 || _vm.screenMode == 3) {
-                        await update(context);
-                      } else if (_vm.screenMode == 4) {
-                        if (_vm.image != null) {
-                          goToHomeView(context);
-                        } else {
-                          showStandartDialog(
-                            context,
-                            title: LocaleKeys.thereIsProblem.tr(),
-                            content: Text(
-                              LocaleKeys
-                                  .auth_register_toRegisterYouNeedToUploadPhotoToYourProfile
-                                  .tr(),
-                            ),
-                          );
-                        }
-                      }
-                    },
+                    onPressed: _vm.isLoading
+                        ? () {}
+                        : () async {
+                            if (_vm.screenMode == NumberEnum.one.value) {
+                              await register(context);
+                            } else if (_vm.screenMode == NumberEnum.two.value ||
+                                _vm.screenMode == NumberEnum.three.value) {
+                              await update(context);
+                            } else if (_vm.screenMode ==
+                                NumberEnum.four.value) {
+                              if (_vm.image != null) {
+                                goToHomeView(context);
+                              } else {
+                                showStandartDialog(
+                                  context,
+                                  title: LocaleKeys.thereIsProblem.tr(),
+                                  content: Text(
+                                    LocaleKeys
+                                        .auth_register_toRegisterYouNeedToUploadPhotoToYourProfile
+                                        .tr(),
+                                  ),
+                                );
+                              }
+                            }
+                          },
                   );
                 }),
                 context.emptySizedHeightBoxLow3x,
