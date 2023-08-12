@@ -23,6 +23,7 @@ abstract class _RegisterViewModelBase with Store {
   String? userToken;
   String gender = Gender.none.name;
   List<CountriesModel> countries = [];
+  final fcmToken = HiveManager.get(key: BoxKeyNames.fcmToken.name);
 
   @observable
   int screenMode = 1;
@@ -110,8 +111,12 @@ abstract class _RegisterViewModelBase with Store {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
+      changeLoading();
       setImage(File(pickedFile.path));
-      return await AuthService().addPhoto(file: File(pickedFile.path));
+      final response =
+          await AuthService().addPhoto(file: File(pickedFile.path));
+      changeLoading();
+      return response;
     }
     return ResponseModel();
   }
@@ -138,11 +143,15 @@ abstract class _RegisterViewModelBase with Store {
       name: nameInput.controller.text,
       email: emailInput.controller.text,
       password: passwordInput.controller.text,
+      deviceToken: fcmToken ?? '',
     );
     changeLoading();
     if (response.success == true) {
       userToken = response.data['token'];
-      await HiveManager.save(key: BoxKeyNames.token.name, value: response.data);
+      await HiveManager.save(
+        key: BoxKeyNames.token.name,
+        value: userToken ?? '',
+      );
     }
     return response;
   }
