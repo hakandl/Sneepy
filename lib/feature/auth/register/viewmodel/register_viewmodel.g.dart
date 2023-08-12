@@ -25,20 +25,20 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
     });
   }
 
-  late final _$registerProgressVaueAtom = Atom(
-      name: '_RegisterViewModelBase.registerProgressVaue', context: context);
+  late final _$registerProgressValueAtom = Atom(
+      name: '_RegisterViewModelBase.registerProgressValue', context: context);
 
   @override
-  double get registerProgressVaue {
-    _$registerProgressVaueAtom.reportRead();
-    return super.registerProgressVaue;
+  double get registerProgressValue {
+    _$registerProgressValueAtom.reportRead();
+    return super.registerProgressValue;
   }
 
   @override
-  set registerProgressVaue(double value) {
-    _$registerProgressVaueAtom.reportWrite(value, super.registerProgressVaue,
+  set registerProgressValue(double value) {
+    _$registerProgressValueAtom.reportWrite(value, super.registerProgressValue,
         () {
-      super.registerProgressVaue = value;
+      super.registerProgressValue = value;
     });
   }
 
@@ -125,7 +125,7 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
   String toString() {
     return '''
 screenMode: ${screenMode},
-registerProgressVaue: ${registerProgressVaue},
+registerProgressValue: ${registerProgressValue},
 isLoading: ${isLoading},
 image: ${image}
     ''';

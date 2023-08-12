@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
 import 'package:sneepy/product/cache/hive_manager.dart';
 import 'package:sneepy/product/constants/enums/gender.dart';
+import 'package:sneepy/product/constants/enums/number.dart';
 import 'package:sneepy/product/constants/service.dart';
 import 'package:sneepy/product/constants/strings.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
@@ -19,17 +20,17 @@ part 'register_viewmodel.g.dart';
 class RegisterViewModel = _RegisterViewModelBase with _$RegisterViewModel;
 
 abstract class _RegisterViewModelBase with Store {
-  final double value = 0.25;
+  final double value = NumberEnum.zTwentyFive.value;
   String? userToken;
   String gender = Gender.none.name;
   List<CountriesModel> countries = [];
   final fcmToken = HiveManager.get(key: BoxKeyNames.fcmToken.name);
 
   @observable
-  int screenMode = 1;
+  int screenMode = NumberEnum.one.value.toInt();
 
   @observable
-  late double registerProgressVaue = value;
+  late double registerProgressValue = value;
 
   @observable
   bool isLoading = false;
@@ -42,16 +43,16 @@ abstract class _RegisterViewModelBase with Store {
   @action
   void nextRegisterInfo() {
     screenMode++;
-    registerProgressVaue += value;
-    if (screenMode == 4) {
-      registerProgressVaue = 1;
+    registerProgressValue += value;
+    if (screenMode == NumberEnum.four.value) {
+      registerProgressValue = NumberEnum.one.value;
     }
   }
 
   @action
   void backRegisterInfo() {
     screenMode--;
-    registerProgressVaue -= value;
+    registerProgressValue -= value;
   }
 
   final nameInput = StandartTextField(
@@ -120,14 +121,6 @@ abstract class _RegisterViewModelBase with Store {
     }
     return ResponseModel();
   }
-
-  // @observable
-  // ObservableList<File?> images = ObservableList<File?>.of([null, null, null]);
-
-  // @action
-  // void setImage(int index, File? image) {
-  //   images[index] = image;
-  // }
 
   @observable
   File? image;
