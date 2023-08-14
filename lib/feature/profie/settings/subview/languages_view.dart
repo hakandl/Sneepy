@@ -21,11 +21,6 @@ class _LanguagesViewState extends State<LanguagesView> {
   @override
   void initState() {
     super.initState();
-    getCountries();
-  }
-
-  Future<void> getCountries() async {
-    await vm.getCountries();
   }
 
   @override
@@ -40,17 +35,49 @@ class _LanguagesViewState extends State<LanguagesView> {
         body: Column(
           children: [
             context.emptySizedHeightBoxLow3x,
-            const StandartContainer(
+            StandartContainer(
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    TurkishSelectCard(),
-                    Divider(),
-                    EnglishSelectCard(),
-                    Divider(),
-                    GermanSelectCard(),
-                    Divider(),
-                    RussianSelectCard(),
+                    SelectCard(
+                      title: Text(LocaleKeys.languages_turkish.tr()),
+                      onTap: () => context.setLocale(
+                        const Locale(
+                          AppStrings.tr,
+                          AppStrings.TR,
+                        ),
+                      ),
+                    ),
+                    const Divider(),
+                    SelectCard(
+                      title: Text(LocaleKeys.languages_english.tr()),
+                      onTap: () => context.setLocale(
+                        const Locale(
+                          AppStrings.en,
+                          AppStrings.US,
+                        ),
+                      ),
+                    ),
+                    const Divider(),
+                    SelectCard(
+                      title: Text(LocaleKeys.languages_german.tr()),
+                      onTap: () => context.setLocale(
+                        const Locale(
+                          AppStrings.de,
+                          AppStrings.DE,
+                        ),
+                      ),
+                    ),
+                    const Divider(),
+                    SelectCard(
+                      title: Text(LocaleKeys.languages_russian.tr()),
+                      onTap: () => context.setLocale(
+                        const Locale(
+                          AppStrings.ru,
+                          AppStrings.RU,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -69,82 +96,6 @@ class _LanguagesViewState extends State<LanguagesView> {
         onPressed: () {
           context.navigateToPage(const ProfileSettingsView());
         },
-      ),
-    );
-  }
-}
-
-class TurkishSelectCard extends StatelessWidget {
-  const TurkishSelectCard({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SelectCard(
-      title: Text(LocaleKeys.languages_turkish.tr()),
-      onTap: () => context.setLocale(
-        const Locale(
-          AppStrings.tr,
-          AppStrings.TR,
-        ),
-      ),
-    );
-  }
-}
-
-class EnglishSelectCard extends StatelessWidget {
-  const EnglishSelectCard({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SelectCard(
-      title: Text(LocaleKeys.languages_english.tr()),
-      onTap: () => context.setLocale(
-        const Locale(
-          AppStrings.en,
-          AppStrings.US,
-        ),
-      ),
-    );
-  }
-}
-
-class GermanSelectCard extends StatelessWidget {
-  const GermanSelectCard({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SelectCard(
-      title: Text(LocaleKeys.languages_german.tr()),
-      onTap: () => context.setLocale(
-        const Locale(
-          AppStrings.de,
-          AppStrings.DE,
-        ),
-      ),
-    );
-  }
-}
-
-class RussianSelectCard extends StatelessWidget {
-  const RussianSelectCard({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SelectCard(
-      title: Text(LocaleKeys.languages_russian.tr()),
-      onTap: () => context.setLocale(
-        const Locale(
-          AppStrings.ru,
-          AppStrings.RU,
-        ),
       ),
     );
   }
