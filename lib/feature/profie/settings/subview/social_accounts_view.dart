@@ -6,18 +6,19 @@ import 'package:sneepy/feature/profie/settings/viewmodel/settings_viewmodel.dart
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
 import 'package:sneepy/product/models/user_model.dart';
 import 'package:sneepy/product/widgets/container/standart_container.dart';
+import 'package:sneepy/product/widgets/dialog/standart_dialog.dart';
 import 'package:sneepy/product/widgets/text/title_medium_text.dart';
 
 import '../../../../product/widgets/button/standart_text_button.dart';
 
-class SocialAccountView extends StatefulWidget {
-  const SocialAccountView({super.key});
+class SocialAccountsView extends StatefulWidget {
+  const SocialAccountsView({super.key});
 
   @override
-  State<SocialAccountView> createState() => _SocialAccountViewState();
+  State<SocialAccountsView> createState() => _SocialAccountsViewState();
 }
 
-class _SocialAccountViewState extends State<SocialAccountView> {
+class _SocialAccountsViewState extends State<SocialAccountsView> {
   final SettingsViewModel vm = SettingsViewModel();
 
   @override
@@ -45,7 +46,7 @@ class _SocialAccountViewState extends State<SocialAccountView> {
                   children: [
                     context.emptySizedHeightBoxLow3x,
                     Flexible(
-                      child: SocialAccountContaier(vm: vm),
+                      child: SocialAccountsContaier(vm: vm),
                     ),
                     context.emptySizedHeightBoxLow3x,
                   ],
@@ -62,8 +63,8 @@ class _SocialAccountViewState extends State<SocialAccountView> {
   }
 }
 
-class SocialAccountContaier extends StatelessWidget {
-  const SocialAccountContaier({
+class SocialAccountsContaier extends StatelessWidget {
+  const SocialAccountsContaier({
     super.key,
     required this.vm,
   });
@@ -97,11 +98,28 @@ class SocialAccountContaier extends StatelessWidget {
             context.emptySizedHeightBoxLow3x,
             StandartTextButton(
               text: LocaleKeys.settings_updateUsernames.tr(),
-              onPressed: () {},
+              onPressed: () async {
+                await update(context);
+              },
             ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> update(BuildContext context) async {
+    final response = await vm.updateSocialAccounts();
+    if (response.success == false) {
+      if (context.mounted) {
+        showStandartDialog(
+          context,
+          title: LocaleKeys.thereIsProblem.tr(),
+          content: Text(
+            response.message ?? LocaleKeys.thereIsProblem.tr(),
+          ),
+        );
+      }
+    }
   }
 }
