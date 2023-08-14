@@ -18,7 +18,7 @@ class SelectCard extends StatelessWidget {
     return ListTile(
       leading: leading,
       title: title,
-      trailing: trailing,
+      trailing: trailing ?? const Icon(Icons.arrow_forward_outlined),
       onTap: onTap,
     );
   }
