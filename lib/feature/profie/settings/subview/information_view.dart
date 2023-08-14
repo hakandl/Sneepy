@@ -8,6 +8,7 @@ import 'package:sneepy/product/init/language/locale_keys.g.dart';
 import 'package:sneepy/product/models/user_model.dart';
 import 'package:sneepy/product/widgets/card/select_card.dart';
 import 'package:sneepy/product/widgets/container/standart_container.dart';
+import 'package:sneepy/product/widgets/dialog/standart_dialog.dart';
 import 'package:sneepy/product/widgets/modal/standart_modal_bottom_sheet.dart';
 import 'package:sneepy/product/widgets/text/title_medium_text.dart';
 
@@ -65,6 +66,73 @@ class _InformationViewState extends State<InformationView> {
       ),
     );
   }
+}
+
+class PersonalInformationContainer extends StatelessWidget {
+  const PersonalInformationContainer({
+    super.key,
+    required this.vm,
+  });
+
+  final SettingsViewModel vm;
+
+  @override
+  Widget build(BuildContext context) {
+    return StandartContainer(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TitleMediumText(
+              text: LocaleKeys.auth_register_name.tr(),
+            ),
+            context.emptySizedHeightBoxLow,
+            vm.nameInput,
+            context.emptySizedHeightBoxLow3x,
+            TitleMediumText(
+              text: LocaleKeys.auth_register_age.tr(),
+            ),
+            context.emptySizedHeightBoxLow,
+            vm.ageInput,
+            context.emptySizedHeightBoxLow3x,
+            TitleMediumText(
+              text: LocaleKeys.auth_register_gender.tr(),
+            ),
+            context.emptySizedHeightBoxLow,
+            InkWell(
+              child: vm.genderInput,
+              onTap: () => genderModalBottomSheet(context),
+            ),
+            context.emptySizedHeightBoxLow3x,
+            Observer(builder: (_) {
+              return StandartTextButton(
+                text: LocaleKeys.settings_updateInformation.tr(),
+                isLoading: vm.isLoading,
+                onPressed: () async {
+                  await update(context);
+                },
+              );
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> update(BuildContext context) async {
+    final response = await vm.updateInformation();
+    if (response.success == false) {
+      if (context.mounted) {
+        showStandartDialog(
+          context,
+          title: LocaleKeys.thereIsProblem.tr(),
+          content: Text(
+            response.message ?? LocaleKeys.thereIsProblem.tr(),
+          ),
+        );
+      }
+    }
+  }
 
   Future<dynamic> genderModalBottomSheet(BuildContext context) {
     return showStandartModalBottomSheet(
@@ -104,49 +172,5 @@ class _InformationViewState extends State<InformationView> {
   void selectGender(BuildContext context) {
     vm.selectGender();
     context.pop();
-  }
-}
-
-class PersonalInformationContainer extends StatelessWidget {
-  const PersonalInformationContainer({
-    super.key,
-    required this.vm,
-  });
-
-  final SettingsViewModel vm;
-
-  @override
-  Widget build(BuildContext context) {
-    return StandartContainer(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TitleMediumText(
-              text: LocaleKeys.auth_register_name.tr(),
-            ),
-            context.emptySizedHeightBoxLow,
-            vm.nameInput,
-            context.emptySizedHeightBoxLow3x,
-            TitleMediumText(
-              text: LocaleKeys.auth_register_age.tr(),
-            ),
-            context.emptySizedHeightBoxLow,
-            vm.ageInput,
-            context.emptySizedHeightBoxLow3x,
-            TitleMediumText(
-              text: LocaleKeys.auth_register_gender.tr(),
-            ),
-            context.emptySizedHeightBoxLow,
-            vm.genderInput,
-            context.emptySizedHeightBoxLow3x,
-            StandartTextButton(
-              text: LocaleKeys.settings_updateInformation.tr(),
-              onPressed: () {},
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }
