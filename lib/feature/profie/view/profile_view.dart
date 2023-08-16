@@ -7,6 +7,7 @@ import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/home/view/home_view.dart';
 import 'package:sneepy/feature/profie/settings/view/profile_settings_view.dart';
 import 'package:sneepy/feature/profie/settings/viewmodel/settings_viewmodel.dart';
+import 'package:sneepy/product/constants/enums/number.dart';
 import 'package:sneepy/product/constants/service.dart';
 import 'package:sneepy/product/constants/strings.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
@@ -40,34 +41,42 @@ class _ProfileViewState extends State<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBar(context),
-      body: Observer(
-        builder: (_) {
-          return _vm.isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Column(
-                  children: [
-                    context.emptySizedHeightBoxLow3x,
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            UserPhotoAndNameContainer(vm: _vm),
-                            context.emptySizedHeightBoxNormal,
-                            SomeInformationContainer(vm: _vm),
-                            context.emptySizedHeightBoxNormal,
-                            SocialAccountsContainer(vm: _vm),
-                          ],
+    return WillPopScope(
+      onWillPop: () async {
+        context.navigateToPage(
+          const HomeView(),
+        );
+        return false;
+      },
+      child: Scaffold(
+        appBar: _appBar(context),
+        body: Observer(
+          builder: (_) {
+            return _vm.isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Column(
+                    children: [
+                      context.emptySizedHeightBoxLow3x,
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              UserPhotoAndNameContainer(vm: _vm),
+                              context.emptySizedHeightBoxNormal,
+                              SomeInformationContainer(vm: _vm),
+                              context.emptySizedHeightBoxNormal,
+                              SocialAccountsContainer(vm: _vm),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    context.emptySizedHeightBoxLow3x,
-                  ],
-                );
-        },
+                      context.emptySizedHeightBoxLow3x,
+                    ],
+                  );
+          },
+        ),
       ),
     );
   }
@@ -112,20 +121,15 @@ class UserPhotoAndNameContainer extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            radius: 48,
+            radius: NumberEnum.fortyEight.value,
             backgroundImage: CachedNetworkImageProvider(
               _vm.me?.photos?.firstOrNull?.photo ?? AppStrings.empty,
             ),
           ),
           context.emptySizedWidthBoxNormal,
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                HeadlineMediumText(
-                  text: _vm.me?.name ?? AppStrings.empty,
-                ),
-              ],
+            child: HeadlineMediumText(
+              text: _vm.me?.name ?? AppStrings.empty,
             ),
           ),
         ],
