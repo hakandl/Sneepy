@@ -25,6 +25,7 @@ class AuthService {
     required String name,
     required String email,
     required String password,
+    required String deviceToken,
   }) async {
     final response = await ServiceManager.makeRequest(
       method: RequestMethod.POST,
@@ -33,6 +34,7 @@ class AuthService {
         'name': name,
         'email': email,
         'password': password,
+        'deviceToken': deviceToken,
       },
     );
     return response;
@@ -57,17 +59,19 @@ class AuthService {
     String? snapchat,
     String? instagram,
     String? twitter,
+    String? deviceToken,
   }) async {
     final Map<String, dynamic> data = {
       if (name != null) 'name': name,
       if (email != null) 'email': email,
       if (password != null) 'password': password,
-      'age': age,
-      'gender': gender,
-      'country': country,
-      'snapchat': snapchat,
-      'instagram': instagram,
-      'twitter': twitter,
+      if (age != null) 'age': age,
+      if (gender != null) 'gender': gender,
+      if (country != null) 'country': country,
+      if (snapchat != null) 'snapchat': snapchat,
+      if (instagram != null) 'instagram': instagram,
+      if (twitter != null) 'twitter': twitter,
+      if (deviceToken != null) 'deviceToken': deviceToken,
     };
 
     final response = await ServiceManager.makeRequest(
