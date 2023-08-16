@@ -136,14 +136,14 @@ abstract class _RegisterViewModelBase with Store {
       name: nameInput.controller.text,
       email: emailInput.controller.text,
       password: passwordInput.controller.text,
-      deviceToken: fcmToken ?? '',
+      deviceToken: fcmToken ?? AppStrings.empty,
     );
     changeLoading();
     if (response.success == true) {
       userToken = response.data['token'];
       await HiveManager.save(
         key: BoxKeyNames.token.name,
-        value: userToken ?? '',
+        value: userToken ?? AppStrings.empty,
       );
     }
     return response;
