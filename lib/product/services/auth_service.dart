@@ -82,6 +82,14 @@ class AuthService {
     return response;
   }
 
+  Future<ResponseModel> deleteMe() async {
+    final response = await ServiceManager.makeRequest(
+      method: RequestMethod.DELETE,
+      endpoint: ApiEndpoints.me,
+    );
+    return response;
+  }
+
   Future<ResponseModel> addPhoto({
     required File file,
   }) async {
