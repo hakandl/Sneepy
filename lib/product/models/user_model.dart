@@ -11,6 +11,7 @@ class UserModel {
   String? password;
   int? age;
   String? gender;
+  String? country;
   String? snapchat;
   String? instagram;
   String? twitter;
@@ -29,6 +30,7 @@ class UserModel {
     this.password,
     this.age,
     this.gender,
+    this.country,
     this.snapchat,
     this.instagram,
     this.twitter,
