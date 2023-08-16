@@ -25,7 +25,7 @@ Future<T?> showStandartDialog<T>(
           StandartTextButton(
             text: buttonText ?? LocaleKeys.buttons_gotIt.tr(),
             backgroundColor: buttonColor,
-            onPressed: () => onPressed ?? context.pop(),
+            onPressed: onPressed ?? context.pop,
           )
         ],
       );
