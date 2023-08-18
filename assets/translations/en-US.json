@@ -1,12 +1,14 @@
 {
   "buttons": {
-    "login": "Log In",
+    "login": "Log in",
+    "logout": "Log Out",
     "register": "Register",
     "complete": "Complete",
     "continue": "Continue",
     "update": "Update",
     "accept": "Accept",
-    "delete": "Delete"
+    "delete": "Delete",
+    "gotIt": "Got it"
   },
   "auth": {
     "email": "Email",
@@ -32,23 +34,37 @@
       "toRegisterYouNeedToUploadPhotoToYourProfile": "To register, you need to upload a photo to your profile."
     }
   },
+  "home": {
+    "noUsersFound": "No users found."
+  },
   "profile": {
     "profile": "Profile",
     "someInformation": "Some Information",
     "socialAccounts": "Social Accounts"
   },
   "friendRequest": {
-    "friendRequests": "Friend Requests"
+    "friendRequests": "Friend Requests",
+    "thereAreNoFriendRequests": "There are no friend requests."
   },
   "settings": {
     "settings": "Settings",
     "personalInformation": "Personal Information",
     "usernames": "Usernames",
     "photos": "Photos",
+    "searchPreferences": "Search Preferences",
+    "language": "Language",
     "licenses": "Licenses",
     "updateInformation": "Update Information",
     "updateUsernames": "Update Usernames",
-    "updatePhotos": "Update Photos"
+    "updatePhotos": "Update Photos",
+    "deleteAccount": "Delete Account",
+    "areYouSureYouWantToDeleteYourAccount": "Are you sure you want to delete your account?"
+  },
+  "languages": {
+    "turkish": "Turkish",
+    "english": "English",
+    "russian": "Russian",
+    "german": "German"
   },
   "thereIsProblem": "There's a problem."
 }

@@ -1,12 +1,14 @@
 {
   "buttons": {
     "login": "Giriş Yap",
+    "logout": "Çıkış Yap",
     "register": "Kayıt Ol",
     "complete": "Tamamla",
     "continue": "Devam et",
     "update": "Güncelle",
     "accept": "Kabul et",
-    "delete": "Sil"
+    "delete": "Sil",
+    "gotIt": "Anladım"
   },
   "auth": {
     "email": "E posta",
@@ -32,23 +34,37 @@
       "toRegisterYouNeedToUploadPhotoToYourProfile": "Kayıt olmak için profiline bir fotoğraf yüklemen gerekli."
     }
   },
+  "home": {
+    "noUsersFound": "Hiçbir kullanıcı bulunamadı."
+  },
   "profile": {
     "profile": "Profil",
     "someInformation": "Bazı Bilgiler",
     "socialAccounts": "Sosyal Hesaplar"
   },
   "friendRequest": {
-    "friendRequests": "Arkadaşlık İstekleri"
+    "friendRequests": "Arkadaşlık İstekleri",
+    "thereAreNoFriendRequests": "Hiç arkadaşlık isteği yok."
   },
   "settings": {
     "settings": "Ayarlar",
     "personalInformation": "Kişisel Bilgiler",
     "usernames": "Kullanıcı Adları",
     "photos": "Fotoğraflar",
+    "searchPreferences": "Arama Tercihleri",
+    "language": "Dil",
     "licenses": "Lisanslar",
     "updateInformation": "Bilgileri Güncelle",
     "updateUsernames": "Kullanıcı Adlarını Güncelle",
-    "updatePhotos": "Fotoğrafları Güncelle"
+    "updatePhotos": "Fotoğrafları Güncelle",
+    "deleteAccount": "Hesabı Sil",
+    "areYouSureYouWantToDeleteYourAccount": "Hesabını silmek istediğine emin misin?"
+  },
+  "languages": {
+    "turkish": "Türkçe",
+    "english": "İngilizce",
+    "russian": "Rusça",
+    "german": "Almanca"
   },
   "thereIsProblem": "Bir sorun var."
 }
