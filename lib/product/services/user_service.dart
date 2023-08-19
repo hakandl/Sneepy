@@ -14,6 +14,16 @@ class UserService {
     return users;
   }
 
+  Future<UserModel> getUser({required String userId}) async {
+    final response = await ServiceManager.makeRequest(
+      method: RequestMethod.GET,
+      endpoint: '${ApiEndpoints.users}/$userId',
+    );
+    final jsonResponse = response.data;
+    final user = UserModel.fromJson(jsonResponse);
+    return user;
+  }
+
   Future<ResponseModel> sendFriendRequest({
     required String userId,
     required int sentType,
@@ -33,6 +43,17 @@ class UserService {
       method: RequestMethod.POST,
       endpoint:
           '${ApiEndpoints.users}/${ApiEndpoints.skipFriendRequest}/$userId',
+    );
+    return response;
+  }
+
+  Future<ResponseModel> removeFriendRequest({
+    required String userId,
+  }) async {
+    final response = await ServiceManager.makeRequest(
+      method: RequestMethod.POST,
+      endpoint:
+          '${ApiEndpoints.users}/${ApiEndpoints.removeFriendRequest}/$userId',
     );
     return response;
   }
