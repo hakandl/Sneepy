@@ -25,6 +25,22 @@ mixin _$FriendsViewModel on _FriendsViewModelBase, Store {
     });
   }
 
+  late final _$friendUserAtom =
+      Atom(name: '_FriendsViewModelBase.friendUser', context: context);
+
+  @override
+  UserModel? get friendUser {
+    _$friendUserAtom.reportRead();
+    return super.friendUser;
+  }
+
+  @override
+  set friendUser(UserModel? value) {
+    _$friendUserAtom.reportWrite(value, super.friendUser, () {
+      super.friendUser = value;
+    });
+  }
+
   late final _$_FriendsViewModelBaseActionController =
       ActionController(name: '_FriendsViewModelBase', context: context);
 
@@ -42,7 +58,8 @@ mixin _$FriendsViewModel on _FriendsViewModelBase, Store {
   @override
   String toString() {
     return '''
-isLoading: ${isLoading}
+isLoading: ${isLoading},
+friendUser: ${friendUser}
     ''';
   }
 }
