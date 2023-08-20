@@ -3,7 +3,7 @@
 class AppStrings {
   static const empty = '';
 
-  // locale
+  // locales
   static const tr = 'tr';
   static const TR = 'TR';
 
@@ -15,4 +15,13 @@ class AppStrings {
 
   static const de = 'de';
   static const DE = 'DE';
+
+  // socials
+  static const snapchat = 'https://www.snapchat.com/add/';
+  static const instagram = 'https://www.instagram.com/';
+  static const twitter = 'https://www.twitter.com/';
+
+  // assets
+  static const userNotPhoto =
+      'https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=';
 }
