@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:sneepy/product/constants/enums/number.dart';
 import 'package:sneepy/product/models/user_model.dart';
 import 'package:sneepy/product/services/auth_service.dart';
 import 'package:sneepy/product/services/user_service.dart';
@@ -32,5 +33,20 @@ abstract class _FriendsViewModelBase with Store {
       userId: userId,
     );
     changeLoading();
+  }
+
+  Future<void> deleteFriendRequest({required String userId}) async {
+    await UserService().removeFriendRequest(
+      userId: userId,
+    );
+    await getUser();
+  }
+
+  Future<void> acceptFriendRequest({required String userId}) async {
+    await UserService().sendFriendRequest(
+      userId: userId,
+      sentType: NumberEnum.two.value.toInt(),
+    );
+    await deleteFriendRequest(userId: userId);
   }
 }
