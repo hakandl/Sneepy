@@ -1,9 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:sneepy/feature/auth/login/view/login_view.dart';
+import 'package:sneepy/feature/profie/settings/subview/country_view.dart';
 import 'package:sneepy/feature/profie/settings/subview/information_view.dart';
+import 'package:sneepy/feature/profie/settings/subview/languages_view.dart';
 import 'package:sneepy/feature/profie/settings/subview/photos_view.dart';
-import 'package:sneepy/feature/profie/settings/subview/social_account_view.dart';
+import 'package:sneepy/feature/profie/settings/subview/search_preferences_view.dart';
+import 'package:sneepy/feature/profie/settings/subview/social_accounts_view.dart';
+import 'package:sneepy/feature/profie/settings/viewmodel/settings_viewmodel.dart';
 import 'package:sneepy/feature/profie/view/profile_view.dart';
 import 'package:sneepy/product/constants/colors.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
@@ -17,26 +22,40 @@ class ProfileSettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBar(context),
-      body: Column(
-        children: [
-          context.emptySizedHeightBoxLow3x,
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const PersonalInformationContainer(),
-                  context.emptySizedHeightBoxNormal,
-                  const SneepyInformationContainer(),
-                  context.emptySizedHeightBoxNormal,
-                  const DeleteAccountContainer(),
-                ],
+    return WillPopScope(
+      onWillPop: () async {
+        context.navigateToPage(
+          const ProfileView(),
+        );
+        return false;
+      },
+      child: Scaffold(
+        appBar: _appBar(context),
+        body: Column(
+          children: [
+            context.emptySizedHeightBoxLow3x,
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const PersonalInformationContainer(),
+                    context.emptySizedHeightBoxNormal,
+                    const SearchPreferencesContainer(),
+                    context.emptySizedHeightBoxNormal,
+                    const SneepyLanguagesContainer(),
+                    context.emptySizedHeightBoxNormal,
+                    const SneepyInformationContainer(),
+                    context.emptySizedHeightBoxNormal,
+                    DeleteAccountContainer(),
+                    context.emptySizedHeightBoxNormal,
+                    LogOutContainer(),
+                  ],
+                ),
               ),
             ),
-          ),
-          context.emptySizedHeightBoxLow3x,
-        ],
+            context.emptySizedHeightBoxLow3x,
+          ],
+        ),
       ),
     );
   }
@@ -71,9 +90,6 @@ class PersonalInformationContainer extends StatelessWidget {
             title: TitleMediumText(
               text: LocaleKeys.settings_personalInformation.tr(),
             ),
-            trailing: const Icon(
-              Icons.arrow_forward_outlined,
-            ),
             onTap: () => context.navigateToPage(
               const InformationView(),
             ),
@@ -83,11 +99,8 @@ class PersonalInformationContainer extends StatelessWidget {
             title: TitleMediumText(
               text: LocaleKeys.settings_usernames.tr(),
             ),
-            trailing: const Icon(
-              Icons.arrow_forward_outlined,
-            ),
             onTap: () => context.navigateToPage(
-              const SocialAccountView(),
+              const SocialAccountsView(),
             ),
           ),
           const Divider(),
@@ -95,11 +108,59 @@ class PersonalInformationContainer extends StatelessWidget {
             title: TitleMediumText(
               text: LocaleKeys.settings_photos.tr(),
             ),
-            trailing: const Icon(
-              Icons.arrow_forward_outlined,
-            ),
             onTap: () => context.navigateToPage(
               PhotosView(),
+            ),
+          ),
+          const Divider(),
+          SelectCard(
+            title: TitleMediumText(
+              text: LocaleKeys.auth_register_country.tr(),
+            ),
+            onTap: () => context.navigateToPage(
+              const CountryView(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SearchPreferencesContainer extends StatelessWidget {
+  const SearchPreferencesContainer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return StandartContainer(
+      child: SelectCard(
+        title: Text(LocaleKeys.settings_searchPreferences.tr()),
+        onTap: () => context.navigateToPage(
+          const SearchPreferences(),
+        ),
+      ),
+    );
+  }
+}
+
+class SneepyLanguagesContainer extends StatelessWidget {
+  const SneepyLanguagesContainer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return StandartContainer(
+      child: Column(
+        children: [
+          SelectCard(
+            title: TitleMediumText(
+              text: LocaleKeys.settings_language.tr(),
+            ),
+            onTap: () => context.navigateToPage(
+              const LanguagesView(),
             ),
           ),
         ],
@@ -120,22 +181,7 @@ class SneepyInformationContainer extends StatelessWidget {
         children: [
           SelectCard(
             title: TitleMediumText(
-              text: LocaleKeys.settings_usernames.tr(),
-            ),
-            trailing: const Icon(
-              Icons.arrow_forward_outlined,
-            ),
-            onTap: () => context.navigateToPage(
-              PhotosView(),
-            ),
-          ),
-          const Divider(),
-          SelectCard(
-            title: TitleMediumText(
               text: LocaleKeys.settings_licenses.tr(),
-            ),
-            trailing: const Icon(
-              Icons.arrow_forward_outlined,
             ),
             onTap: () => showLicensePage(context: context),
           ),
@@ -146,9 +192,11 @@ class SneepyInformationContainer extends StatelessWidget {
 }
 
 class DeleteAccountContainer extends StatelessWidget {
-  const DeleteAccountContainer({
+  DeleteAccountContainer({
     super.key,
   });
+
+  final SettingsViewModel vm = SettingsViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -173,35 +221,63 @@ class DeleteAccountContainer extends StatelessWidget {
                   ),
                   buttonText: LocaleKeys.buttons_accept.tr(),
                   buttonColor: AppColors.persimmon,
-                  onPressed: () {},
+                  onPressed: () async {
+                    await deleteAccountAndGoToLoginView(context);
+                  },
                 );
               }),
         ],
       ),
     );
   }
+
+  Future<void> deleteAccountAndGoToLoginView(BuildContext context) async {
+    await vm.deleteAccount();
+    if (context.mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginView(),
+        ),
+      );
+    }
+  }
 }
 
-class SettingsListTile extends StatelessWidget {
-  const SettingsListTile({
+class LogOutContainer extends StatelessWidget {
+  LogOutContainer({
     super.key,
-    required this.text,
-    required this.onTap,
   });
-  final String text;
-  final VoidCallback onTap;
+
+  final SettingsViewModel vm = SettingsViewModel();
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      dense: true,
-      title: TitleMediumText(
-        text: text,
+    return StandartContainer(
+      child: Column(
+        children: [
+          SelectCard(
+              title: TitleMediumText(
+                text: LocaleKeys.buttons_logout.tr(),
+                color: AppColors.persimmon,
+              ),
+              trailing: const Icon(
+                Icons.arrow_forward_outlined,
+              ),
+              onTap: () {
+                logOut(context);
+              }),
+        ],
       ),
-      trailing: const Icon(
-        Icons.arrow_forward_outlined,
+    );
+  }
+
+  void logOut(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LoginView(),
       ),
-      onTap: onTap,
     );
   }
 }
