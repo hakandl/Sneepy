@@ -44,7 +44,10 @@
   },
   "friendRequest": {
     "friendRequests": "Arkadaşlık İstekleri",
-    "thereAreNoFriendRequests": "Hiç arkadaşlık isteği yok."
+    "thereAreNoFriendRequests": "Hiç arkadaşlık isteği yok.",
+    "usersSnapchatAccountNotFound": "Kullanıcının snapchat hesabı bulunamadı.",
+    "usersInstagramAccountNotFound": "Kullanıcının instagram hesabı bulunamadı.",
+    "usersTwitterAccountNotFound": "Kullanıcının twitter hesabı bulunamadı."
   },
   "settings": {
     "settings": "Ayarlar",

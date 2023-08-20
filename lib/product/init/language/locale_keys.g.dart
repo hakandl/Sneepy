@@ -49,6 +49,12 @@ abstract class LocaleKeys {
   static const friendRequest_friendRequests = 'friendRequest.friendRequests';
   static const friendRequest_thereAreNoFriendRequests =
       'friendRequest.thereAreNoFriendRequests';
+  static const friendRequest_usersSnapchatAccountNotFound =
+      'friendRequest.usersSnapchatAccountNotFound';
+  static const friendRequest_usersInstagramAccountNotFound =
+      'friendRequest.usersInstagramAccountNotFound';
+  static const friendRequest_usersTwitterAccountNotFound =
+      'friendRequest.usersTwitterAccountNotFound';
   static const friendRequest = 'friendRequest';
   static const settings_settings = 'settings.settings';
   static const settings_personalInformation = 'settings.personalInformation';

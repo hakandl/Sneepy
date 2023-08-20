@@ -44,7 +44,10 @@
   },
   "friendRequest": {
     "friendRequests": "Friend Requests",
-    "thereAreNoFriendRequests": "There are no friend requests."
+    "thereAreNoFriendRequests": "There are no friend requests.",
+    "usersSnapchatAccountNotFound": "User's snapchat account not found.",
+    "usersInstagramAccountNotFound": "User's instagram account not found.",
+    "usersTwitterAccountNotFound": "User's twitter account not found."
   },
   "settings": {
     "settings": "Settings",
