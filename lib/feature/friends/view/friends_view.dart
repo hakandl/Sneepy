@@ -78,7 +78,7 @@ class _FriendsViewState extends State<FriendsView> {
                               leading: CircleAvatar(
                                 backgroundImage: CachedNetworkImageProvider(
                                   currentUser?.photos?.firstOrNull?.photo ??
-                                      AppStrings.empty,
+                                      AppStrings.userNotPhoto,
                                 ),
                                 radius: NumberEnum.fortyEight.value,
                               ),

@@ -123,7 +123,7 @@ class UserPhotoAndNameContainer extends StatelessWidget {
           CircleAvatar(
             radius: NumberEnum.fortyEight.value,
             backgroundImage: CachedNetworkImageProvider(
-              _vm.me?.photos?.firstOrNull?.photo ?? AppStrings.empty,
+              _vm.me?.photos?.firstOrNull?.photo ?? AppStrings.userNotPhoto,
             ),
           ),
           context.emptySizedWidthBoxNormal,

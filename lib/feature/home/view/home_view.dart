@@ -88,7 +88,7 @@ class _HomeViewState extends State<HomeView> {
                             : CircleAvatar(
                                 backgroundImage: CachedNetworkImageProvider(
                                   _vm.me?.photos?.firstOrNull?.photo ??
-                                      AppStrings.empty,
+                                      AppStrings.userNotPhoto,
                                 ),
                                 child: InkWell(
                                   borderRadius: context.normalBorderRadius,
