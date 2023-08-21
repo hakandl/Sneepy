@@ -37,11 +37,7 @@ class _PhotosViewState extends State<PhotosView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            LocaleKeys.settings_photos.tr(),
-          ),
-        ),
+        appBar: _appBar(),
         body: Observer(
           builder: (_) {
             return _vm.isLoading
@@ -55,6 +51,14 @@ class _PhotosViewState extends State<PhotosView> {
                   );
           },
         ));
+  }
+
+  AppBar _appBar() {
+    return AppBar(
+      title: Text(
+        LocaleKeys.settings_photos.tr(),
+      ),
+    );
   }
 
   StandartContainer photoGridContainer() {
