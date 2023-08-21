@@ -1,142 +1,224 @@
-import 'dart:io';
-
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:kartal/kartal.dart';
-import 'package:sneepy/feature/profie/settings/view/profile_settings_view.dart';
 import 'package:sneepy/feature/profie/settings/viewmodel/settings_viewmodel.dart';
-import 'package:sneepy/product/widgets/button/standart_text_button.dart';
+import 'package:sneepy/product/constants/enums/number.dart';
+import 'package:sneepy/product/constants/strings.dart';
+import 'package:sneepy/product/init/language/locale_keys.g.dart';
+import 'package:sneepy/product/widgets/card/select_card.dart';
 import 'package:sneepy/product/widgets/container/standart_container.dart';
+import 'package:sneepy/product/widgets/dialog/standart_dialog.dart';
+import 'package:sneepy/product/widgets/text/title_medium_text.dart';
 
-import '../../../../product/constant/colors.dart';
+import '../../../../product/constants/colors.dart';
 
-class PhotosView extends StatelessWidget {
-  PhotosView({super.key});
+class PhotosView extends StatefulWidget {
+  const PhotosView({super.key});
+
+  @override
+  State<PhotosView> createState() => _PhotosViewState();
+}
+
+class _PhotosViewState extends State<PhotosView> {
   final _vm = SettingsViewModel();
 
   @override
-  Widget build(BuildContext context) {
-    Future<File?> selectImage() async {
-      final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (pickedFile != null) {
-        return File(pickedFile.path);
-      }
-      return null;
-    }
+  void initState() {
+    super.initState();
+    getMe();
+  }
 
+  Future<void> getMe() async {
+    await _vm.getMe();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('data'),
-      ),
-      body: Column(
-        children: [
-          context.emptySizedHeightBoxLow3x,
-          StandartContainer(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 9 / 16,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-              ),
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              height: 5,
-                              width: 64,
-                              margin: context.verticalPaddingNormal,
-                              decoration: BoxDecoration(
-                                color: AppColors.athensGray,
-                                borderRadius: context.highBorderRadius,
-                              ),
-                            ),
-                            SettingsListTile(
-                              text: 'text',
-                              onTap: () async {
-                                final image = await selectImage();
-                                if (image != null) {
-                                  _vm.setImage(index, image);
-                                }
-                              },
-                            ),
-                            SettingsListTile(
-                              text: 'text',
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: const Text('data'),
-                                      actions: [
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              child: StandartTextButton(
-                                                text: 'text',
-                                                onPressed: () {},
-                                              ),
-                                            ),
-                                            context.emptySizedWidthBoxLow3x,
-                                            Expanded(
-                                              child: StandartTextButton(
-                                                text: 'text',
-                                                onPressed: () {},
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          ],
-                        );
-                      },
+        appBar: AppBar(
+          title: Text(
+            LocaleKeys.settings_photos.tr(),
+          ),
+        ),
+        body: Observer(
+          builder: (_) {
+            return _vm.isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : Column(
+                    children: [
+                      context.emptySizedHeightBoxLow3x,
+                      photoGridContainer(),
+                      context.emptySizedHeightBoxLow3x,
+                    ],
+                  );
+          },
+        ));
+  }
+
+  StandartContainer photoGridContainer() {
+    return StandartContainer(
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: NumberEnum.three.value.toInt(),
+          childAspectRatio: NumberEnum.nine.value / NumberEnum.sixteen.value,
+          crossAxisSpacing: NumberEnum.ten.value,
+          mainAxisSpacing: NumberEnum.ten.value,
+        ),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: NumberEnum.three.value.toInt(),
+        itemBuilder: (context, index) {
+          return InkWell(
+            onTap: photoIndexControl(index)
+                ? () {
+                    updateOrDeletePhotoModalBottomSheet(
+                      context,
+                      index,
                     );
+                  }
+                : () async {
+                    await addPhoto(context);
                   },
-                  borderRadius: context.normalBorderRadius,
-                  child: Observer(
-                    builder: (context) => Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: context.normalBorderRadius,
-                        color: AppColors.athensGray,
-                      ),
-                      child: _vm.images[index] != null
-                          ? ClipRRect(
-                              borderRadius: context.normalBorderRadius,
-                              child: Image.file(
-                                _vm.images[index]!,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          : const Icon(
-                              Icons.add_circle_outline,
-                              size: 72,
-                              color: AppColors.blueRibbon,
-                            ),
-                    ),
-                  ),
+            borderRadius: context.normalBorderRadius,
+            child: photoContainer(context, index),
+          );
+        },
+      ),
+    );
+  }
+
+  Container photoContainer(BuildContext context, int index) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(),
+        borderRadius: context.normalBorderRadius,
+        color: AppColors.athensGray,
+      ),
+      child: photoIndexControl(index) ? photo(context, index) : noPhoto(),
+    );
+  }
+
+  ClipRRect photo(BuildContext context, int index) {
+    return ClipRRect(
+      borderRadius: context.normalBorderRadius,
+      child: CachedNetworkImage(
+        imageUrl: _vm.me!.photos![index].photo ?? AppStrings.empty,
+        placeholder: (context, url) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+        errorWidget: (context, url, error) => Icon(
+          Icons.error,
+          size: NumberEnum.sixty.value,
+        ),
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  Icon noPhoto() {
+    return Icon(
+      Icons.add_circle_outline,
+      size: NumberEnum.seventyTwo.value,
+      color: AppColors.blueRibbon,
+    );
+  }
+
+  void updateOrDeletePhotoModalBottomSheet(BuildContext context, int index) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: NumberEnum.five.value,
+              width: NumberEnum.sixtyFour.value,
+              margin: context.verticalPaddingNormal,
+              decoration: BoxDecoration(
+                color: AppColors.athensGray,
+                borderRadius: context.highBorderRadius,
+              ),
+            ),
+            SelectCard(
+              title: TitleMediumText(
+                text: LocaleKeys.buttons_update.tr(),
+              ),
+              onTap: () async {
+                await updatePhoto(
+                  index,
+                  context,
                 );
               },
             ),
-          ),
-          context.emptySizedHeightBoxLow3x,
-        ],
-      ),
+            SelectCard(
+              title: TitleMediumText(
+                text: LocaleKeys.buttons_delete.tr(),
+              ),
+              onTap: () async {
+                await deletePhoto(
+                  index,
+                  context,
+                );
+              },
+            ),
+          ],
+        );
+      },
     );
+  }
+
+  Future<void> addPhoto(BuildContext context) async {
+    final response = await _vm.selectImageAndAddPhoto();
+    if (response.success == false) {
+      if (context.mounted) {
+        showStandartDialog(
+          context,
+          title: LocaleKeys.thereIsProblem.tr(),
+          content: Text(
+            response.message ?? LocaleKeys.thereIsProblem.tr(),
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> updatePhoto(int index, BuildContext context) async {
+    final response = await _vm.updatePhoto(
+      photoId: _vm.me?.photos?[index].id ?? AppStrings.empty,
+    );
+    if (response.success == false) {
+      if (context.mounted) {
+        showStandartDialog(
+          context,
+          title: LocaleKeys.thereIsProblem.tr(),
+          content: Text(
+            response.message ?? LocaleKeys.thereIsProblem.tr(),
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> deletePhoto(int index, BuildContext context) async {
+    final response = await _vm.deletePhoto(
+      photoId: _vm.me?.photos?[index].id ?? AppStrings.empty,
+    );
+    if (context.mounted) {
+      showStandartDialog(
+        context,
+        title: LocaleKeys.thereIsProblem.tr(),
+        content: Text(
+          response.message ?? LocaleKeys.thereIsProblem.tr(),
+        ),
+      );
+    }
+  }
+
+  bool photoIndexControl(int index) {
+    return _vm.me?.photos != null &&
+        index >= NumberEnum.zero.value &&
+        index < (_vm.me?.photos?.length ?? NumberEnum.zero.value);
   }
 }
