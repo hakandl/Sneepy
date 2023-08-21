@@ -6,6 +6,14 @@ import 'package:sneepy/product/models/user_model.dart';
 import 'package:sneepy/product/services/service_manager.dart';
 
 class AuthService {
+  Future<ResponseModel> checkAuth() async {
+    final response = await ServiceManager.makeRequest(
+      method: RequestMethod.POST,
+      endpoint: ApiEndpoints.checkAuth,
+    );
+    return response;
+  }
+
   Future<ResponseModel> login({
     required String email,
     required String password,
@@ -103,12 +111,30 @@ class AuthService {
 
   Future<ResponseModel> updatePhoto({
     required File file,
-    String? photoId,
+    required String photoId,
   }) async {
     final response = await ServiceManager.makeRequest(
       endpoint: '${ApiEndpoints.photos}/$photoId',
       method: RequestMethod.PUT,
       file: File(file.path),
+    );
+    return response;
+  }
+
+  Future<ResponseModel> deletePhoto({
+    required String photoId,
+  }) async {
+    final response = await ServiceManager.makeRequest(
+      endpoint: '${ApiEndpoints.photos}/$photoId',
+      method: RequestMethod.DELETE,
+    );
+    return response;
+  }
+
+  Future<ResponseModel> addPoint() async {
+    final response = await ServiceManager.makeRequest(
+      method: RequestMethod.POST,
+      endpoint: ApiEndpoints.addPoint,
     );
     return response;
   }
