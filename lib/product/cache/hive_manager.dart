@@ -6,6 +6,7 @@ enum BoxNames {
 
 enum BoxKeyNames {
   token,
+  fcmToken,
 }
 
 class HiveManager {
