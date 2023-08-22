@@ -6,7 +6,7 @@ import 'package:sneepy/product/constants/strings.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
 import 'package:sneepy/product/models/response_model.dart';
 import 'package:sneepy/product/widgets/input/standart_textfield.dart';
-import 'package:sneepy/product/init/product/firebase_init.dart';
+import 'package:sneepy/product/init/product/firebase_settings.dart';
 
 import '../../../../product/services/auth_service.dart';
 part 'login_viewmodel.g.dart';
@@ -48,7 +48,12 @@ abstract class _LoginViewModelBase with Store {
       password: passwordInput.controller.text,
     );
     changeLoading();
-    await HiveManager.save(key: BoxKeyNames.token.name, value: response.data);
+    if (response.success == true) {
+      await HiveManager.save(
+        key: BoxKeyNames.token.name,
+        value: response.data,
+      );
+    }
     await saveFcmToken();
     return response;
   }
