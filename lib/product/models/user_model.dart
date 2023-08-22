@@ -16,6 +16,8 @@ class UserModel {
   String? instagram;
   String? twitter;
   int? point;
+  bool? isFreePoint;
+  String? pointTimeToScore;
   List<String>? seenUsers;
   List<Photos>? photos;
   List<FriendRequests>? friendRequests;
@@ -35,6 +37,8 @@ class UserModel {
     this.instagram,
     this.twitter,
     this.point,
+    this.isFreePoint,
+    this.pointTimeToScore,
     this.seenUsers,
     this.photos,
     this.friendRequests,

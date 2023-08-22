@@ -18,6 +18,8 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       instagram: json['instagram'] as String?,
       twitter: json['twitter'] as String?,
       point: json['point'] as int?,
+      isFreePoint: json['isFreePoint'] as bool?,
+      pointTimeToScore: json['pointTimeToScore'] as String?,
       seenUsers: (json['seenUsers'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -44,6 +46,8 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'instagram': instance.instagram,
       'twitter': instance.twitter,
       'point': instance.point,
+      'isFreePoint': instance.isFreePoint,
+      'pointTimeToScore': instance.pointTimeToScore,
       'seenUsers': instance.seenUsers,
       'photos': instance.photos,
       'friendRequests': instance.friendRequests,
