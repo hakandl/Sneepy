@@ -102,21 +102,34 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       InkWell(
                         borderRadius: context.normalBorderRadius,
-                        child: Container(
-                          alignment: Alignment.center,
-                          padding: context.paddingLow,
-                          decoration: BoxDecoration(
-                            color: AppColors.athensGray,
-                            borderRadius: context.normalBorderRadius,
-                          ),
-                          width: context.dynamicWidth(NumberEnum.zTwo.value),
-                          child: InkWell(
-                            splashColor: AppColors.persimmon,
-                            child: TitleMediumText(
-                              text:
-                                  _vm.me?.point.toString() ?? AppStrings.empty,
+                        child: Stack(
+                          children: [
+                            Container(
+                              alignment: Alignment.center,
+                              padding: context.paddingLow,
+                              margin: context.horizontalPaddingLow,
+                              decoration: BoxDecoration(
+                                color: AppColors.athensGray,
+                                borderRadius: context.normalBorderRadius,
+                              ),
+                              width:
+                                  context.dynamicWidth(NumberEnum.zTwo.value),
+                              child: TitleMediumText(
+                                text: _vm.me?.point.toString() ??
+                                    AppStrings.empty,
+                              ),
                             ),
-                          ),
+                            _vm.me?.isFreePoint == true
+                                ? Positioned(
+                                    top: NumberEnum.zero.value,
+                                    right: NumberEnum.zero.value,
+                                    child: CircleAvatar(
+                                      radius: NumberEnum.ten.value,
+                                      backgroundColor: AppColors.caribbeanGreen,
+                                    ),
+                                  )
+                                : const SizedBox.shrink(),
+                          ],
                         ),
                         onTap: () =>
                             context.navigateToPage(const RewardsView()),
