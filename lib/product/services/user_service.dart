@@ -57,4 +57,12 @@ class UserService {
     );
     return response;
   }
+
+  Future<ResponseModel> addPoint() async {
+    final response = await ServiceManager.makeRequest(
+      method: RequestMethod.POST,
+      endpoint: ApiEndpoints.addPoint,
+    );
+    return response;
+  }
 }
