@@ -22,7 +22,14 @@ enum NumberEnum {
   sixtyFive(65),
   seventyTwo(72),
   oneHundredTwentyFive(125),
-  oneHundredTwentyEight(128);
+  oneHundredTwentyEight(128),
+  twoHundredFifty(250),
+  fiveHundred(500),
+  oneThousand(1000),
+  twoThousandFiveHundred(2500),
+  fiveThousand(5000),
+  sevenThousandFiveHundred(7500),
+  tenThousand(10000);
 
   const NumberEnum(this.value);
   final double value;
