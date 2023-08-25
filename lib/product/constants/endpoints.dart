@@ -9,5 +9,5 @@ class ApiEndpoints {
   static const removeFriendRequest = 'remove-friend-request';
   static const photos = 'photos';
   static const countries = 'countries';
-  static const addPoint = 'add-point';
+  static const point = 'point';
 }
