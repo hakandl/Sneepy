@@ -24,64 +24,68 @@ class FriendCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return !user.photos.isNullOrEmpty
-        ? Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: context.normalBorderRadius,
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: context.normalBorderRadius,
+      ),
+      child: ClipRRect(
+        borderRadius: context.normalBorderRadius,
+        child: Stack(
+          children: [
+            PageView.builder(
+              controller: _swipeCardPageController,
+              itemCount: user.photos?.length,
+              physics: const NeverScrollableScrollPhysics(),
+              allowImplicitScrolling: true,
+              itemBuilder: (context, index) {
+                final currentUser = user.photos?[index];
+                return SizedBox(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: GestureDetector(
+                      onHorizontalDragEnd: (DragEndDetails details) {
+                        onHorizontalDragChangePhoto(details, context);
+                      },
+                      onTapUp: (details) {
+                        onTapUpChangePhoto(details, context);
+                      },
+                      child: UserPhoto(currentUser: currentUser)),
+                );
+              },
+              onPageChanged: (index) {
+                pageChangedAndProgressValueUpdated(index);
+              },
             ),
-            child: ClipRRect(
-              borderRadius: context.normalBorderRadius,
-              child: Stack(
-                children: [
-                  PageView.builder(
-                    controller: _swipeCardPageController,
-                    itemCount: user.photos?.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    allowImplicitScrolling: true,
-                    itemBuilder: (context, index) {
-                      final currentUser = user.photos?[index];
-                      return SizedBox(
-                        width: double.infinity,
-                        height: double.infinity,
-                        child: GestureDetector(
-                          onHorizontalDragEnd: (DragEndDetails details) {
-                            onHorizontalDragChangePhoto(details, context);
-                          },
-                          onTapUp: (details) {
-                            onTapUpChangePhoto(details, context);
-                          },
-                          child: UserPhoto(currentUser: currentUser),
-                        ),
+            user.photos?.length == NumberEnum.one.value ||
+                    user.photos?.length == NumberEnum.zero.value
+                ? const SizedBox.shrink()
+                : Padding(
+                    padding: context.paddingNormal,
+                    child: Observer(builder: (_) {
+                      return LinearProgressIndicator(
+                        value: _vm.progressValue,
+                        backgroundColor: Colors.black54,
+                        color: AppColors.athensGray,
                       );
-                    },
-                    onPageChanged: (index) {
-                      pageChangedAndProgressValueUpdated(index);
-                    },
+                    }),
                   ),
-                  user.photos?.length == NumberEnum.one.value
-                      ? const SizedBox.shrink()
-                      : Padding(
-                          padding: context.paddingNormal,
-                          child: Observer(builder: (_) {
-                            return LinearProgressIndicator(
-                              value: _vm.progressValue,
-                              backgroundColor: Colors.black54,
-                              color: AppColors.athensGray,
-                            );
-                          }),
-                        ),
-                  Positioned(
+            !user.photos.isNullOrEmpty
+                ? Positioned(
                     bottom: NumberEnum.zero.value,
                     child: IgnorePointer(
                       ignoring: false,
                       child: UserInfoContainer(user: user),
                     ),
                   )
-                ],
-              ),
-            ),
-          )
-        : Center(child: TitleLargeText(text: LocaleKeys.thereIsProblem.tr()));
+                : Center(
+                    child: TitleLargeText(
+                      text: LocaleKeys.thereIsProblem.tr(),
+                    ),
+                  ),
+          ],
+        ),
+      ),
+    );
   }
 
   void pageChangedAndProgressValueUpdated(int index) {
