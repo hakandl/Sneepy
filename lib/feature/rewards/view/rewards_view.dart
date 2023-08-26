@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/rewards/viewmodel/rewards_viewmodel.dart';
+import 'package:sneepy/product/constants/enums/number.dart';
 import 'package:sneepy/product/constants/strings.dart';
 import 'package:sneepy/product/helpers/date.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
@@ -26,10 +27,15 @@ class _RewardsViewState extends State<RewardsView> {
   void initState() {
     super.initState();
     getMe();
+    getOffers();
   }
 
   Future<void> getMe() async {
     await vm.getMe();
+  }
+
+  Future<void> getOffers() async {
+    await vm.getOffers();
   }
 
   @override
@@ -98,51 +104,40 @@ class _RewardsViewState extends State<RewardsView> {
                   ),
                   context.emptySizedHeightBoxNormal,
                   StandartContainer(
-                    child: Column(
-                      children: [
-                        SelectCard(
-                          title: TitleMediumText(
-                            text: LocaleKeys.rewards_gift100Points.tr(),
-                          ),
-                        ),
-                        const Divider(),
-                        SelectCard(
-                          title: TitleMediumText(
-                            text: LocaleKeys.rewards_gift100Points.tr(),
-                          ),
-                        ),
-                        const Divider(),
-                        SelectCard(
-                          title: TitleMediumText(
-                            text: LocaleKeys.rewards_gift100Points.tr(),
-                          ),
-                        ),
-                        const Divider(),
-                        SelectCard(
-                          title: TitleMediumText(
-                            text: LocaleKeys.rewards_gift100Points.tr(),
-                          ),
-                        ),
-                        const Divider(),
-                        SelectCard(
-                          title: TitleMediumText(
-                            text: LocaleKeys.rewards_gift100Points.tr(),
-                          ),
-                        ),
-                        const Divider(),
-                        SelectCard(
-                          title: TitleMediumText(
-                            text: LocaleKeys.rewards_gift100Points.tr(),
-                          ),
-                        ),
-                        const Divider(),
-                        SelectCard(
-                          title: TitleMediumText(
-                            text: LocaleKeys.rewards_gift100Points.tr(),
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: Observer(builder: (_) {
+                      return vm.isLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : ListView.builder(
+                              itemCount: vm.packages?.length ??
+                                  NumberEnum.zero.value.toInt(),
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (BuildContext context, int index) {
+                                final currentProduct =
+                                    vm.packages?[index].storeProduct;
+                                return SelectCard(
+                                  leading: TitleMediumText(
+                                    text: currentProduct?.priceString ??
+                                        AppStrings.empty,
+                                  ),
+                                  title: TitleMediumText(
+                                    text: currentProduct?.title ??
+                                        AppStrings.empty,
+                                  ),
+                                  subtitle: TitleMediumText(
+                                    text: currentProduct?.description ??
+                                        AppStrings.empty,
+                                  ),
+                                  onTap: () async {
+                                    await vm.prodPurchase(
+                                      vm.packages![index],
+                                      context,
+                                    );
+                                  },
+                                );
+                              },
+                            );
+                    }),
                   ),
                 ],
               ),
