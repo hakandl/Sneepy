@@ -25,19 +25,19 @@ mixin _$SettingsViewModel on _SettingsViewModelBase, Store {
     });
   }
 
-  late final _$ageRangeValuesAtom =
-      Atom(name: '_SettingsViewModelBase.ageRangeValues', context: context);
+  late final _$ageValueAtom =
+      Atom(name: '_SettingsViewModelBase.ageValue', context: context);
 
   @override
-  RangeValues get ageRangeValues {
-    _$ageRangeValuesAtom.reportRead();
-    return super.ageRangeValues;
+  double get ageValue {
+    _$ageValueAtom.reportRead();
+    return super.ageValue;
   }
 
   @override
-  set ageRangeValues(RangeValues value) {
-    _$ageRangeValuesAtom.reportWrite(value, super.ageRangeValues, () {
-      super.ageRangeValues = value;
+  set ageValue(double value) {
+    _$ageValueAtom.reportWrite(value, super.ageValue, () {
+      super.ageValue = value;
     });
   }
 
@@ -59,7 +59,7 @@ mixin _$SettingsViewModel on _SettingsViewModelBase, Store {
   String toString() {
     return '''
 isLoading: ${isLoading},
-ageRangeValues: ${ageRangeValues}
+ageValue: ${ageValue}
     ''';
   }
 }

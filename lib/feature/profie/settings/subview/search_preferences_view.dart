@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/profie/settings/viewmodel/settings_viewmodel.dart';
+import 'package:sneepy/product/cache/hive_manager.dart';
 import 'package:sneepy/product/constants/colors.dart';
-import 'package:sneepy/product/constants/enums/gender.dart';
 import 'package:sneepy/product/constants/enums/number.dart';
+import 'package:sneepy/product/constants/service.dart';
 import 'package:sneepy/product/constants/strings.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
 import 'package:sneepy/product/widgets/card/select_card.dart';
@@ -82,17 +83,14 @@ class _SearchPreferencesState extends State<SearchPreferences> {
         child: Padding(
           padding: context.paddingNormal,
           child: Observer(builder: (_) {
-            return RangeSlider(
-              values: vm.ageRangeValues,
+            return Slider(
+              value: vm.ageValue,
               min: NumberEnum.eighteen.value,
               max: NumberEnum.sixtyFive.value,
               divisions: NumberEnum.fortySeven.value.toInt(),
-              labels: RangeLabels(
-                vm.ageRangeValues.start.round().toString(),
-                vm.ageRangeValues.end.round().toString(),
-              ),
-              onChanged: (RangeValues values) {
-                vm.ageRangeValues = values;
+              label: vm.ageValue.toInt().toString(),
+              onChanged: (value) {
+                vm.selectAge(value);
               },
             );
           }),
@@ -111,7 +109,8 @@ class _SearchPreferencesState extends State<SearchPreferences> {
               LocaleKeys.auth_register_woman.tr(),
             ),
             trailing: Radio(
-              value: vm.gender == Gender.female.name,
+              value: HiveManager.get(key: BoxKeyNames.gender.name) ==
+                  ServiceConstants.female,
               groupValue: true,
               onChanged: (value) => selectGender(context),
             ),
@@ -123,7 +122,8 @@ class _SearchPreferencesState extends State<SearchPreferences> {
               LocaleKeys.auth_register_man.tr(),
             ),
             trailing: Radio(
-              value: vm.gender == Gender.male.name,
+              value: HiveManager.get(key: BoxKeyNames.gender.name) ==
+                  ServiceConstants.male,
               groupValue: true,
               onChanged: (value) => selectGender(context),
             ),

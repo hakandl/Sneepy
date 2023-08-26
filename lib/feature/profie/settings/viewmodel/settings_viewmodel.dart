@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
+import 'package:sneepy/product/cache/hive_manager.dart';
 import 'package:sneepy/product/constants/enums/gender.dart';
 import 'package:sneepy/product/constants/enums/number.dart';
 import 'package:sneepy/product/constants/service.dart';
@@ -36,10 +37,7 @@ abstract class _SettingsViewModelBase with Store {
   String gender = Gender.none.name;
 
   @observable
-  RangeValues ageRangeValues = RangeValues(
-    NumberEnum.eighteen.value,
-    NumberEnum.sixtyFive.value,
-  );
+  double ageValue = NumberEnum.eighteen.value;
 
   // information view
   final nameInput = StandartTextField(
@@ -114,7 +112,15 @@ abstract class _SettingsViewModelBase with Store {
     changeLoading();
   }
 
-  void selectGender() {
+  Future<void> selectAge(double value) async {
+    ageValue = value;
+    await HiveManager.save(
+      key: BoxKeyNames.age.name,
+      value: ageValue.toInt().toString(),
+    );
+  }
+
+  Future<void> selectGender() async {
     if (gender == Gender.none.name || gender == Gender.male.name) {
       gender = Gender.female.name;
       genderInput.controller.text = LocaleKeys.auth_register_woman.tr();
@@ -122,12 +128,20 @@ abstract class _SettingsViewModelBase with Store {
       gender = Gender.male.name;
       genderInput.controller.text = LocaleKeys.auth_register_man.tr();
     }
-    // TODO CİNSİYET SEÇİLİNCE GET USERS I FİLTRELE
+    await HiveManager.save(
+      key: BoxKeyNames.gender.name,
+      value: gender == Gender.female.name
+          ? ServiceConstants.female
+          : ServiceConstants.male,
+    );
   }
 
-  void selectCountry(int index) {
+  Future<void> selectCountry(int index) async {
     countries[index].name ?? AppStrings.empty;
-    // TODO ÜLKE SEÇİLİNCE GET USERS I FİLTRELE
+    await HiveManager.save(
+      key: BoxKeyNames.country.name,
+      value: countries[index].name ?? AppStrings.empty,
+    );
   }
 
   void initInformationView(UserModel user) {
