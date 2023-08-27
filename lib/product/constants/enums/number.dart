@@ -21,6 +21,7 @@ enum NumberEnum {
   sixtyFour(64),
   sixtyFive(65),
   seventyTwo(72),
+  oneHundred(100),
   oneHundredTwentyFive(125),
   oneHundredTwentyEight(128),
   twoHundredFifty(250),
