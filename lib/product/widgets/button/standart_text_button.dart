@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:sneepy/product/constants/colors.dart';
 
 import '../text/title_medium_text.dart';
 
@@ -23,7 +22,7 @@ class StandartTextButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: context.lowBorderRadius,
         ),
-        backgroundColor: backgroundColor ?? AppColors.blueRibbon,
+        backgroundColor: backgroundColor ?? context.colorScheme.primary,
       ),
       onPressed: onPressed,
       child: Container(
@@ -33,13 +32,13 @@ class StandartTextButton extends StatelessWidget {
         child: isLoading == true
             ? Padding(
                 padding: context.paddingLow,
-                child: const CircularProgressIndicator(
-                  color: AppColors.white,
+                child: CircularProgressIndicator(
+                  color: context.colorScheme.onPrimary,
                 ),
               )
             : TitleMediumText(
                 text: text,
-                color: AppColors.white,
+                color: context.colorScheme.onPrimary,
               ),
       ),
     );

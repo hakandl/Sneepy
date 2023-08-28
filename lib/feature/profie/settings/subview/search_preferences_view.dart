@@ -4,7 +4,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/profie/settings/viewmodel/settings_viewmodel.dart';
 import 'package:sneepy/product/cache/hive_manager.dart';
-import 'package:sneepy/product/constants/colors.dart';
 import 'package:sneepy/product/constants/enums/number.dart';
 import 'package:sneepy/product/constants/service.dart';
 import 'package:sneepy/product/constants/strings.dart';
@@ -155,8 +154,8 @@ class _SearchPreferencesState extends State<SearchPreferences> {
             onTap: () => selectCountry(index, context),
           );
         },
-        separatorBuilder: (context, index) => const Divider(
-          color: AppColors.athensGray,
+        separatorBuilder: (context, index) => Divider(
+          color: context.colorScheme.background,
         ),
       ),
     );

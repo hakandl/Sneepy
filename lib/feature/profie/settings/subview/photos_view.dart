@@ -12,8 +12,6 @@ import 'package:sneepy/product/widgets/container/standart_container.dart';
 import 'package:sneepy/product/widgets/dialog/standart_dialog.dart';
 import 'package:sneepy/product/widgets/text/title_medium_text.dart';
 
-import '../../../../product/constants/colors.dart';
-
 class PhotosView extends StatefulWidget {
   const PhotosView({super.key});
 
@@ -98,7 +96,7 @@ class _PhotosViewState extends State<PhotosView> {
       decoration: BoxDecoration(
         border: Border.all(),
         borderRadius: context.normalBorderRadius,
-        color: AppColors.athensGray,
+        color: context.colorScheme.background,
       ),
       child: photoIndexControl(index) ? photo(context, index) : noPhoto(),
     );
@@ -125,7 +123,7 @@ class _PhotosViewState extends State<PhotosView> {
     return Icon(
       Icons.add_circle_outline,
       size: NumberEnum.seventyTwo.value,
-      color: AppColors.blueRibbon,
+      color: context.colorScheme.primary,
     );
   }
 
@@ -141,7 +139,7 @@ class _PhotosViewState extends State<PhotosView> {
               width: NumberEnum.sixtyFour.value,
               margin: context.verticalPaddingNormal,
               decoration: BoxDecoration(
-                color: AppColors.athensGray,
+                color: context.colorScheme.background,
                 borderRadius: context.highBorderRadius,
               ),
             ),

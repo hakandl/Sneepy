@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:sneepy/product/constants/colors.dart';
 
 class StandartTextField extends StatelessWidget {
   StandartTextField(
@@ -29,7 +28,8 @@ class StandartTextField extends StatelessWidget {
       decoration: InputDecoration(
         filled: true,
         enabled: enabled ?? true,
-        fillColor: AppColors.athensGray,
+        // fillColor: AppColors.athensGray,
+        fillColor: context.colorScheme.background,
         hintText: text,
         prefixIcon: prefix,
         suffixIcon: suffix,
@@ -39,8 +39,8 @@ class StandartTextField extends StatelessWidget {
         disabledBorder: OutlineInputBorder(
           borderRadius: context.lowBorderRadius,
         ),
-        hintStyle: const TextStyle(
-          color: AppColors.ebonyClay,
+        hintStyle: TextStyle(
+          color: context.colorScheme.surface,
           fontWeight: FontWeight.w400,
         ),
         contentPadding: context.horizontalPaddingNormal,

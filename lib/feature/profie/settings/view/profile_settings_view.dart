@@ -10,7 +10,6 @@ import 'package:sneepy/feature/profie/settings/subview/search_preferences_view.d
 import 'package:sneepy/feature/profie/settings/subview/social_accounts_view.dart';
 import 'package:sneepy/feature/profie/settings/viewmodel/settings_viewmodel.dart';
 import 'package:sneepy/feature/profie/view/profile_view.dart';
-import 'package:sneepy/product/constants/colors.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
 import 'package:sneepy/product/widgets/card/select_card.dart';
 import 'package:sneepy/product/widgets/container/standart_container.dart';
@@ -109,7 +108,7 @@ class PersonalInformationContainer extends StatelessWidget {
               text: LocaleKeys.settings_photos.tr(),
             ),
             onTap: () => context.navigateToPage(
-              PhotosView(),
+              const PhotosView(),
             ),
           ),
           const Divider(),
@@ -206,7 +205,7 @@ class DeleteAccountContainer extends StatelessWidget {
           SelectCard(
               title: TitleMediumText(
                 text: LocaleKeys.settings_deleteAccount.tr(),
-                color: AppColors.persimmon,
+                color: context.colorScheme.error,
               ),
               trailing: const Icon(
                 Icons.arrow_forward_outlined,
@@ -220,7 +219,7 @@ class DeleteAccountContainer extends StatelessWidget {
                         .tr(),
                   ),
                   buttonText: LocaleKeys.buttons_accept.tr(),
-                  buttonColor: AppColors.persimmon,
+                  buttonColor: context.colorScheme.error,
                   onPressed: () async {
                     await deleteAccountAndGoToLoginView(context);
                   },
@@ -259,7 +258,7 @@ class LogOutContainer extends StatelessWidget {
           SelectCard(
               title: TitleMediumText(
                 text: LocaleKeys.buttons_logout.tr(),
-                color: AppColors.persimmon,
+                color: context.colorScheme.error,
               ),
               trailing: const Icon(
                 Icons.arrow_forward_outlined,

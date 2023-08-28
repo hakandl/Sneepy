@@ -7,7 +7,6 @@ import 'package:sneepy/feature/friends/view/friends_view.dart';
 import 'package:sneepy/feature/home/viewmodel/home_viewmodel.dart';
 import 'package:sneepy/feature/profie/view/profile_view.dart';
 import 'package:sneepy/feature/rewards/view/rewards_view.dart';
-import 'package:sneepy/product/constants/colors.dart';
 import 'package:sneepy/product/constants/enums/number.dart';
 import 'package:sneepy/product/constants/strings.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
@@ -75,8 +74,8 @@ class _HomeViewState extends State<HomeView> {
         title: Observer(
           builder: (_) {
             return _vm.loading.isLoading
-                ? const CircularProgressIndicator(
-                    color: AppColors.white,
+                ? CircularProgressIndicator(
+                    color: context.colorScheme.onPrimary,
                   )
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,7 +108,7 @@ class _HomeViewState extends State<HomeView> {
                               padding: context.paddingLow,
                               margin: context.horizontalPaddingLow,
                               decoration: BoxDecoration(
-                                color: AppColors.athensGray,
+                                color: context.colorScheme.background,
                                 borderRadius: context.normalBorderRadius,
                               ),
                               width:
@@ -125,7 +124,8 @@ class _HomeViewState extends State<HomeView> {
                                     right: NumberEnum.zero.value,
                                     child: CircleAvatar(
                                       radius: NumberEnum.ten.value,
-                                      backgroundColor: AppColors.caribbeanGreen,
+                                      backgroundColor:
+                                          context.colorScheme.secondary,
                                     ),
                                   )
                                 : const SizedBox.shrink(),
@@ -207,7 +207,7 @@ class BottomButtons extends StatelessWidget {
       children: [
         Expanded(
           child: StandartCircleButton(
-            backgroundColor: AppColors.persimmon,
+            backgroundColor: context.colorScheme.error,
             onPressed: () async {
               final response = await _vm.skipFriendRequest(
                 userId: _vm.currentUser?.id ?? AppStrings.empty,
@@ -228,13 +228,13 @@ class BottomButtons extends StatelessWidget {
             child: Icon(
               Icons.cancel_outlined,
               size: NumberEnum.thirty.value,
-              color: AppColors.white,
+              color: context.colorScheme.onPrimary,
             ),
           ),
         ),
         Expanded(
           child: StandartCircleButton(
-            backgroundColor: AppColors.caribbeanGreen,
+            backgroundColor: context.colorScheme.secondary,
             onPressed: () async {
               final response = await _vm.sendFriendRequest(
                 userId: _vm.currentUser?.id ?? AppStrings.empty,
@@ -256,7 +256,7 @@ class BottomButtons extends StatelessWidget {
             child: Icon(
               Icons.verified_outlined,
               size: NumberEnum.thirty.value,
-              color: AppColors.white,
+              color: context.colorScheme.onPrimary,
             ),
           ),
         )

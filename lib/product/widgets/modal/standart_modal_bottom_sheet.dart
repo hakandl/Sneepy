@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:sneepy/product/constants/colors.dart';
 
 Future<T?> showStandartModalBottomSheet<T>(
   BuildContext context, {
@@ -53,7 +52,7 @@ class _ModalBottomSheetContainerDivider extends StatelessWidget {
       width: context.dynamicWidth(.15),
       margin: context.verticalPaddingNormal,
       decoration: BoxDecoration(
-        color: AppColors.athensGray,
+        color: context.colorScheme.background,
         borderRadius: context.highBorderRadius,
       ),
     );

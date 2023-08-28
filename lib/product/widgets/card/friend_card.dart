@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
-import 'package:sneepy/product/constants/colors.dart';
 import 'package:sneepy/product/constants/enums/number.dart';
 import 'package:sneepy/product/constants/strings.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
@@ -25,6 +24,7 @@ class FriendCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: context.colorScheme.background,
       shape: RoundedRectangleBorder(
         borderRadius: context.normalBorderRadius,
       ),
@@ -63,10 +63,9 @@ class FriendCard extends StatelessWidget {
                     padding: context.paddingNormal,
                     child: Observer(builder: (_) {
                       return LinearProgressIndicator(
-                        value: _vm.progressValue,
-                        backgroundColor: Colors.black54,
-                        color: AppColors.athensGray,
-                      );
+                          value: _vm.progressValue,
+                          backgroundColor: Colors.black54,
+                          color: context.colorScheme.background);
                     }),
                   ),
             !user.photos.isNullOrEmpty
@@ -164,9 +163,9 @@ class UserInfoContainer extends StatelessWidget {
       height: NumberEnum.oneHundredTwentyFive.value,
       padding: context.paddingNormal,
       alignment: Alignment.bottomLeft,
-      decoration: const BoxDecoration(
-        color: AppColors.persimmon,
-        gradient: LinearGradient(
+      decoration: BoxDecoration(
+        color: context.colorScheme.error,
+        gradient: const LinearGradient(
           colors: [
             Colors.black,
             Colors.transparent,
@@ -175,23 +174,20 @@ class UserInfoContainer extends StatelessWidget {
           end: Alignment.topCenter,
         ),
       ),
-      child: userNameAndAgeColumn(),
+      child: userNameAndAgeColumn(context),
     );
   }
 
-  Column userNameAndAgeColumn() {
+  Column userNameAndAgeColumn(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         HeadlineMediumText(
-          text: user.name ?? AppStrings.empty,
-          color: AppColors.athensGray,
-        ),
+            text: user.name ?? AppStrings.empty,
+            color: context.colorScheme.background),
         HeadlineSmallText(
-          text: user.age.toString(),
-          color: AppColors.athensGray,
-        ),
+            text: user.age.toString(), color: context.colorScheme.background),
       ],
     );
   }

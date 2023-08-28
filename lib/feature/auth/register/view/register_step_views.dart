@@ -111,8 +111,8 @@ class RegisterStep2Section extends StatelessWidget {
             onTap: () => selectCountry(index, context),
           );
         },
-        separatorBuilder: (context, index) => const Divider(
-          color: AppColors.athensGray,
+        separatorBuilder: (context, index) => Divider(
+          color: context.colorScheme.background,
         ),
       ),
     );
@@ -177,7 +177,7 @@ class RegisterStep4Section extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border.all(),
                   borderRadius: context.normalBorderRadius,
-                  color: AppColors.athensGray,
+                  color: context.colorScheme.background,
                 ),
                 child: vm.loading.isLoading
                     ? const Center(child: CircularProgressIndicator())
@@ -192,7 +192,7 @@ class RegisterStep4Section extends StatelessWidget {
                         : Icon(
                             Icons.add_circle_outline,
                             size: NumberEnum.oneHundredTwentyEight.value,
-                            color: AppColors.blueRibbon,
+                            color: context.colorScheme.primary,
                           ),
               ),
             ),

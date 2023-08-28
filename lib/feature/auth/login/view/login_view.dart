@@ -5,7 +5,6 @@ import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/auth/login/viewmodel/login_viewmodel.dart';
 import 'package:sneepy/feature/auth/register/view/register_view.dart';
 import 'package:sneepy/feature/home/view/home_view.dart';
-import 'package:sneepy/product/constants/colors.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
 import 'package:sneepy/product/widgets/button/standart_text_button.dart';
 import 'package:sneepy/product/widgets/dialog/standart_dialog.dart';
@@ -94,7 +93,7 @@ class DontYouHaveAnAccountWidget extends StatelessWidget {
         TextButton(
           child: TitleMediumText(
             text: LocaleKeys.buttons_register.tr(),
-            color: AppColors.blueRibbon,
+            color: context.colorScheme.primary,
           ),
           onPressed: () {
             context.navigateToPage(

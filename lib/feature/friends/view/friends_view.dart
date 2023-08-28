@@ -7,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/friends/details/view/friend_details_view.dart';
 import 'package:sneepy/feature/friends/viewmodel/friends_viewmodel.dart';
-import 'package:sneepy/product/constants/colors.dart';
 import 'package:sneepy/product/constants/enums/number.dart';
 import 'package:sneepy/product/constants/strings.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
@@ -68,8 +67,8 @@ class _FriendsViewState extends State<FriendsView> {
                                       :  */
                                   index % NumberEnum.two.value ==
                                           NumberEnum.one.value
-                                      ? AppColors.background
-                                      : AppColors.white,
+                                      ? context.colorScheme.onBackground
+                                      : context.colorScheme.onPrimary,
                               contentPadding: EdgeInsets.symmetric(
                                 vertical: context.verticalPaddingLow.vertical,
                                 horizontal:
@@ -142,22 +141,22 @@ class UserAcceptOrDeleteWidget extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: deleteButton(),
+          child: deleteButton(context),
         ),
         context.emptySizedWidthBoxNormal,
         Expanded(
-          child: acceptButton(),
+          child: acceptButton(context),
         ),
       ],
     );
   }
 
-  SizedBox deleteButton() {
+  SizedBox deleteButton(BuildContext context) {
     return SizedBox(
       height: NumberEnum.forty.value,
       child: StandartTextButton(
         text: LocaleKeys.buttons_delete.tr(),
-        backgroundColor: AppColors.persimmon,
+        backgroundColor: context.colorScheme.error,
         onPressed: () async {
           await vm.deleteFriendRequest(
             userId: currentUser?.id ?? AppStrings.empty,
@@ -167,12 +166,12 @@ class UserAcceptOrDeleteWidget extends StatelessWidget {
     );
   }
 
-  SizedBox acceptButton() {
+  SizedBox acceptButton(BuildContext context) {
     return SizedBox(
       height: NumberEnum.forty.value,
       child: StandartTextButton(
         text: LocaleKeys.buttons_accept.tr(),
-        backgroundColor: AppColors.caribbeanGreen,
+        backgroundColor: context.colorScheme.secondary,
         onPressed: () async {
           await vm.acceptFriendRequest(
             userId: currentUser?.id ?? AppStrings.empty,
@@ -196,25 +195,25 @@ class SocialAccountsWidget extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: snapchatButton(),
+          child: snapchatButton(context),
         ),
         context.emptySizedWidthBoxNormal,
         Expanded(
-          child: instagramButton(),
+          child: instagramButton(context),
         ),
         context.emptySizedWidthBoxNormal,
         Expanded(
-          child: twitterButton(),
+          child: twitterButton(context),
         ),
       ],
     );
   }
 
-  SizedBox snapchatButton() {
+  SizedBox snapchatButton(BuildContext context) {
     return SizedBox(
       height: NumberEnum.forty.value,
       child: StandartCircleButton(
-        backgroundColor: AppColors.caribbeanGreen,
+        backgroundColor: context.colorScheme.secondary,
         onPressed: () {
           if (currentUser?.snapchat?.isNotNullOrNoEmpty == true) {
             launchUrl(
@@ -227,19 +226,17 @@ class SocialAccountsWidget extends StatelessWidget {
             );
           }
         },
-        child: const Icon(
-          FontAwesomeIcons.snapchat,
-          color: AppColors.white,
-        ),
+        child: Icon(FontAwesomeIcons.snapchat,
+            color: context.colorScheme.onPrimary),
       ),
     );
   }
 
-  SizedBox instagramButton() {
+  SizedBox instagramButton(BuildContext context) {
     return SizedBox(
       height: NumberEnum.forty.value,
       child: StandartCircleButton(
-        backgroundColor: AppColors.caribbeanGreen,
+        backgroundColor: context.colorScheme.secondary,
         onPressed: () {
           if (currentUser?.instagram?.isNotNullOrNoEmpty == true) {
             launchUrl(
@@ -252,19 +249,17 @@ class SocialAccountsWidget extends StatelessWidget {
             );
           }
         },
-        child: const Icon(
-          FontAwesomeIcons.instagram,
-          color: AppColors.white,
-        ),
+        child: Icon(FontAwesomeIcons.instagram,
+            color: context.colorScheme.onPrimary),
       ),
     );
   }
 
-  SizedBox twitterButton() {
+  SizedBox twitterButton(BuildContext context) {
     return SizedBox(
       height: NumberEnum.forty.value,
       child: StandartCircleButton(
-        backgroundColor: AppColors.caribbeanGreen,
+        backgroundColor: context.colorScheme.secondary,
         onPressed: () {
           if (currentUser?.twitter?.isNotNullOrNoEmpty == true) {
             launchUrl(
@@ -277,10 +272,8 @@ class SocialAccountsWidget extends StatelessWidget {
             );
           }
         },
-        child: const Icon(
-          FontAwesomeIcons.twitter,
-          color: AppColors.white,
-        ),
+        child: Icon(FontAwesomeIcons.twitter,
+            color: context.colorScheme.onPrimary),
       ),
     );
   }

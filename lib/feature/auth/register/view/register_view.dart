@@ -4,7 +4,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/auth/register/viewmodel/register_viewmodel.dart';
 import 'package:sneepy/feature/home/view/home_view.dart';
-import 'package:sneepy/product/constants/colors.dart';
 import 'package:sneepy/product/constants/enums/gender.dart';
 import 'package:sneepy/product/constants/enums/number.dart';
 import 'package:sneepy/product/constants/strings.dart';
@@ -58,8 +57,8 @@ class _RegisterViewState extends State<RegisterView> {
                 Observer(builder: (_) {
                   return LinearProgressIndicator(
                     value: _vm.registerProgressValue,
-                    color: AppColors.ebonyClay,
-                    backgroundColor: AppColors.athensGray,
+                    color: context.colorScheme.surface,
+                    backgroundColor: context.colorScheme.background,
                   );
                 }),
                 context.emptySizedHeightBoxLow3x,
