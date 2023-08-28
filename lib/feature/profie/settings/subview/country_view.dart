@@ -49,7 +49,7 @@ class _CountryViewState extends State<CountryView> {
           StandartContainer(
             child: SelectCard(
               title: Observer(builder: (_) {
-                return vm.isLoading
+                return vm.loading.isLoading
                     ? const Align(
                         alignment: Alignment.centerLeft,
                         child: CircularProgressIndicator(),

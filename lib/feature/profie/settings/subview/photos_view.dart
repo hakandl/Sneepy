@@ -40,7 +40,7 @@ class _PhotosViewState extends State<PhotosView> {
         appBar: _appBar(),
         body: Observer(
           builder: (_) {
-            return _vm.isLoading
+            return _vm.loading.isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : Column(
                     children: [

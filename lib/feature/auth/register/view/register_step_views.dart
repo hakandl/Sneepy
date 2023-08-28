@@ -179,7 +179,7 @@ class RegisterStep4Section extends StatelessWidget {
                   borderRadius: context.normalBorderRadius,
                   color: AppColors.athensGray,
                 ),
-                child: vm.isLoading
+                child: vm.loading.isLoading
                     ? const Center(child: CircularProgressIndicator())
                     : vm.image != null
                         ? ClipRRect(

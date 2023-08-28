@@ -52,7 +52,7 @@ class _ProfileViewState extends State<ProfileView> {
         appBar: _appBar(context),
         body: Observer(
           builder: (_) {
-            return _vm.isLoading
+            return _vm.loading.isLoading
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )

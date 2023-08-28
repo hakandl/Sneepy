@@ -5,6 +5,7 @@ import 'package:sneepy/product/cache/hive_manager.dart';
 import 'package:sneepy/product/constants/strings.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
 import 'package:sneepy/product/models/response_model.dart';
+import 'package:sneepy/product/utils/loading.dart';
 import 'package:sneepy/product/widgets/input/standart_textfield.dart';
 import 'package:sneepy/product/init/product/firebase_settings.dart';
 
@@ -14,6 +15,8 @@ part 'login_viewmodel.g.dart';
 class LoginViewModel = _LoginViewModelBase with _$LoginViewModel;
 
 abstract class _LoginViewModelBase with Store {
+  final LoadingUtil loading = LoadingUtil();
+
   final firebaseSettings = FirebaseSettings();
   final fcmToken = HiveManager.get(key: BoxKeyNames.fcmToken.name);
 
@@ -26,14 +29,6 @@ abstract class _LoginViewModelBase with Store {
     obscureText: true,
   );
 
-  @observable
-  bool isLoading = false;
-
-  @action
-  void changeLoading() {
-    isLoading = !isLoading;
-  }
-
   Future<void> saveFcmToken() async {
     await firebaseSettings.saveFcmToken();
     await AuthService().updateMe(
@@ -42,12 +37,12 @@ abstract class _LoginViewModelBase with Store {
   }
 
   Future<ResponseModel> login() async {
-    changeLoading();
+    loading.changeLoading();
     final response = await AuthService().login(
       email: emailInput.controller.text,
       password: passwordInput.controller.text,
     );
-    changeLoading();
+    loading.changeLoading();
     if (response.success == true) {
       await HiveManager.save(
         key: BoxKeyNames.token.name,

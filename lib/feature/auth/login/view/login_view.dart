@@ -40,7 +40,7 @@ class LoginView extends StatelessWidget {
               Observer(builder: (_) {
                 return StandartTextButton(
                   text: LocaleKeys.auth_login_login.tr(),
-                  isLoading: _vm.isLoading,
+                  isLoading: _vm.loading.isLoading,
                   onPressed: () => _login(context),
                 );
               }),
@@ -98,7 +98,7 @@ class DontYouHaveAnAccountWidget extends StatelessWidget {
           ),
           onPressed: () {
             context.navigateToPage(
-              RegisterView(),
+              const RegisterView(),
             );
           },
         ),

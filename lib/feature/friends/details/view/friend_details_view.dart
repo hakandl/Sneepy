@@ -35,7 +35,7 @@ class _FriendDetailsViewState extends State<FriendDetailsView> {
         child: Padding(
           padding: context.paddingLow,
           child: Observer(builder: (_) {
-            return vm.isLoading
+            return vm.loading.isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : FriendCard(
                     user: vm.friendUser ?? UserModel(),

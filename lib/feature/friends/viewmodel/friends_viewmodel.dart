@@ -3,18 +3,13 @@ import 'package:sneepy/product/constants/enums/number.dart';
 import 'package:sneepy/product/models/user_model.dart';
 import 'package:sneepy/product/services/auth_service.dart';
 import 'package:sneepy/product/services/user_service.dart';
+import 'package:sneepy/product/utils/loading.dart';
 part 'friends_viewmodel.g.dart';
 
 class FriendsViewModel = _FriendsViewModelBase with _$FriendsViewModel;
 
 abstract class _FriendsViewModelBase with Store {
-  @observable
-  bool isLoading = false;
-
-  @action
-  void changeLoading() {
-    isLoading = !isLoading;
-  }
+  final LoadingUtil loading = LoadingUtil();
 
   UserModel? user;
 
@@ -22,17 +17,17 @@ abstract class _FriendsViewModelBase with Store {
   UserModel? friendUser;
 
   Future<void> getUser() async {
-    changeLoading();
+    loading.changeLoading();
     user = await AuthService().getMe();
-    changeLoading();
+    loading.changeLoading();
   }
 
   Future<void> getFriendUser({required String userId}) async {
-    changeLoading();
+    loading.changeLoading();
     friendUser = await UserService().getUser(
       userId: userId,
     );
-    changeLoading();
+    loading.changeLoading();
   }
 
   Future<void> deleteFriendRequest({required String userId}) async {

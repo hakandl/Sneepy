@@ -14,12 +14,15 @@ import 'package:sneepy/product/models/countries_model.dart';
 import 'package:sneepy/product/models/response_model.dart';
 import 'package:sneepy/product/services/auth_service.dart';
 import 'package:sneepy/product/services/countries_service.dart';
+import 'package:sneepy/product/utils/loading.dart';
 import 'package:sneepy/product/widgets/input/standart_textfield.dart';
 part 'register_viewmodel.g.dart';
 
 class RegisterViewModel = _RegisterViewModelBase with _$RegisterViewModel;
 
 abstract class _RegisterViewModelBase with Store {
+  final LoadingUtil loading = LoadingUtil();
+
   final double value = NumberEnum.zTwentyFive.value;
   String? userToken;
   String gender = Gender.none.name;
@@ -31,14 +34,6 @@ abstract class _RegisterViewModelBase with Store {
 
   @observable
   late double registerProgressValue = value;
-
-  @observable
-  bool isLoading = false;
-
-  @action
-  void changeLoading() {
-    isLoading = !isLoading;
-  }
 
   @action
   void nextRegisterInfo() {
@@ -112,11 +107,11 @@ abstract class _RegisterViewModelBase with Store {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      changeLoading();
+      loading.changeLoading();
       setImage(File(pickedFile.path));
       final response =
           await AuthService().addPhoto(file: File(pickedFile.path));
-      changeLoading();
+      loading.changeLoading();
       return response;
     }
     return ResponseModel();
@@ -131,14 +126,14 @@ abstract class _RegisterViewModelBase with Store {
   }
 
   Future<ResponseModel> register() async {
-    changeLoading();
+    loading.changeLoading();
     final response = await AuthService().register(
       name: nameInput.controller.text,
       email: emailInput.controller.text,
       password: passwordInput.controller.text,
       deviceToken: fcmToken ?? AppStrings.empty,
     );
-    changeLoading();
+    loading.changeLoading();
     if (response.success == true) {
       userToken = response.data['token'];
       await HiveManager.save(
@@ -150,7 +145,7 @@ abstract class _RegisterViewModelBase with Store {
   }
 
   Future<ResponseModel> update() async {
-    changeLoading();
+    loading.changeLoading();
     final response = await AuthService().updateMe(
       age: ageInput.controller.text,
       gender: genderInput.controller.text == LocaleKeys.auth_register_woman.tr()
@@ -161,7 +156,7 @@ abstract class _RegisterViewModelBase with Store {
       instagram: instagramInput.controller.text,
       twitter: twitterInput.controller.text,
     );
-    changeLoading();
+    loading.changeLoading();
     return response;
   }
 }

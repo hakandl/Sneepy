@@ -42,22 +42,6 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
     });
   }
 
-  late final _$isLoadingAtom =
-      Atom(name: '_RegisterViewModelBase.isLoading', context: context);
-
-  @override
-  bool get isLoading {
-    _$isLoadingAtom.reportRead();
-    return super.isLoading;
-  }
-
-  @override
-  set isLoading(bool value) {
-    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
-      super.isLoading = value;
-    });
-  }
-
   late final _$imageAtom =
       Atom(name: '_RegisterViewModelBase.image', context: context);
 
@@ -76,17 +60,6 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
 
   late final _$_RegisterViewModelBaseActionController =
       ActionController(name: '_RegisterViewModelBase', context: context);
-
-  @override
-  void changeLoading() {
-    final _$actionInfo = _$_RegisterViewModelBaseActionController.startAction(
-        name: '_RegisterViewModelBase.changeLoading');
-    try {
-      return super.changeLoading();
-    } finally {
-      _$_RegisterViewModelBaseActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   void nextRegisterInfo() {
@@ -126,7 +99,6 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
     return '''
 screenMode: ${screenMode},
 registerProgressValue: ${registerProgressValue},
-isLoading: ${isLoading},
 image: ${image}
     ''';
   }

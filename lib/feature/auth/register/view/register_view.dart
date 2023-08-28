@@ -96,8 +96,8 @@ class _RegisterViewState extends State<RegisterView> {
                     text: _vm.screenMode != NumberEnum.four.value
                         ? LocaleKeys.buttons_continue.tr()
                         : LocaleKeys.buttons_complete.tr(),
-                    isLoading: _vm.isLoading,
-                    onPressed: _vm.isLoading
+                    isLoading: _vm.loading.isLoading,
+                    onPressed: _vm.loading.isLoading
                         ? () {}
                         : () async {
                             if (_vm.screenMode == NumberEnum.one.value) {

@@ -44,7 +44,7 @@ class _FriendsViewState extends State<FriendsView> {
       appBar: _appBar(),
       body: Observer(
         builder: (_) {
-          return vm.isLoading
+          return vm.loading.isLoading
               ? const Center(child: CircularProgressIndicator())
               : RefreshIndicator(
                   onRefresh: getUser,

@@ -49,7 +49,7 @@ class _HomeViewState extends State<HomeView> {
           context.emptySizedHeightBoxLow,
           Observer(builder: (_) {
             return Expanded(
-              child: _vm.isLoading
+              child: _vm.loading.isLoading
                   ? const Center(child: CircularProgressIndicator())
                   : _vm.users.isNullOrEmpty
                       ? const NoUsersFound()
@@ -58,7 +58,7 @@ class _HomeViewState extends State<HomeView> {
           }),
           context.emptySizedHeightBoxLow,
           Observer(builder: (_) {
-            return _vm.isLoading
+            return _vm.loading.isLoading
                 ? const SizedBox.shrink()
                 : BottomButtons(vm: _vm, pageController: pageController);
           }),
@@ -74,7 +74,7 @@ class _HomeViewState extends State<HomeView> {
         titleSpacing: NumberEnum.zero.value,
         title: Observer(
           builder: (_) {
-            return _vm.isLoading
+            return _vm.loading.isLoading
                 ? const CircularProgressIndicator(
                     color: AppColors.white,
                   )
@@ -83,7 +83,7 @@ class _HomeViewState extends State<HomeView> {
                     children: [
                       Padding(
                         padding: context.onlyLeftPaddingNormal,
-                        child: _vm.isLoading
+                        child: _vm.loading.isLoading
                             ? const SizedBox.shrink()
                             : CircleAvatar(
                                 backgroundImage: CachedNetworkImageProvider(

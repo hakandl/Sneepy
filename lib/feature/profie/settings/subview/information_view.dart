@@ -41,7 +41,7 @@ class _InformationViewState extends State<InformationView> {
       appBar: _appBar(),
       body: Observer(
         builder: (_) {
-          return vm.isLoading
+          return vm.loading.isLoading
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
@@ -107,7 +107,7 @@ class PersonalInformationContainer extends StatelessWidget {
             Observer(builder: (_) {
               return StandartTextButton(
                 text: LocaleKeys.settings_updateInformation.tr(),
-                isLoading: vm.isLoading,
+                isLoading: vm.loading.isLoading,
                 onPressed: () async {
                   await update(context);
                 },

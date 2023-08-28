@@ -16,19 +16,14 @@ import 'package:sneepy/product/models/response_model.dart';
 import 'package:sneepy/product/models/user_model.dart';
 import 'package:sneepy/product/services/auth_service.dart';
 import 'package:sneepy/product/services/countries_service.dart';
+import 'package:sneepy/product/utils/loading.dart';
 import 'package:sneepy/product/widgets/input/standart_textfield.dart';
 part 'settings_viewmodel.g.dart';
 
 class SettingsViewModel = _SettingsViewModelBase with _$SettingsViewModel;
 
 abstract class _SettingsViewModelBase with Store {
-  @observable
-  bool isLoading = false;
-
-  @action
-  void changeLoading() {
-    isLoading = !isLoading;
-  }
+  final LoadingUtil loading = LoadingUtil();
 
   UserModel? me;
 
@@ -63,9 +58,9 @@ abstract class _SettingsViewModelBase with Store {
   );
 
   Future<void> getMe() async {
-    changeLoading();
+    loading.changeLoading();
     me = await AuthService().getMe();
-    changeLoading();
+    loading.changeLoading();
   }
 
   Future<void> deleteAccount() async {
@@ -73,7 +68,7 @@ abstract class _SettingsViewModelBase with Store {
   }
 
   Future<ResponseModel> updateInformation() async {
-    changeLoading();
+    loading.changeLoading();
     final response = await AuthService().updateMe(
       name: nameInput.controller.text,
       age: ageInput.controller.text,
@@ -81,35 +76,35 @@ abstract class _SettingsViewModelBase with Store {
           ? ServiceConstants.female
           : ServiceConstants.male,
     );
-    changeLoading();
+    loading.changeLoading();
     return response;
   }
 
   Future<ResponseModel> updateSocialAccounts() async {
-    changeLoading();
+    loading.changeLoading();
     final response = await AuthService().updateMe(
       snapchat: snapchatInput.controller.text,
       instagram: instagramInput.controller.text,
       twitter: twitterInput.controller.text,
     );
-    changeLoading();
+    loading.changeLoading();
     return response;
   }
 
   Future<ResponseModel> updateCountry(String country) async {
-    changeLoading();
+    loading.changeLoading();
     final response = await AuthService().updateMe(
       country: country,
     );
     me = await AuthService().getMe();
-    changeLoading();
+    loading.changeLoading();
     return response;
   }
 
   Future<void> getCountries() async {
-    changeLoading();
+    loading.changeLoading();
     countries = await CountriesService().getAllCountries();
-    changeLoading();
+    loading.changeLoading();
   }
 
   Future<void> selectAge(double value) async {
@@ -162,10 +157,10 @@ abstract class _SettingsViewModelBase with Store {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      changeLoading();
+      loading.changeLoading();
       final response =
           await AuthService().addPhoto(file: File(pickedFile.path));
-      changeLoading();
+      loading.changeLoading();
       await getMe();
       return response;
     }
@@ -178,12 +173,12 @@ abstract class _SettingsViewModelBase with Store {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      changeLoading();
+      loading.changeLoading();
       final response = await AuthService().updatePhoto(
         file: File(pickedFile.path),
         photoId: photoId,
       );
-      changeLoading();
+      loading.changeLoading();
       await getMe();
       return response;
     }
@@ -193,9 +188,9 @@ abstract class _SettingsViewModelBase with Store {
   Future<ResponseModel> deletePhoto({
     required String photoId,
   }) async {
-    changeLoading();
+    loading.changeLoading();
     final response = await AuthService().deletePhoto(photoId: photoId);
-    changeLoading();
+    loading.changeLoading();
     await getMe();
     return response;
   }
