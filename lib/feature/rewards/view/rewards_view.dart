@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kartal/kartal.dart';
+import 'package:sneepy/feature/home/view/home_view.dart';
 import 'package:sneepy/feature/rewards/viewmodel/rewards_viewmodel.dart';
 import 'package:sneepy/product/constants/enums/number.dart';
 import 'package:sneepy/product/constants/strings.dart';
-import 'package:sneepy/product/helpers/date.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
 import 'package:sneepy/product/widgets/card/select_card.dart';
 import 'package:sneepy/product/widgets/container/standart_container.dart';
@@ -34,34 +34,42 @@ class _RewardsViewState extends State<RewardsView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBar(),
-      body: Observer(
-        builder: (_) {
-          return vm.loading.isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Column(
-                  children: [
-                    context.emptySizedHeightBoxLow3x,
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            RewardsGiftContainer(vm: vm),
-                            context.emptySizedHeightBoxNormal,
-                            RewardedAdContainer(vm: vm),
-                            context.emptySizedHeightBoxNormal,
-                            PackagesContainer(vm: vm),
-                          ],
+    return WillPopScope(
+      onWillPop: () async {
+        context.navigateToPage(
+          const HomeView(),
+        );
+        return false;
+      },
+      child: Scaffold(
+        appBar: _appBar(),
+        body: Observer(
+          builder: (_) {
+            return vm.loading.isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Column(
+                    children: [
+                      context.emptySizedHeightBoxLow3x,
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              RewardsGiftContainer(vm: vm),
+                              context.emptySizedHeightBoxNormal,
+                              RewardedAdContainer(vm: vm),
+                              context.emptySizedHeightBoxNormal,
+                              PackagesContainer(vm: vm),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    context.emptySizedHeightBoxLow3x,
-                  ],
-                );
-        },
+                      context.emptySizedHeightBoxLow3x,
+                    ],
+                  );
+          },
+        ),
       ),
     );
   }
@@ -86,40 +94,22 @@ class RewardsGiftContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StandartContainer(
-      child: Column(
-        children: [
-          SelectCard(
-            title: TitleMediumText(
-              text: LocaleKeys.rewards_gift100Points.tr(),
-            ),
-            onTap: () async {
-              final response = await vm.addPoint();
-              if (response.success == true) {
-                Fluttertoast.showToast(
-                  msg: LocaleKeys.rewards_100GiftPointsAddedToYourAccount.tr(),
-                );
-              } else if (response.success == false) {
-                Fluttertoast.showToast(
-                  msg: response.message ?? AppStrings.empty,
-                );
-              }
-            },
-          ),
-          vm.me?.isFreePoint == false
-              ? Column(
-                  children: [
-                    context.emptySizedHeightBoxLow,
-                    Padding(
-                      padding: context.horizontalPaddingLow,
-                      child: TitleMediumText(
-                        text:
-                            '${LocaleKeys.rewards_youCannotReceiveNewGiftPointsBeforeThisDate.tr()} ${vm.me?.pointTimeToScore.convertDateString()}',
-                      ),
-                    ),
-                  ],
-                )
-              : const SizedBox.shrink()
-        ],
+      child: SelectCard(
+        title: TitleMediumText(
+          text: LocaleKeys.rewards_gift100Points.tr(),
+        ),
+        onTap: () async {
+          final response = await vm.addPoint();
+          if (response.success == true) {
+            Fluttertoast.showToast(
+              msg: LocaleKeys.rewards_100GiftPointsAddedToYourAccount.tr(),
+            );
+          } else if (response.success == false) {
+            Fluttertoast.showToast(
+              msg: response.message ?? AppStrings.empty,
+            );
+          }
+        },
       ),
     );
   }

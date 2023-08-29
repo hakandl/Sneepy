@@ -47,9 +47,7 @@ abstract class _RewardsViewModelBase with Store {
   }
 
   Future<ResponseModel> addPoint() async {
-    loading.changeLoading();
     final response = await UserService().addPoint();
-    loading.changeLoading();
     return response;
   }
 
