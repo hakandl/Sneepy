@@ -3,6 +3,7 @@ enum NumberEnum {
   zTwentyFive(0.25),
   zTwo(0.2),
   zThree(0.3),
+  zSeventyFive(0.75),
   one(1),
   oneFive(1.50),
   two(2),
