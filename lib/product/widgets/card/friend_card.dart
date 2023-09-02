@@ -63,9 +63,10 @@ class FriendCard extends StatelessWidget {
                     padding: context.paddingNormal,
                     child: Observer(builder: (_) {
                       return LinearProgressIndicator(
-                          value: _vm.progressValue,
-                          backgroundColor: Colors.black54,
-                          color: context.colorScheme.background);
+                        value: _vm.progressValue,
+                        backgroundColor: Colors.black54,
+                        color: context.colorScheme.background,
+                      );
                     }),
                   ),
             !user.photos.isNullOrEmpty
@@ -78,7 +79,7 @@ class FriendCard extends StatelessWidget {
                   )
                 : Center(
                     child: TitleLargeText(
-                      text: LocaleKeys.thereIsProblem.tr(),
+                      text: LocaleKeys.home_usersPhotoCouldNotBeUploaded.tr(),
                     ),
                   ),
           ],
