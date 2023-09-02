@@ -1,4 +1,4 @@
-package com.example.sneepy
+package com.hdev.sneepy
 
 import io.flutter.embedding.android.FlutterActivity
 
