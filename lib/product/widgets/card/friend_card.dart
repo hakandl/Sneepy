@@ -185,10 +185,15 @@ class UserInfoContainer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         HeadlineMediumText(
-            text: user.name ?? AppStrings.empty,
-            color: context.colorScheme.background),
+          text: user.name ?? AppStrings.empty,
+          color: context.colorScheme.background,
+          fontWeight: FontWeight.w500,
+        ),
         HeadlineSmallText(
-            text: user.age.toString(), color: context.colorScheme.background),
+          text: user.age.toString(),
+          color: context.colorScheme.background,
+          fontWeight: FontWeight.w500,
+        ),
       ],
     );
   }

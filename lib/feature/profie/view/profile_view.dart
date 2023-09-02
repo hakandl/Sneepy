@@ -160,7 +160,7 @@ class SomeInformationContainer extends StatelessWidget {
           ),
           context.emptySizedHeightBoxLow,
           StandartTextField(
-            text: vm.me?.age.toString(),
+            text: vm.me?.age.toString() ?? AppStrings.empty,
             prefix: const Icon(
               FontAwesomeIcons.arrowUp19,
             ),
