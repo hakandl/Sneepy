@@ -102,7 +102,7 @@ class RewardsGiftContainer extends StatelessWidget {
           final response = await vm.addPoint();
           if (response.success == true) {
             Fluttertoast.showToast(
-              msg: LocaleKeys.rewards_100GiftPointsAddedToYourAccount.tr(),
+              msg: response.message ?? AppStrings.empty,
             );
           } else if (response.success == false) {
             Fluttertoast.showToast(
