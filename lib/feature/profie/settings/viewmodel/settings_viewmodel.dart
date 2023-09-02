@@ -67,6 +67,10 @@ abstract class _SettingsViewModelBase with Store {
     await AuthService().deleteMe();
   }
 
+  Future<void> deleteToken() async {
+    await HiveManager.delete(key: BoxKeyNames.token.name);
+  }
+
   Future<ResponseModel> updateInformation() async {
     loading.changeLoading();
     final response = await AuthService().updateMe(

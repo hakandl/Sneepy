@@ -271,12 +271,15 @@ class LogOutContainer extends StatelessWidget {
     );
   }
 
-  void logOut(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => LoginView(),
-      ),
-    );
+  Future<void> logOut(BuildContext context) async {
+    await vm.deleteToken();
+    if (context.mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginView(),
+        ),
+      );
+    }
   }
 }
