@@ -10,6 +10,7 @@ enum NumberEnum {
   three(3),
   four(4),
   five(5),
+  six(6),
   nine(9),
   ten(10),
   sixteen(16),

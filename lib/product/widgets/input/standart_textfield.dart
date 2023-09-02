@@ -9,7 +9,8 @@ class StandartTextField extends StatelessWidget {
       this.suffix,
       this.prefix,
       this.enabled,
-      this.keyboardType});
+      this.keyboardType,
+      this.validator});
   final TextEditingController controller = TextEditingController();
   final String? text;
   final bool? obscureText;
@@ -17,33 +18,37 @@ class StandartTextField extends StatelessWidget {
   final Widget? prefix;
   final Widget? suffix;
   final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      obscureText: obscureText ?? false,
-      keyboardType: keyboardType,
-      textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        filled: true,
-        enabled: enabled ?? true,
-        // fillColor: AppColors.athensGray,
-        fillColor: context.colorScheme.background,
-        hintText: text,
-        prefixIcon: prefix,
-        suffixIcon: suffix,
-        border: OutlineInputBorder(
-          borderRadius: context.lowBorderRadius,
+    return Form(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      child: TextFormField(
+        validator: validator,
+        controller: controller,
+        obscureText: obscureText ?? false,
+        keyboardType: keyboardType,
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          filled: true,
+          enabled: enabled ?? true,
+          fillColor: context.colorScheme.background,
+          hintText: text,
+          prefixIcon: prefix,
+          suffixIcon: suffix,
+          border: OutlineInputBorder(
+            borderRadius: context.lowBorderRadius,
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: context.lowBorderRadius,
+          ),
+          hintStyle: TextStyle(
+            color: context.colorScheme.surface,
+            fontWeight: FontWeight.w400,
+          ),
+          contentPadding: context.horizontalPaddingNormal,
         ),
-        disabledBorder: OutlineInputBorder(
-          borderRadius: context.lowBorderRadius,
-        ),
-        hintStyle: TextStyle(
-          color: context.colorScheme.surface,
-          fontWeight: FontWeight.w400,
-        ),
-        contentPadding: context.horizontalPaddingNormal,
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kartal/kartal.dart';
 import 'package:mobx/mobx.dart';
 import 'package:sneepy/product/cache/hive_manager.dart';
 import 'package:sneepy/product/constants/enums/gender.dart';
@@ -38,15 +39,32 @@ abstract class _RegisterViewModelBase with Store {
   late double registerProgressValue = value;
 
   final nameInput = StandartTextField(
-    text: LocaleKeys.auth_register_name.tr(),
-  );
+      text: LocaleKeys.auth_register_name.tr(),
+      validator: (value) {
+        if ((value?.length ?? NumberEnum.zero.value) < NumberEnum.two.value) {
+          return LocaleKeys.auth_register_nameMustBeMinimumOf2Characters.tr();
+        }
+        return null;
+      });
   final emailInput = StandartTextField(
     text: LocaleKeys.auth_email.tr(),
     keyboardType: TextInputType.emailAddress,
+    validator: (value) {
+      if (!value.isValidEmail) {
+        return LocaleKeys.auth_register_pleaseEnterValidEmail.tr();
+      }
+      return null;
+    },
   );
   final passwordInput = StandartTextField(
     text: LocaleKeys.auth_password.tr(),
     obscureText: true,
+    validator: (value) {
+      if ((value?.length ?? NumberEnum.zero.value) < NumberEnum.six.value) {
+        return LocaleKeys.auth_register_passwordMustBeMinimumOf6Characters.tr();
+      }
+      return null;
+    },
   );
 
   final ageInput = StandartTextField(
@@ -156,8 +174,12 @@ abstract class _RegisterViewModelBase with Store {
 
   Future<ResponseModel> update() async {
     loading.changeLoading();
+    String age = ageInput.controller.text;
+    if (ageInput.controller.text.isEmpty) {
+      age = NumberEnum.eighteen.value.toString();
+    }
     final response = await AuthService().updateMe(
-      age: ageInput.controller.text,
+      age: age,
       gender: genderInput.controller.text == LocaleKeys.auth_register_woman.tr()
           ? ServiceConstants.female
           : ServiceConstants.male,
