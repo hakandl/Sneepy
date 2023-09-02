@@ -10,6 +10,7 @@ enum BoxKeyNames {
   age,
   gender,
   country,
+  locale,
 }
 
 class HiveManager {
@@ -26,5 +27,9 @@ class HiveManager {
 
   static String? get({required String key}) {
     return _box.get(key);
+  }
+
+  static Future<void> delete({required String key}) async {
+    await _box.delete(key);
   }
 }
