@@ -10,6 +10,7 @@ import 'package:sneepy/product/constants/enums/number.dart';
 import 'package:sneepy/product/constants/service.dart';
 import 'package:sneepy/product/constants/strings.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
+import 'package:sneepy/product/init/product/notification_init.dart';
 import 'package:sneepy/product/models/countries_model.dart';
 import 'package:sneepy/product/models/response_model.dart';
 import 'package:sneepy/product/services/auth_service.dart';
@@ -22,33 +23,19 @@ class RegisterViewModel = _RegisterViewModelBase with _$RegisterViewModel;
 
 abstract class _RegisterViewModelBase with Store {
   final LoadingUtil loading = LoadingUtil();
+  final NotificationInit notification = NotificationInit();
 
   final double value = NumberEnum.zTwentyFive.value;
   String? userToken;
   String gender = Gender.none.name;
   List<CountriesModel> countries = [];
-  final fcmToken = HiveManager.get(key: BoxKeyNames.fcmToken.name);
+  final deviceToken = HiveManager.get(key: BoxKeyNames.deviceToken.name);
 
   @observable
   int screenMode = NumberEnum.one.value.toInt();
 
   @observable
   late double registerProgressValue = value;
-
-  @action
-  void nextRegisterInfo() {
-    screenMode++;
-    registerProgressValue += value;
-    if (screenMode == NumberEnum.four.value) {
-      registerProgressValue = NumberEnum.one.value;
-    }
-  }
-
-  @action
-  void backRegisterInfo() {
-    screenMode--;
-    registerProgressValue -= value;
-  }
 
   final nameInput = StandartTextField(
     text: LocaleKeys.auth_register_name.tr(),
@@ -84,6 +71,25 @@ abstract class _RegisterViewModelBase with Store {
   final twitterInput = StandartTextField(
     text: LocaleKeys.auth_register_twitter.tr(),
   );
+
+  Future<void> init() async {
+    await allCountries();
+  }
+
+  @action
+  void nextRegisterInfo() {
+    screenMode++;
+    registerProgressValue += value;
+    if (screenMode == NumberEnum.four.value) {
+      registerProgressValue = NumberEnum.one.value;
+    }
+  }
+
+  @action
+  void backRegisterInfo() {
+    screenMode--;
+    registerProgressValue -= value;
+  }
 
   void selectGender() {
     if (gender == Gender.none.name || gender == Gender.male.name) {
@@ -125,21 +131,25 @@ abstract class _RegisterViewModelBase with Store {
     this.image = image;
   }
 
+  Future<void> saveToken(String value) async {
+    await HiveManager.save(
+      key: BoxKeyNames.token.name,
+      value: value,
+    );
+  }
+
   Future<ResponseModel> register() async {
     loading.changeLoading();
     final response = await AuthService().register(
       name: nameInput.controller.text,
       email: emailInput.controller.text,
       password: passwordInput.controller.text,
-      deviceToken: fcmToken ?? AppStrings.empty,
+      deviceToken: deviceToken ?? AppStrings.empty,
     );
     loading.changeLoading();
     if (response.success == true) {
       userToken = response.data['token'];
-      await HiveManager.save(
-        key: BoxKeyNames.token.name,
-        value: userToken ?? AppStrings.empty,
-      );
+      await saveToken(userToken ?? AppStrings.empty);
     }
     return response;
   }

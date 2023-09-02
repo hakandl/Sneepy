@@ -30,11 +30,7 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   void initState() {
     super.initState();
-    getCountries();
-  }
-
-  Future<void> getCountries() async {
-    await _vm.allCountries();
+    _vm.init();
   }
 
   @override

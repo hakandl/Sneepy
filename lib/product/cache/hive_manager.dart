@@ -6,7 +6,7 @@ enum BoxNames {
 
 enum BoxKeyNames {
   token,
-  fcmToken,
+  deviceToken,
   age,
   gender,
   country,

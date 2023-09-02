@@ -4,10 +4,10 @@ import 'package:mobx/mobx.dart';
 import 'package:sneepy/product/cache/hive_manager.dart';
 import 'package:sneepy/product/constants/strings.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
+import 'package:sneepy/product/init/product/notification_init.dart';
 import 'package:sneepy/product/models/response_model.dart';
 import 'package:sneepy/product/utils/loading.dart';
 import 'package:sneepy/product/widgets/input/standart_textfield.dart';
-import 'package:sneepy/product/init/product/firebase_settings.dart';
 
 import '../../../../product/services/auth_service.dart';
 part 'login_viewmodel.g.dart';
@@ -17,8 +17,8 @@ class LoginViewModel = _LoginViewModelBase with _$LoginViewModel;
 abstract class _LoginViewModelBase with Store {
   final LoadingUtil loading = LoadingUtil();
 
-  final firebaseSettings = FirebaseSettings();
-  final fcmToken = HiveManager.get(key: BoxKeyNames.fcmToken.name);
+  final notificationInit = NotificationInit();
+  final deviceToken = HiveManager.get(key: BoxKeyNames.deviceToken.name);
 
   final emailInput = StandartTextField(
     text: LocaleKeys.auth_email.tr(),
@@ -29,10 +29,17 @@ abstract class _LoginViewModelBase with Store {
     obscureText: true,
   );
 
-  Future<void> saveFcmToken() async {
-    await firebaseSettings.saveFcmToken();
+  Future<void> saveDeviceToken() async {
+    await notificationInit.saveDeviceToken();
     await AuthService().updateMe(
-      deviceToken: fcmToken ?? AppStrings.empty,
+      deviceToken: deviceToken ?? AppStrings.empty,
+    );
+  }
+
+  Future<void> saveToken(String value) async {
+    await HiveManager.save(
+      key: BoxKeyNames.token.name,
+      value: value,
     );
   }
 
@@ -44,12 +51,9 @@ abstract class _LoginViewModelBase with Store {
     );
     loading.changeLoading();
     if (response.success == true) {
-      await HiveManager.save(
-        key: BoxKeyNames.token.name,
-        value: response.data,
-      );
+      await saveToken(response.data);
     }
-    await saveFcmToken();
+    await saveDeviceToken();
     return response;
   }
 }
