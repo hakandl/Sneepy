@@ -11,6 +11,7 @@ class SneepyTheme {
       useMaterial3: true,
       colorScheme: _colorScheme,
       scaffoldBackgroundColor: sneepyThemeColors.background,
+      bottomSheetTheme: _bottomSheetTheme,
       appBarTheme: _appBar(context),
     );
   }
@@ -29,19 +30,24 @@ class SneepyTheme {
         onSurface: sneepyThemeColors.ebonyClay,
       );
 
+  BottomSheetThemeData get _bottomSheetTheme => BottomSheetThemeData(
+        backgroundColor: sneepyThemeColors.white,
+      );
+
   AppBarTheme _appBar(BuildContext context) {
     return AppBarTheme(
-        centerTitle: true,
-        backgroundColor: sneepyThemeColors.blueRibbon,
-        scrolledUnderElevation: NumberEnum.ten.value,
-        iconTheme: IconThemeData(
-          color: sneepyThemeColors.white,
-        ),
-        actionsIconTheme: IconThemeData(
-          color: sneepyThemeColors.white,
-        ),
-        titleTextStyle: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: sneepyThemeColors.white,
-            ));
+      centerTitle: true,
+      backgroundColor: sneepyThemeColors.blueRibbon,
+      scrolledUnderElevation: NumberEnum.ten.value,
+      iconTheme: IconThemeData(
+        color: sneepyThemeColors.white,
+      ),
+      actionsIconTheme: IconThemeData(
+        color: sneepyThemeColors.white,
+      ),
+      titleTextStyle: Theme.of(context).textTheme.titleLarge?.copyWith(
+            color: sneepyThemeColors.white,
+          ),
+    );
   }
 }
