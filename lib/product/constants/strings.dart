@@ -25,4 +25,6 @@ class AppStrings {
   static const String sneepyLogo = 'assets/images/sneepy-logo.png';
   static const String userNotPhoto =
       'https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=';
+  static const String sneepyPrivacyPolicy =
+      'https://docs.google.com/document/d/1J7lNyihiushMa-2DryLgflLcmZ26EbMj67mkF54IRdo/edit';
 }

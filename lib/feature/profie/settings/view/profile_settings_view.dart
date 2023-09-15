@@ -10,11 +10,15 @@ import 'package:sneepy/feature/profie/settings/subview/search_preferences_view.d
 import 'package:sneepy/feature/profie/settings/subview/social_accounts_view.dart';
 import 'package:sneepy/feature/profie/settings/viewmodel/settings_viewmodel.dart';
 import 'package:sneepy/feature/profie/view/profile_view.dart';
+import 'package:sneepy/product/constants/enums/number.dart';
+import 'package:sneepy/product/constants/strings.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
+import 'package:sneepy/product/init/string/string.dart';
 import 'package:sneepy/product/widgets/card/select_card.dart';
 import 'package:sneepy/product/widgets/container/standart_container.dart';
 import 'package:sneepy/product/widgets/dialog/standart_dialog.dart';
 import 'package:sneepy/product/widgets/text/title_medium_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileSettingsView extends StatelessWidget {
   const ProfileSettingsView({super.key});
@@ -43,11 +47,13 @@ class ProfileSettingsView extends StatelessWidget {
                     context.emptySizedHeightBoxNormal,
                     const SneepyLanguagesContainer(),
                     context.emptySizedHeightBoxNormal,
+                    const SneepyPrivacyPolicyContainer(),
+                    context.emptySizedHeightBoxNormal,
                     const SneepyInformationContainer(),
                     context.emptySizedHeightBoxNormal,
-                    DeleteAccountContainer(),
-                    context.emptySizedHeightBoxNormal,
                     LogOutContainer(),
+                    context.emptySizedHeightBoxNormal,
+                    DeleteAccountContainer(),
                   ],
                 ),
               ),
@@ -135,7 +141,9 @@ class SearchPreferencesContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return StandartContainer(
       child: SelectCard(
-        title: Text(LocaleKeys.settings_searchPreferences.tr()),
+        title: TitleMediumText(
+          text: LocaleKeys.settings_searchPreferences.tr(),
+        ),
         onTap: () => context.navigateToPage(
           const SearchPreferences(),
         ),
@@ -168,6 +176,32 @@ class SneepyLanguagesContainer extends StatelessWidget {
   }
 }
 
+class SneepyPrivacyPolicyContainer extends StatelessWidget {
+  const SneepyPrivacyPolicyContainer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return StandartContainer(
+      child: Column(
+        children: [
+          SelectCard(
+              title: TitleMediumText(
+                text: LocaleKeys.settings_privacyPolicy.tr(),
+              ),
+              onTap: () {
+                launchUrl(
+                  Uri.parse(AppStrings.sneepyPrivacyPolicy),
+                  mode: LaunchMode.externalApplication,
+                );
+              }),
+        ],
+      ),
+    );
+  }
+}
+
 class SneepyInformationContainer extends StatelessWidget {
   const SneepyInformationContainer({
     super.key,
@@ -182,11 +216,71 @@ class SneepyInformationContainer extends StatelessWidget {
             title: TitleMediumText(
               text: LocaleKeys.settings_licenses.tr(),
             ),
-            onTap: () => showLicensePage(context: context),
+            onTap: () {
+              context.navigateToPage(
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    cardColor: context.colorScheme.onBackground,
+                  ),
+                  child: LicensePage(
+                    applicationVersion: SneepyStringsInit.APP_VERSION,
+                    applicationIcon: Padding(
+                      padding: context.paddingNormal,
+                      child: Image.asset(
+                        AppStrings.sneepyLogo,
+                        height: NumberEnum.sixtyFour.value,
+                      ),
+                    ),
+                    applicationName: SneepyStringsInit.APP_NAME,
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
     );
+  }
+}
+
+class LogOutContainer extends StatelessWidget {
+  LogOutContainer({
+    super.key,
+  });
+
+  final SettingsViewModel vm = SettingsViewModel();
+
+  @override
+  Widget build(BuildContext context) {
+    return StandartContainer(
+      child: Column(
+        children: [
+          SelectCard(
+              title: TitleMediumText(
+                text: LocaleKeys.buttons_logout.tr(),
+                color: context.colorScheme.error,
+              ),
+              trailing: const Icon(
+                Icons.arrow_forward_outlined,
+              ),
+              onTap: () {
+                logOut(context);
+              }),
+        ],
+      ),
+    );
+  }
+
+  Future<void> logOut(BuildContext context) async {
+    await vm.deleteToken();
+    if (context.mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginView(),
+        ),
+      );
+    }
   }
 }
 
@@ -232,47 +326,6 @@ class DeleteAccountContainer extends StatelessWidget {
 
   Future<void> deleteAccountAndGoToLoginView(BuildContext context) async {
     await vm.deleteAccount();
-    if (context.mounted) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginView(),
-        ),
-      );
-    }
-  }
-}
-
-class LogOutContainer extends StatelessWidget {
-  LogOutContainer({
-    super.key,
-  });
-
-  final SettingsViewModel vm = SettingsViewModel();
-
-  @override
-  Widget build(BuildContext context) {
-    return StandartContainer(
-      child: Column(
-        children: [
-          SelectCard(
-              title: TitleMediumText(
-                text: LocaleKeys.buttons_logout.tr(),
-                color: context.colorScheme.error,
-              ),
-              trailing: const Icon(
-                Icons.arrow_forward_outlined,
-              ),
-              onTap: () {
-                logOut(context);
-              }),
-        ],
-      ),
-    );
-  }
-
-  Future<void> logOut(BuildContext context) async {
-    await vm.deleteToken();
     if (context.mounted) {
       Navigator.pushReplacement(
         context,
