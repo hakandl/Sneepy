@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:sneepy/feature/friends/view/friends_view.dart';
 import 'package:sneepy/feature/home/viewmodel/home_viewmodel.dart';
 import 'package:sneepy/feature/profie/view/profile_view.dart';
@@ -31,6 +32,9 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _vm.firstShowCase(context);
+    });
     getData();
   }
 
@@ -52,14 +56,23 @@ class _HomeViewState extends State<HomeView> {
                   ? const Center(child: CircularProgressIndicator())
                   : _vm.users.isNullOrEmpty
                       ? const NoUsersFound()
-                      : UserCard(vm: _vm, pageController: pageController),
+                      : UserCard(
+                          vm: _vm,
+                          pageController: pageController,
+                          userCard: _vm.userCardKey,
+                        ),
             );
           }),
           context.emptySizedHeightBoxLow,
           Observer(builder: (_) {
             return _vm.loading.isLoading
                 ? const SizedBox.shrink()
-                : BottomButtons(vm: _vm, pageController: pageController);
+                : BottomButtons(
+                    vm: _vm,
+                    pageController: pageController,
+                    skipFriendRequest: _vm.skipFriendRequestKey,
+                    sendFriendRequest: _vm.sendFriendRequestKey,
+                  );
           }),
           context.emptySizedHeightBoxLow,
         ],
@@ -84,58 +97,81 @@ class _HomeViewState extends State<HomeView> {
                         padding: context.onlyLeftPaddingNormal,
                         child: _vm.loading.isLoading
                             ? const SizedBox.shrink()
-                            : CircleAvatar(
-                                backgroundImage: CachedNetworkImageProvider(
-                                  _vm.me?.photos?.firstOrNull?.photo ??
-                                      AppStrings.userNotPhoto,
-                                ),
-                                child: InkWell(
-                                  borderRadius: context.normalBorderRadius,
-                                  onTap: () {
-                                    context.navigateToPage(
-                                      const ProfileView(),
-                                    );
-                                  },
+                            : Showcase(
+                                key: _vm.profileKey,
+                                description: LocaleKeys
+                                    .home_youCanReachYourProfileHere
+                                    .tr(),
+                                targetShapeBorder: const CircleBorder(),
+                                targetPadding: context.paddingLow,
+                                child: CircleAvatar(
+                                  backgroundImage: CachedNetworkImageProvider(
+                                    _vm.me?.photos?.firstOrNull?.photo ??
+                                        AppStrings.userNotPhoto,
+                                  ),
+                                  child: InkWell(
+                                    borderRadius: context.normalBorderRadius,
+                                    onTap: () {
+                                      context.navigateToPage(
+                                        const ProfileView(),
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                       ),
-                      InkWell(
-                        borderRadius: context.normalBorderRadius,
-                        child: Stack(
-                          children: [
-                            Container(
-                              alignment: Alignment.center,
-                              padding: context.paddingLow,
-                              margin: context.horizontalPaddingLow,
-                              decoration: BoxDecoration(
-                                color: context.colorScheme.background,
-                                borderRadius: context.normalBorderRadius,
+                      Showcase(
+                        key: _vm.pointKey,
+                        description:
+                            LocaleKeys.home_clickHereNowToEarnMorePoints.tr(),
+                        targetBorderRadius: context.highBorderRadius,
+                        targetPadding: context.verticalPaddingLow,
+                        child: InkWell(
+                          borderRadius: context.normalBorderRadius,
+                          child: Stack(
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                padding: context.paddingLow,
+                                margin: context.horizontalPaddingLow,
+                                decoration: BoxDecoration(
+                                  color: context.colorScheme.background,
+                                  borderRadius: context.normalBorderRadius,
+                                ),
+                                width:
+                                    context.dynamicWidth(NumberEnum.zTwo.value),
+                                child: TitleMediumText(
+                                  text: _vm.me?.point.toString() ??
+                                      AppStrings.empty,
+                                ),
                               ),
-                              width:
-                                  context.dynamicWidth(NumberEnum.zTwo.value),
-                              child: TitleMediumText(
-                                text: _vm.me?.point.toString() ??
-                                    AppStrings.empty,
-                              ),
-                            ),
-                            _vm.me?.isFreePoint == true
-                                ? Positioned(
-                                    top: NumberEnum.zero.value,
-                                    right: NumberEnum.zero.value,
-                                    child: CircleAvatar(
-                                      radius: NumberEnum.ten.value,
-                                      backgroundColor:
-                                          context.colorScheme.secondary,
-                                    ),
-                                  )
-                                : const SizedBox.shrink(),
-                          ],
+                              _vm.me?.isFreePoint == true
+                                  ? Positioned(
+                                      top: NumberEnum.zero.value,
+                                      right: NumberEnum.zero.value,
+                                      child: CircleAvatar(
+                                        radius: NumberEnum.ten.value,
+                                        backgroundColor:
+                                            context.colorScheme.secondary,
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
+                            ],
+                          ),
+                          onTap: () =>
+                              context.navigateToPage(const RewardsView()),
                         ),
-                        onTap: () =>
-                            context.navigateToPage(const RewardsView()),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.group_outlined),
+                        icon: Showcase(
+                          key: _vm.friendRequestKey,
+                          description: LocaleKeys
+                              .home_youCanSeeYourFriendRequestsHere
+                              .tr(),
+                          targetShapeBorder: const CircleBorder(),
+                          targetPadding: context.paddingLow,
+                          child: const Icon(Icons.group_outlined),
+                        ),
                         onPressed: () {
                           context.navigateToPage(
                             const FriendsView(),
@@ -167,10 +203,12 @@ class UserCard extends StatelessWidget {
     super.key,
     required HomeViewModel vm,
     required this.pageController,
+    required this.userCard,
   }) : _vm = vm;
 
   final HomeViewModel _vm;
   final PageController pageController;
+  final GlobalKey userCard;
 
   @override
   Widget build(BuildContext context) {
@@ -182,8 +220,16 @@ class UserCard extends StatelessWidget {
         _vm.currentUser = _vm.users[index];
         return Padding(
           padding: context.horizontalPaddingLow,
-          child: FriendCard(
-            user: _vm.currentUser ?? UserModel(),
+          child: Showcase(
+            key: userCard,
+            description: LocaleKeys
+                .home_youCanSeeOtherPhotosIfAvailableBySwipingRightAndLeftOrClickingOnThem
+                .tr(),
+            targetBorderRadius: context.normalBorderRadius,
+            targetPadding: context.paddingLow,
+            child: FriendCard(
+              user: _vm.currentUser ?? UserModel(),
+            ),
           ),
         );
       },
@@ -196,10 +242,14 @@ class BottomButtons extends StatelessWidget {
     super.key,
     required HomeViewModel vm,
     required this.pageController,
+    required this.skipFriendRequest,
+    required this.sendFriendRequest,
   }) : _vm = vm;
 
   final HomeViewModel _vm;
   final PageController pageController;
+  final GlobalKey skipFriendRequest;
+  final GlobalKey sendFriendRequest;
 
   @override
   Widget build(BuildContext context) {
@@ -225,10 +275,16 @@ class BottomButtons extends StatelessWidget {
                 }
               }
             },
-            child: Icon(
-              Icons.cancel_outlined,
-              size: NumberEnum.thirty.value,
-              color: context.colorScheme.onPrimary,
+            child: Showcase(
+              key: skipFriendRequest,
+              description: LocaleKeys.home_youCanUseThisButtonToPassUser.tr(),
+              targetShapeBorder: const CircleBorder(),
+              targetPadding: context.paddingNormal,
+              child: Icon(
+                Icons.cancel_outlined,
+                size: NumberEnum.thirty.value,
+                color: context.colorScheme.onPrimary,
+              ),
             ),
           ),
         ),
@@ -253,10 +309,17 @@ class BottomButtons extends StatelessWidget {
                 }
               }
             },
-            child: Icon(
-              Icons.verified_outlined,
-              size: NumberEnum.thirty.value,
-              color: context.colorScheme.onPrimary,
+            child: Showcase(
+              key: sendFriendRequest,
+              description:
+                  LocaleKeys.home_youCanUseThisButtonToSendRequestToUser.tr(),
+              targetShapeBorder: const CircleBorder(),
+              targetPadding: context.paddingNormal,
+              child: Icon(
+                Icons.verified_outlined,
+                size: NumberEnum.thirty.value,
+                color: context.colorScheme.onPrimary,
+              ),
             ),
           ),
         )

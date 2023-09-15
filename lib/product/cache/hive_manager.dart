@@ -11,6 +11,7 @@ enum BoxKeyNames {
   gender,
   country,
   locale,
+  showcase,
 }
 
 class HiveManager {
@@ -21,15 +22,16 @@ class HiveManager {
     _box = await Hive.openBox(boxName);
   }
 
-  static Future<void> save({required String key, required String value}) async {
+  static Future<void> save(
+      {required dynamic key, required dynamic value}) async {
     await _box.put(key, value);
   }
 
-  static String? get({required String key}) {
+  static dynamic get({required dynamic key}) {
     return _box.get(key);
   }
 
-  static Future<void> delete({required String key}) async {
+  static Future<void> delete({required dynamic key}) async {
     await _box.delete(key);
   }
 }

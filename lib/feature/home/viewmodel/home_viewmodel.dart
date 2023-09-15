@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:showcaseview/showcaseview.dart';
+import 'package:sneepy/product/cache/hive_manager.dart';
 import 'package:sneepy/product/constants/enums/number.dart';
 import 'package:sneepy/product/models/response_model.dart';
 import 'package:sneepy/product/models/user_model.dart';
@@ -13,12 +15,37 @@ class HomeViewModel = _HomeViewModelBase with _$HomeViewModel;
 abstract class _HomeViewModelBase with Store {
   final LoadingUtil loading = LoadingUtil();
 
+  final GlobalKey profileKey = GlobalKey();
+  final GlobalKey pointKey = GlobalKey();
+  final GlobalKey friendRequestKey = GlobalKey();
+  final GlobalKey userCardKey = GlobalKey();
+  final GlobalKey skipFriendRequestKey = GlobalKey();
+  final GlobalKey sendFriendRequestKey = GlobalKey();
+
   @observable
   UserModel? me;
 
   List<UserModel> users = [];
 
   UserModel? currentUser;
+
+  Future<void> firstShowCase(BuildContext context) async {
+    bool isFirstLaunch =
+        HiveManager.get(key: BoxKeyNames.showcase.name) ?? true;
+    if (isFirstLaunch == true) {
+      ShowCaseWidget.of(context).startShowCase([
+        profileKey,
+        pointKey,
+        friendRequestKey,
+        userCardKey,
+        skipFriendRequestKey,
+        sendFriendRequestKey,
+      ]);
+      await HiveManager.save(key: BoxKeyNames.showcase.name, value: false);
+    } else {
+      ShowCaseWidget.of(context).dismiss();
+    }
+  }
 
   @observable
   double progressValue = NumberEnum.zThree.value;
