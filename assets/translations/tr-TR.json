@@ -18,6 +18,9 @@
       "dontYouHaveAnAccount": "Hesabın yok mu?"
     },
     "register": {
+      "nameMustBeMinimumOf2Characters": "Ad minimum 2 karakter olmalıdır.",
+      "pleaseEnterValidEmail": "Lütfen geçerli bir e-posta giriniz.",
+      "passwordMustBeMinimumOf6Characters": "Şifre minimum 6 karakter olmalıdır.",
       "youMustEnterThisRequiredInformationToRegister": "Kayıt olmak için bu gerekli bilgileri girmelisin.",
       "nowLetsContinueWithSomeOfYourPersonalInformation": "Şimdi de bazı kişisel bilgilerin ile devam edelim.",
       "enterTheUsernameOfTheSocialMediaAccountsYouWantToShare": "Paylaşmak istediğin sosyal medya hesaplarının kullanıcı adını gir.",
@@ -35,7 +38,14 @@
     }
   },
   "home": {
-    "noUsersFound": "Hiçbir kullanıcı bulunamadı."
+    "noUsersFound": "Hiçbir kullanıcı bulunamadı.",
+    "usersPhotoCouldNotBeUploaded": "Kullanıcının fotoğrafı yüklenemedi.",
+    "youCanReachYourProfileHere": "Profiline buradan ulaşabilirsin.",
+    "clickHereNowToEarnMorePoints": "Daha fazla puan kazanmak için hemen buraya tıkla.",
+    "youCanSeeYourFriendRequestsHere": "Arkadaşlık isteklerini buradan görebilirsin.",
+    "youCanSeeOtherPhotosIfAvailableBySwipingRightAndLeftOrClickingOnThem": "Sağ ve sola kaydırarak veya tıklayarak varsa diğer fotoğrafları görebilirsin.",
+    "youCanUseThisButtonToPassUser": "Bir kullanıcıyı geçmek için bu butonu kullanabilirsin.",
+    "youCanUseThisButtonToSendRequestToUser": "Bir kullanıcıya istek göndermek için bu butonu kullanabilirsin."
   },
   "profile": {
     "profile": "Profil",
@@ -61,7 +71,8 @@
     "updateUsernames": "Kullanıcı Adlarını Güncelle",
     "updatePhotos": "Fotoğrafları Güncelle",
     "deleteAccount": "Hesabı Sil",
-    "areYouSureYouWantToDeleteYourAccount": "Hesabını silmek istediğine emin misin?"
+    "areYouSureYouWantToDeleteYourAccount": "Hesabını silmek istediğine emin misin?",
+    "privacyPolicy": "Gizlilik Politikası"
   },
   "languages": {
     "turkish": "Türkçe",
@@ -69,5 +80,19 @@
     "russian": "Rusça",
     "german": "Almanca"
   },
-  "thereIsProblem": "Bir sorun var."
+  "rewards": {
+    "rewards": "Ödüller",
+    "gift100Points": "Hediye 100 Puan",
+    "paidPoints": "Ücretli Puanlar",
+    "youCannotReceiveNewGiftPointsBeforeThisDate": "Şu tarihden önce yeni hediye puan alamazsın:",
+    "100GiftPointsAddedToYourAccount": "Hesabına 100 hediye puan eklendi!",
+    "paymentSuccessfulPointsAddedToYourAccount": "Ödeme başarılı, hesabına puan eklendi.",
+    "paymentFailed": "Ödeme başarısız oldu.",
+    "watchAnAdAndGet100PointsForFree": "Bir reklam izle ve hediye 100 puan kazan!",
+    "thereWasAnErrorLoadingTheAd": "Reklam yüklenirken bir hata oluştu."
+  },
+  "successful": "Başarılı",
+  "thereIsProblem": "Bir sorun var.",
+  "noInternetConnection": "İnternet Bağlantısı Yok.",
+  "pleaseCheckYourInternetConnection": "Lütfen internet bağlantınızı kontrol edin."
 }

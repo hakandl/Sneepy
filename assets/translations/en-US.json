@@ -18,6 +18,9 @@
       "dontYouHaveAnAccount": "Don't you have an account?"
     },
     "register": {
+      "nameMustBeMinimumOf2Characters": "The name must be a minimum of 2 characters.",
+      "pleaseEnterValidEmail": "Please enter a valid email.",
+      "passwordMustBeMinimumOf6Characters": "The password must be a minimum of 6 characters.",
       "youMustEnterThisRequiredInformationToRegister": "You must enter this required information to register.",
       "nowLetsContinueWithSomeOfYourPersonalInformation": "Now let's continue with some of your personal information.",
       "enterTheUsernameOfTheSocialMediaAccountsYouWantToShare": "Enter the username of the social media accounts you want to share.",
@@ -35,7 +38,14 @@
     }
   },
   "home": {
-    "noUsersFound": "No users found."
+    "noUsersFound": "No users found.",
+    "usersPhotoCouldNotBeUploaded": "User's photo could not be uploaded.",
+    "youCanReachYourProfileHere": "You can reach your profile here.",
+    "clickHereNowToEarnMorePoints": "Click here now to earn more points.",
+    "youCanSeeYourFriendRequestsHere": "You can see your friend requests here.",
+    "youCanSeeOtherPhotosIfAvailableBySwipingRightAndLeftOrClickingOnThem": "You can see other photos if available by swiping right and left or clicking on them.",
+    "youCanUseThisButtonToPassUser": "You can use this button to pass a user.",
+    "youCanUseThisButtonToSendRequestToUser": "You can use this button to send a request to a user."
   },
   "profile": {
     "profile": "Profile",
@@ -61,7 +71,8 @@
     "updateUsernames": "Update Usernames",
     "updatePhotos": "Update Photos",
     "deleteAccount": "Delete Account",
-    "areYouSureYouWantToDeleteYourAccount": "Are you sure you want to delete your account?"
+    "areYouSureYouWantToDeleteYourAccount": "Are you sure you want to delete your account?",
+    "privacyPolicy": "Privacy Policy"
   },
   "languages": {
     "turkish": "Turkish",
@@ -69,5 +80,19 @@
     "russian": "Russian",
     "german": "German"
   },
-  "thereIsProblem": "There's a problem."
+  "rewards": {
+    "rewards": "Rewards",
+    "gift100Points": "Gift 100 Points",
+    "paidPoints": "Paid Points",
+    "youCannotReceiveNewGiftPointsBeforeThisDate": "You cannot receive new gift points before this date:",
+    "100GiftPointsAddedToYourAccount": "100 gift points added to your account!",
+    "paymentSuccessfulPointsAddedToYourAccount": "Payment successful, points added to your account.",
+    "paymentFailed": "The payment failed.",
+    "watchAnAdAndGet100PointsForFree": "Watch an ad and get 100 points for free!",
+    "thereWasAnErrorLoadingTheAd": "There was an error loading the ad."
+  },
+  "successful": "Successful",
+  "thereIsProblem": "There's a problem.",
+  "noInternetConnection": "No Internet Connection.",
+  "pleaseCheckYourInternetConnection": "Please check your internet connection."
 }

@@ -1,0 +1,98 @@
+{
+  "buttons": {
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "register": "Registrieren",
+    "complete": "Abschließen",
+    "continue": "Weiter",
+    "update": "Aktualisieren",
+    "accept": "Akzeptieren",
+    "delete": "Löschen",
+    "gotIt": "Verstanden"
+  },
+  "auth": {
+    "email": "E-Mail",
+    "password": "Passwort",
+    "login": {
+      "login": "Anmelden",
+      "dontYouHaveAnAccount": "Haben Sie noch keinen Account?"
+    },
+    "register": {
+      "nameMustBeMinimumOf2Characters": "Der Name muss mindestens 2 Zeichen lang sein.",
+      "pleaseEnterValidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      "passwordMustBeMinimumOf6Characters": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+      "youMustEnterThisRequiredInformationToRegister": "Sie müssen diese erforderlichen Informationen zur Registrierung eingeben.",
+      "nowLetsContinueWithSomeOfYourPersonalInformation": "Lassen Sie uns jetzt mit einigen Ihrer persönlichen Informationen fortfahren.",
+      "enterTheUsernameOfTheSocialMediaAccountsYouWantToShare": "Geben Sie den Benutzernamen der sozialen Medien ein, die Sie teilen möchten.",
+      "finallyLetsAddPhoto": "Zuletzt fügen wir ein Foto hinzu.",
+      "name": "Name",
+      "age": "Alter",
+      "gender": "Geschlecht",
+      "woman": "Weiblich",
+      "man": "Männlich",
+      "country": "Land",
+      "snapchat": "Snapchat",
+      "instagram": "Instagram",
+      "twitter": "Twitter",
+      "toRegisterYouNeedToUploadPhotoToYourProfile": "Um sich zu registrieren, müssen Sie ein Foto in Ihr Profil hochladen."
+    }
+  },
+  "home": {
+    "noUsersFound": "Keine Benutzer gefunden.",
+    "usersPhotoCouldNotBeUploaded": "Das Foto des Benutzers konnte nicht hochgeladen werden.",
+    "youCanReachYourProfileHere": "Sie können Ihr Profil hier erreichen.",
+    "clickHereNowToEarnMorePoints": "Klicken Sie jetzt hier, um mehr Punkte zu sammeln.",
+    "youCanSeeYourFriendRequestsHere": "Du kannst deine Freundschaftsanfragen hier sehen.",
+    "youCanSeeOtherPhotosIfAvailableBySwipingRightAndLeftOrClickingOnThem": "Sie können andere Fotos sehen, indem Sie nach rechts und links streichen oder auf sie klicken.",
+    "youCanUseThisButtonToPassUser": "Sie können diese Schaltfläche verwenden, um einen Benutzer zu übergeben.",
+    "youCanUseThisButtonToSendRequestToUser": "Mit dieser Schaltfläche können Sie eine Anfrage an einen Benutzer senden."
+  },
+  "profile": {
+    "profile": "Profil",
+    "someInformation": "Einige Informationen",
+    "socialAccounts": "Soziale Konten"
+  },
+  "friendRequest": {
+    "friendRequests": "Freundschaftsanfragen",
+    "thereAreNoFriendRequests": "Es gibt keine Freundschaftsanfragen.",
+    "usersSnapchatAccountNotFound": "Snapchat-Konto des Benutzers nicht gefunden.",
+    "usersInstagramAccountNotFound": "Instagram-Konto des Benutzers nicht gefunden.",
+    "usersTwitterAccountNotFound": "Twitter-Konto des Benutzers nicht gefunden."
+  },
+  "settings": {
+    "settings": "Einstellungen",
+    "personalInformation": "Persönliche Informationen",
+    "usernames": "Benutzernamen",
+    "photos": "Fotos",
+    "searchPreferences": "Sucheinstellungen",
+    "language": "Sprache",
+    "licenses": "Lizenzen",
+    "updateInformation": "Informationen aktualisieren",
+    "updateUsernames": "Benutzernamen aktualisieren",
+    "updatePhotos": "Fotos aktualisieren",
+    "deleteAccount": "Konto löschen",
+    "areYouSureYouWantToDeleteYourAccount": "Sind Sie sicher, dass Sie Ihr Konto löschen möchten?",
+    "privacyPolicy": "Datenschutzbestimmungen"
+  },
+  "languages": {
+    "turkish": "Türkisch",
+    "english": "Englisch",
+    "russian": "Russisch",
+    "german": "Deutsch"
+  },
+  "rewards": {
+    "rewards": "Belohnungen",
+    "gift100Points": "Geschenk 100 Punkte",
+    "paidPoints": "Bezahlte Punkte",
+    "youCannotReceiveNewGiftPointsBeforeThisDate": "Sie können keine neuen Geschenkpunkte vor diesem Datum erhalten:",
+    "100GiftPointsAddedToYourAccount": "100 Geschenkpunkte wurden Ihrem Konto hinzugefügt!",
+    "paymentSuccessfulPointsAddedToYourAccount": "Zahlung erfolgreich, Punkte wurden Ihrem Konto hinzugefügt.",
+    "paymentFailed": "Die Zahlung ist fehlgeschlagen.",
+    "watchAnAdAndGet100PointsForFree": "Sehen Sie sich eine Anzeige an und erhalten Sie 100 Punkte kostenlos!",
+    "thereWasAnErrorLoadingTheAd": "Beim Laden der Anzeige ist ein Fehler aufgetreten."
+  },
+  "successful": "Erfolgreich",
+  "thereIsProblem": "Es gibt ein Problem.",
+  "noInternetConnection": "Keine Internetverbindung.",
+  "pleaseCheckYourInternetConnection": "Bitte überprüfen Sie Ihre Internetverbindung."
+}

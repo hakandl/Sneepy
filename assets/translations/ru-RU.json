@@ -1,0 +1,98 @@
+{
+  "buttons": {
+    "login": "Войти",
+    "logout": "Выйти",
+    "register": "Зарегистрироваться",
+    "complete": "Завершить",
+    "continue": "Продолжить",
+    "update": "Обновить",
+    "accept": "Принять",
+    "delete": "Удалить",
+    "gotIt": "Понял"
+  },
+  "auth": {
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "login": {
+      "login": "Войти",
+      "dontYouHaveAnAccount": "У вас еще нет аккаунта?"
+    },
+    "register": {
+      "nameMustBeMinimumOf2Characters": "Имя должно содержать не менее 2 символов.",
+      "pleaseEnterValidEmail": "Пожалуйста, введите действительный адрес электронной почты.",
+      "passwordMustBeMinimumOf6Characters": "Пароль должен содержать не менее 6 символов.",
+      "youMustEnterThisRequiredInformationToRegister": "Вы должны ввести эту обязательную информацию для регистрации.",
+      "nowLetsContinueWithSomeOfYourPersonalInformation": "Теперь продолжим с некоторой информацией о вас.",
+      "enterTheUsernameOfTheSocialMediaAccountsYouWantToShare": "Введите имя пользователя социальных сетей, которые вы хотите поделиться.",
+      "finallyLetsAddPhoto": "Наконец, добавьте фотографию.",
+      "name": "Имя",
+      "age": "Возраст",
+      "gender": "Пол",
+      "woman": "Женский",
+      "man": "Мужской",
+      "country": "Страна",
+      "snapchat": "Snapchat",
+      "instagram": "Instagram",
+      "twitter": "Twitter",
+      "toRegisterYouNeedToUploadPhotoToYourProfile": "Для регистрации вам нужно загрузить фото в свой профиль."
+    }
+  },
+  "home": {
+    "noUsersFound": "Пользователи не найдены.",
+    "usersPhotoCouldNotBeUploaded": "Фотография пользователя не может быть загружена.",
+    "youCanReachYourProfileHere": "Свой профиль вы можете найти здесь.",
+    "clickHereNowToEarnMorePoints": "Нажмите здесь, чтобы заработать больше баллов.",
+    "youCanSeeYourFriendRequestsHere": "Здесь вы можете посмотреть свои запросы в друзья.",
+    "youCanSeeOtherPhotosIfAvailableBySwipingRightAndLeftOrClickingOnThem": "Другие фотографии, если они есть, можно просмотреть, проведя пальцем вправо и влево или щелкнув на них.",
+    "youCanUseThisButtonToPassUser": "С помощью этой кнопки можно передать пользователю.",
+    "youCanUseThisButtonToSendRequestToUser": "С помощью этой кнопки можно отправить запрос пользователю."
+  },
+  "profile": {
+    "profile": "Профиль",
+    "someInformation": "Некоторая информация",
+    "socialAccounts": "Социальные аккаунты"
+  },
+  "friendRequest": {
+    "friendRequests": "Запросы в друзья",
+    "thereAreNoFriendRequests": "Запросов в друзья нет.",
+    "usersSnapchatAccountNotFound": "Аккаунт Snapchat пользователя не найден.",
+    "usersInstagramAccountNotFound": "Аккаунт Instagram пользователя не найден.",
+    "usersTwitterAccountNotFound": "Аккаунт Twitter пользователя не найден."
+  },
+  "settings": {
+    "settings": "Настройки",
+    "personalInformation": "Личная информация",
+    "usernames": "Имена пользователей",
+    "photos": "Фотографии",
+    "searchPreferences": "Настройки поиска",
+    "language": "Язык",
+    "licenses": "Лицензии",
+    "updateInformation": "Обновить информацию",
+    "updateUsernames": "Обновить имена пользователей",
+    "updatePhotos": "Обновить фотографии",
+    "deleteAccount": "Удалить аккаунт",
+    "areYouSureYouWantToDeleteYourAccount": "Вы уверены, что хотите удалить свой аккаунт?",
+    "privacyPolicy": "Политика конфиденциальности"
+  },
+  "languages": {
+    "turkish": "Турецкий",
+    "english": "Английский",
+    "russian": "Русский",
+    "german": "Немецкий"
+  },
+  "rewards": {
+    "rewards": "Награды",
+    "gift100Points": "Подарок - 100 баллов",
+    "paidPoints": "Платные баллы",
+    "youCannotReceiveNewGiftPointsBeforeThisDate": "Вы не можете получить новые бонусные баллы до этой даты:",
+    "100GiftPointsAddedToYourAccount": "100 бонусных баллов добавлены на ваш счет!",
+    "paymentSuccessfulPointsAddedToYourAccount": "Оплата прошла успешно, баллы добавлены на ваш счет.",
+    "paymentFailed": "Платеж не удался.",
+    "watchAnAdAndGet100PointsForFree": "Посмотрите рекламу и получите 100 бонусных баллов бесплатно!",
+    "thereWasAnErrorLoadingTheAd": "При загрузке рекламы произошла ошибка."
+  },
+  "successful": "Успешно",
+  "thereIsProblem": "Есть проблема.",
+  "noInternetConnection": "Нет подключения к Интернету.",
+  "pleaseCheckYourInternetConnection": "Проверьте, пожалуйста, подключение к Интернету."
+}
