@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sneepy/product/constants/enums/number.dart';
 
 class SelectCard extends StatelessWidget {
   const SelectCard({
@@ -21,7 +22,11 @@ class SelectCard extends StatelessWidget {
       leading: leading,
       title: title,
       subtitle: subtitle,
-      trailing: trailing ?? const Icon(Icons.arrow_forward_outlined),
+      trailing: trailing ??
+          Icon(
+            Icons.arrow_forward_outlined,
+            size: NumberEnum.eighteen.value,
+          ),
       onTap: onTap,
     );
   }
