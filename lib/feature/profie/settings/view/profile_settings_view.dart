@@ -41,19 +41,11 @@ class ProfileSettingsView extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    const PersonalInformationContainer(),
+                    const GeneralInformationContainer(),
                     context.emptySizedHeightBoxNormal,
-                    const SearchPreferencesContainer(),
+                    const SneepyPrivacyPolicyAndLicensesContainer(),
                     context.emptySizedHeightBoxNormal,
-                    const SneepyLanguagesContainer(),
-                    context.emptySizedHeightBoxNormal,
-                    const SneepyPrivacyPolicyContainer(),
-                    context.emptySizedHeightBoxNormal,
-                    const SneepyInformationContainer(),
-                    context.emptySizedHeightBoxNormal,
-                    LogOutContainer(),
-                    context.emptySizedHeightBoxNormal,
-                    DeleteAccountContainer(),
+                    LogOutAndDeleteAccountContainer(),
                   ],
                 ),
               ),
@@ -81,8 +73,8 @@ class ProfileSettingsView extends StatelessWidget {
   }
 }
 
-class PersonalInformationContainer extends StatelessWidget {
-  const PersonalInformationContainer({
+class GeneralInformationContainer extends StatelessWidget {
+  const GeneralInformationContainer({
     super.key,
   });
 
@@ -126,42 +118,16 @@ class PersonalInformationContainer extends StatelessWidget {
               const CountryView(),
             ),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class SearchPreferencesContainer extends StatelessWidget {
-  const SearchPreferencesContainer({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return StandartContainer(
-      child: SelectCard(
-        title: TitleMediumText(
-          text: LocaleKeys.settings_searchPreferences.tr(),
-        ),
-        onTap: () => context.navigateToPage(
-          const SearchPreferences(),
-        ),
-      ),
-    );
-  }
-}
-
-class SneepyLanguagesContainer extends StatelessWidget {
-  const SneepyLanguagesContainer({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return StandartContainer(
-      child: Column(
-        children: [
+          const Divider(),
+          SelectCard(
+            title: TitleMediumText(
+              text: LocaleKeys.settings_searchPreferences.tr(),
+            ),
+            onTap: () => context.navigateToPage(
+              const SearchPreferences(),
+            ),
+          ),
+          const Divider(),
           SelectCard(
             title: TitleMediumText(
               text: LocaleKeys.settings_language.tr(),
@@ -176,8 +142,8 @@ class SneepyLanguagesContainer extends StatelessWidget {
   }
 }
 
-class SneepyPrivacyPolicyContainer extends StatelessWidget {
-  const SneepyPrivacyPolicyContainer({
+class SneepyPrivacyPolicyAndLicensesContainer extends StatelessWidget {
+  const SneepyPrivacyPolicyAndLicensesContainer({
     super.key,
   });
 
@@ -187,31 +153,17 @@ class SneepyPrivacyPolicyContainer extends StatelessWidget {
       child: Column(
         children: [
           SelectCard(
-              title: TitleMediumText(
-                text: LocaleKeys.settings_privacyPolicy.tr(),
-              ),
-              onTap: () {
-                launchUrl(
-                  Uri.parse(AppStrings.sneepyPrivacyPolicy),
-                  mode: LaunchMode.externalApplication,
-                );
-              }),
-        ],
-      ),
-    );
-  }
-}
-
-class SneepyInformationContainer extends StatelessWidget {
-  const SneepyInformationContainer({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return StandartContainer(
-      child: Column(
-        children: [
+            title: TitleMediumText(
+              text: LocaleKeys.settings_privacyPolicy.tr(),
+            ),
+            onTap: () {
+              launchUrl(
+                Uri.parse(AppStrings.sneepyPrivacyPolicy),
+                mode: LaunchMode.externalApplication,
+              );
+            },
+          ),
+          const Divider(),
           SelectCard(
             title: TitleMediumText(
               text: LocaleKeys.settings_licenses.tr(),
@@ -243,8 +195,8 @@ class SneepyInformationContainer extends StatelessWidget {
   }
 }
 
-class LogOutContainer extends StatelessWidget {
-  LogOutContainer({
+class LogOutAndDeleteAccountContainer extends StatelessWidget {
+  LogOutAndDeleteAccountContainer({
     super.key,
   });
 
@@ -256,16 +208,41 @@ class LogOutContainer extends StatelessWidget {
       child: Column(
         children: [
           SelectCard(
-              title: TitleMediumText(
-                text: LocaleKeys.buttons_logout.tr(),
-                color: context.colorScheme.error,
-              ),
-              trailing: const Icon(
-                Icons.arrow_forward_outlined,
-              ),
-              onTap: () {
-                logOut(context);
-              }),
+            title: TitleMediumText(
+              text: LocaleKeys.buttons_logout.tr(),
+              color: context.colorScheme.error,
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_outlined,
+            ),
+            onTap: () {
+              logOut(context);
+            },
+          ),
+          const Divider(),
+          SelectCard(
+            title: TitleMediumText(
+              text: LocaleKeys.settings_deleteAccount.tr(),
+              color: context.colorScheme.error,
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_outlined,
+            ),
+            onTap: () {
+              showStandartDialog(
+                context,
+                title: LocaleKeys.settings_deleteAccount.tr(),
+                content: Text(
+                  LocaleKeys.settings_areYouSureYouWantToDeleteYourAccount.tr(),
+                ),
+                buttonText: LocaleKeys.buttons_accept.tr(),
+                buttonColor: context.colorScheme.error,
+                onPressed: () async {
+                  await deleteAccountAndGoToLoginView(context);
+                },
+              );
+            },
+          ),
         ],
       ),
     );
@@ -281,47 +258,6 @@ class LogOutContainer extends StatelessWidget {
         ),
       );
     }
-  }
-}
-
-class DeleteAccountContainer extends StatelessWidget {
-  DeleteAccountContainer({
-    super.key,
-  });
-
-  final SettingsViewModel vm = SettingsViewModel();
-
-  @override
-  Widget build(BuildContext context) {
-    return StandartContainer(
-      child: Column(
-        children: [
-          SelectCard(
-              title: TitleMediumText(
-                text: LocaleKeys.settings_deleteAccount.tr(),
-                color: context.colorScheme.error,
-              ),
-              trailing: const Icon(
-                Icons.arrow_forward_outlined,
-              ),
-              onTap: () {
-                showStandartDialog(
-                  context,
-                  title: LocaleKeys.settings_deleteAccount.tr(),
-                  content: Text(
-                    LocaleKeys.settings_areYouSureYouWantToDeleteYourAccount
-                        .tr(),
-                  ),
-                  buttonText: LocaleKeys.buttons_accept.tr(),
-                  buttonColor: context.colorScheme.error,
-                  onPressed: () async {
-                    await deleteAccountAndGoToLoginView(context);
-                  },
-                );
-              }),
-        ],
-      ),
-    );
   }
 
   Future<void> deleteAccountAndGoToLoginView(BuildContext context) async {
