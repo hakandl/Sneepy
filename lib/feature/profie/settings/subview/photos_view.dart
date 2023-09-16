@@ -10,6 +10,7 @@ import 'package:sneepy/product/init/language/locale_keys.g.dart';
 import 'package:sneepy/product/widgets/card/select_card.dart';
 import 'package:sneepy/product/widgets/container/standart_container.dart';
 import 'package:sneepy/product/widgets/dialog/standart_dialog.dart';
+import 'package:sneepy/product/widgets/modal/standart_modal_bottom_sheet.dart';
 import 'package:sneepy/product/widgets/text/title_medium_text.dart';
 
 class PhotosView extends StatefulWidget {
@@ -78,6 +79,7 @@ class _PhotosViewState extends State<PhotosView> {
                     updateOrDeletePhotoModalBottomSheet(
                       context,
                       index,
+                      isOnlyUpdate: index == NumberEnum.zero.value,
                     );
                   }
                 : () async {
@@ -127,47 +129,40 @@ class _PhotosViewState extends State<PhotosView> {
     );
   }
 
-  void updateOrDeletePhotoModalBottomSheet(BuildContext context, int index) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              height: NumberEnum.five.value,
-              width: NumberEnum.sixtyFour.value,
-              margin: context.verticalPaddingNormal,
-              decoration: BoxDecoration(
-                color: context.colorScheme.background,
-                borderRadius: context.highBorderRadius,
-              ),
+  void updateOrDeletePhotoModalBottomSheet(BuildContext context, int index,
+      {bool? isOnlyUpdate}) {
+    showStandartModalBottomSheet(
+      context,
+      isDynamicHeight: true,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SelectCard(
+            title: TitleMediumText(
+              text: LocaleKeys.buttons_update.tr(),
             ),
-            SelectCard(
-              title: TitleMediumText(
-                text: LocaleKeys.buttons_update.tr(),
-              ),
-              onTap: () async {
-                await updatePhoto(
-                  index,
-                  context,
-                );
-              },
-            ),
-            SelectCard(
-              title: TitleMediumText(
-                text: LocaleKeys.buttons_delete.tr(),
-              ),
-              onTap: () async {
-                await deletePhoto(
-                  index,
-                  context,
-                );
-              },
-            ),
-          ],
-        );
-      },
+            onTap: () async {
+              await updatePhoto(
+                index,
+                context,
+              );
+            },
+          ),
+          isOnlyUpdate == true
+              ? const SizedBox.shrink()
+              : SelectCard(
+                  title: TitleMediumText(
+                    text: LocaleKeys.buttons_delete.tr(),
+                  ),
+                  onTap: () async {
+                    await deletePhoto(
+                      index,
+                      context,
+                    );
+                  },
+                ),
+        ],
+      ),
     );
   }
 
@@ -187,6 +182,7 @@ class _PhotosViewState extends State<PhotosView> {
   }
 
   Future<void> updatePhoto(int index, BuildContext context) async {
+    context.pop();
     final response = await _vm.updatePhoto(
       photoId: _vm.me?.photos?[index].id ?? AppStrings.empty,
     );
@@ -204,6 +200,7 @@ class _PhotosViewState extends State<PhotosView> {
   }
 
   Future<void> deletePhoto(int index, BuildContext context) async {
+    context.pop();
     final response = await _vm.deletePhoto(
       photoId: _vm.me?.photos?[index].id ?? AppStrings.empty,
     );
