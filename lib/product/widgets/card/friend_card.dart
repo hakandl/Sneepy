@@ -126,25 +126,38 @@ class FriendCard extends StatelessWidget {
 }
 
 class UserPhoto extends StatelessWidget {
-  const UserPhoto({
+  UserPhoto({
     super.key,
     required this.currentUser,
   });
 
   final Photos? currentUser;
 
+  final zoomTransformationController = TransformationController();
+
+  void resetZoom() {
+    zoomTransformationController.value = Matrix4.identity();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: currentUser?.photo ?? AppStrings.empty,
-      placeholder: (context, url) => const Center(
-        child: CircularProgressIndicator(),
+    return InteractiveViewer(
+      transformationController: zoomTransformationController,
+      maxScale: NumberEnum.tenThousand.value,
+      onInteractionEnd: (ScaleEndDetails details) {
+        resetZoom();
+      },
+      child: CachedNetworkImage(
+        imageUrl: currentUser?.photo ?? AppStrings.empty,
+        placeholder: (context, url) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+        errorWidget: (context, url, error) => Icon(
+          Icons.error,
+          size: NumberEnum.sixty.value,
+        ),
+        fit: BoxFit.cover,
       ),
-      errorWidget: (context, url, error) => Icon(
-        Icons.error,
-        size: NumberEnum.sixty.value,
-      ),
-      fit: BoxFit.cover,
     );
   }
 }
