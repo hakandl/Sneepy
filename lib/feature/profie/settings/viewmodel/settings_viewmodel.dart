@@ -31,7 +31,9 @@ abstract class _SettingsViewModelBase with Store {
 
   List<CountriesModel> countries = [];
 
-  String gender = Gender.none.name;
+  late String gender = me?.gender == ServiceConstants.female
+      ? Gender.female.name
+      : Gender.male.name;
 
   @observable
   double ageValue = NumberEnum.eighteen.value;
