@@ -41,6 +41,7 @@ dependencies:
   # Image
   image_picker: ^0.8.7+5
   cached_network_image: ^3.2.3
+  image_cropper: ^4.0.1
 
   # Utitilities
   kartal: ^2.8.0
