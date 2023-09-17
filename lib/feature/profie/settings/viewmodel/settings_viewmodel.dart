@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
 import 'package:sneepy/product/cache/hive_manager.dart';
@@ -162,11 +163,18 @@ abstract class _SettingsViewModelBase with Store {
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       loading.changeLoading();
-      final response =
-          await AuthService().addPhoto(file: File(pickedFile.path));
+      final croppedFile = await ImageCropper().cropImage(
+        sourcePath: pickedFile.path,
+      );
+      if (croppedFile != null) {
+        final response = await AuthService().addPhoto(
+          file: File(croppedFile.path),
+        );
+        loading.changeLoading();
+        await getMe();
+        return response;
+      }
       loading.changeLoading();
-      await getMe();
-      return response;
     }
     return ResponseModel();
   }
@@ -178,13 +186,19 @@ abstract class _SettingsViewModelBase with Store {
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       loading.changeLoading();
-      final response = await AuthService().updatePhoto(
-        file: File(pickedFile.path),
-        photoId: photoId,
+      final croppedFile = await ImageCropper().cropImage(
+        sourcePath: pickedFile.path,
       );
+      if (croppedFile != null) {
+        final response = await AuthService().updatePhoto(
+          file: File(croppedFile.path),
+          photoId: photoId,
+        );
+        loading.changeLoading();
+        await getMe();
+        return response;
+      }
       loading.changeLoading();
-      await getMe();
-      return response;
     }
     return ResponseModel();
   }

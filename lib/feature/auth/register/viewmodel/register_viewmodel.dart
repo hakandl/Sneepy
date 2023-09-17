@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mobx/mobx.dart';
@@ -132,11 +133,19 @@ abstract class _RegisterViewModelBase with Store {
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       loading.changeLoading();
-      setImage(File(pickedFile.path));
-      final response =
-          await AuthService().addPhoto(file: File(pickedFile.path));
+      final croppedFile =
+          await ImageCropper().cropImage(sourcePath: pickedFile.path);
+      if (croppedFile != null) {
+        setImage(
+          File(croppedFile.path),
+        );
+        final response = await AuthService().addPhoto(
+          file: File(croppedFile.path),
+        );
+        loading.changeLoading();
+        return response;
+      }
       loading.changeLoading();
-      return response;
     }
     return ResponseModel();
   }
