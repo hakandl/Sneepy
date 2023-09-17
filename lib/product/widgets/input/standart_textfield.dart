@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kartal/kartal.dart';
 
 class StandartTextField extends StatelessWidget {
@@ -10,7 +11,8 @@ class StandartTextField extends StatelessWidget {
       this.prefix,
       this.enabled,
       this.keyboardType,
-      this.validator});
+      this.validator,
+      this.inputFormatters});
   final TextEditingController controller = TextEditingController();
   final String? text;
   final bool? obscureText;
@@ -18,6 +20,7 @@ class StandartTextField extends StatelessWidget {
   final Widget? prefix;
   final Widget? suffix;
   final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
 
   @override
@@ -30,6 +33,7 @@ class StandartTextField extends StatelessWidget {
         obscureText: obscureText ?? false,
         keyboardType: keyboardType,
         textInputAction: TextInputAction.next,
+        inputFormatters: inputFormatters,
         decoration: InputDecoration(
           filled: true,
           enabled: enabled ?? true,

@@ -71,6 +71,7 @@ abstract class _RegisterViewModelBase with Store {
   final ageInput = StandartTextField(
     text: LocaleKeys.auth_register_age.tr(),
     keyboardType: TextInputType.number,
+    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
   );
   final genderInput = StandartTextField(
     text: LocaleKeys.auth_register_gender.tr(),
