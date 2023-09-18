@@ -18,6 +18,7 @@ class SneepyThemeColors {
   final Color blueRibbon = const Color(0xFF1D5EF4);
   final Color persimmon = const Color(0xFFFF5555);
   final Color caribbeanGreen = const Color(0xFF02DAA7);
+  final Color yellowSea = const Color(0xFFFFB000);
 
   final Brightness brightnessLight = Brightness.light;
   final SystemUiOverlayStyle systemOverlayStyle = SystemUiOverlayStyle.light;

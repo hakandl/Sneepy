@@ -23,7 +23,7 @@ class SneepyTheme {
         secondary: sneepyThemeColors.caribbeanGreen,
         onSecondary: sneepyThemeColors.caribbeanGreen,
         error: sneepyThemeColors.persimmon,
-        onError: sneepyThemeColors.persimmon,
+        onError: sneepyThemeColors.yellowSea,
         background: sneepyThemeColors.athensGray,
         onBackground: sneepyThemeColors.background,
         surface: sneepyThemeColors.ebonyClay,
