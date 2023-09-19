@@ -60,15 +60,18 @@ class _FriendsViewState extends State<FriendsView> {
                               NumberEnum.zero.value.toInt(),
                           itemBuilder: (BuildContext context, int index) {
                             final currentUser = vm.user?.friendRequests?[index];
+                            Color? tileColor;
+                            if (currentUser?.sentType ==
+                                NumberEnum.three.value) {
+                              tileColor = context.colorScheme.onError;
+                            } else if (index % NumberEnum.two.value ==
+                                NumberEnum.one.value) {
+                              tileColor = context.colorScheme.onBackground;
+                            } else {
+                              tileColor = context.colorScheme.onPrimary;
+                            }
                             return ListTile(
-                              tileColor:
-                                  /* currentUser?.sentType == NumberEnum.two.value
-                                      ? AppColors.blueRibbon
-                                      :  */
-                                  index % NumberEnum.two.value ==
-                                          NumberEnum.one.value
-                                      ? context.colorScheme.onBackground
-                                      : context.colorScheme.onPrimary,
+                              tileColor: tileColor,
                               contentPadding: EdgeInsets.symmetric(
                                 vertical: context.verticalPaddingLow.vertical,
                                 horizontal:
@@ -87,15 +90,17 @@ class _FriendsViewState extends State<FriendsView> {
                                   text: currentUser?.name ?? AppStrings.empty,
                                 ),
                               ),
-                              subtitle:
-                                  currentUser?.sentType == NumberEnum.one.value
-                                      ? UserAcceptOrDeleteWidget(
-                                          vm: vm,
-                                          currentUser: currentUser,
-                                        )
-                                      : SocialAccountsWidget(
-                                          currentUser: currentUser,
-                                        ),
+                              subtitle: currentUser?.sentType ==
+                                          NumberEnum.one.value ||
+                                      currentUser?.sentType ==
+                                          NumberEnum.three.value
+                                  ? UserAcceptOrDeleteWidget(
+                                      vm: vm,
+                                      currentUser: currentUser,
+                                    )
+                                  : SocialAccountsWidget(
+                                      currentUser: currentUser,
+                                    ),
                               onTap: () {
                                 goToFriendDetailsView(context, currentUser);
                               },
