@@ -18,6 +18,9 @@ import 'package:sneepy/product/widgets/dialog/standart_dialog.dart';
 import 'package:sneepy/product/widgets/text/title_large_text.dart';
 import 'package:sneepy/product/widgets/text/title_medium_text.dart';
 
+part './module/bottom_buttons.dart';
+part './module/user_card.dart';
+
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
@@ -72,6 +75,7 @@ class _HomeViewState extends State<HomeView> {
                     pageController: pageController,
                     skipFriendRequest: _vm.skipFriendRequestKey,
                     sendFriendRequest: _vm.sendFriendRequestKey,
+                    sendStarFriendRequest: _vm.sendStarFriendRequestKey,
                   );
           }),
           context.emptySizedHeightBoxLow,
@@ -93,95 +97,112 @@ class _HomeViewState extends State<HomeView> {
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: context.onlyLeftPaddingNormal,
-                        child: _vm.loading.isLoading
-                            ? const SizedBox.shrink()
-                            : Showcase(
-                                key: _vm.profileKey,
-                                description: LocaleKeys
-                                    .home_youCanReachYourProfileHere
-                                    .tr(),
-                                targetShapeBorder: const CircleBorder(),
-                                targetPadding: context.paddingLow,
-                                child: CircleAvatar(
-                                  backgroundImage: CachedNetworkImageProvider(
-                                    _vm.me?.photos?.firstOrNull?.photo ??
-                                        AppStrings.userNotPhoto,
-                                  ),
-                                  child: InkWell(
-                                    borderRadius: context.normalBorderRadius,
-                                    onTap: () {
-                                      context.navigateToPage(
-                                        const ProfileView(),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                      ),
-                      Showcase(
-                        key: _vm.pointKey,
-                        description:
-                            LocaleKeys.home_clickHereNowToEarnMorePoints.tr(),
-                        targetBorderRadius: context.highBorderRadius,
-                        targetPadding: context.verticalPaddingLow,
-                        child: InkWell(
-                          borderRadius: context.normalBorderRadius,
-                          child: Stack(
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                padding: context.paddingLow,
-                                margin: context.horizontalPaddingLow,
-                                decoration: BoxDecoration(
-                                  color: context.colorScheme.background,
-                                  borderRadius: context.normalBorderRadius,
-                                ),
-                                width:
-                                    context.dynamicWidth(NumberEnum.zTwo.value),
-                                child: TitleMediumText(
-                                  text: _vm.me?.point.toString() ??
-                                      AppStrings.empty,
-                                ),
-                              ),
-                              _vm.me?.isFreePoint == true
-                                  ? Positioned(
-                                      top: NumberEnum.zero.value,
-                                      right: NumberEnum.zero.value,
-                                      child: CircleAvatar(
-                                        radius: NumberEnum.ten.value,
-                                        backgroundColor:
-                                            context.colorScheme.secondary,
-                                      ),
-                                    )
-                                  : const SizedBox.shrink(),
-                            ],
-                          ),
-                          onTap: () =>
-                              context.navigateToPage(const RewardsView()),
-                        ),
-                      ),
-                      IconButton(
-                        icon: Showcase(
-                          key: _vm.friendRequestKey,
-                          description: LocaleKeys
-                              .home_youCanSeeYourFriendRequestsHere
-                              .tr(),
-                          targetShapeBorder: const CircleBorder(),
-                          targetPadding: context.paddingLow,
-                          child: const Icon(Icons.group_outlined),
-                        ),
-                        onPressed: () {
-                          context.navigateToPage(
-                            const FriendsView(),
-                          );
-                        },
-                      ),
+                      appBarProfile(context),
+                      appBarPoint(context),
+                      appBarFriendsViewButton(context),
                     ],
                   );
           },
         ));
+  }
+
+  Padding appBarProfile(BuildContext context) {
+    return Padding(
+      padding: context.onlyLeftPaddingNormal,
+      child: _vm.loading.isLoading
+          ? const SizedBox.shrink()
+          : Showcase(
+              key: _vm.profileKey,
+              description: LocaleKeys.home_youCanReachYourProfileHere.tr(),
+              targetShapeBorder: const CircleBorder(),
+              targetPadding: context.paddingLow,
+              child: CircleAvatar(
+                backgroundImage: CachedNetworkImageProvider(
+                  _vm.me?.photos?.firstOrNull?.photo ?? AppStrings.userNotPhoto,
+                ),
+                child: InkWell(
+                  borderRadius: context.normalBorderRadius,
+                  onTap: () {
+                    context.navigateToPage(
+                      const ProfileView(),
+                    );
+                  },
+                ),
+              ),
+            ),
+    );
+  }
+
+  Showcase appBarPoint(BuildContext context) {
+    return Showcase(
+      key: _vm.pointKey,
+      description: LocaleKeys.home_clickHereNowToEarnMorePoints.tr(),
+      targetBorderRadius: context.highBorderRadius,
+      targetPadding: context.verticalPaddingLow,
+      child: InkWell(
+        borderRadius: context.normalBorderRadius,
+        child: Stack(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              padding: context.paddingLow,
+              margin: context.horizontalPaddingLow,
+              decoration: BoxDecoration(
+                color: context.colorScheme.background,
+                borderRadius: context.normalBorderRadius,
+                border: Border.all(
+                  color: context.colorScheme.onPrimary,
+                  width: NumberEnum.two.value,
+                ),
+              ),
+              width: context.dynamicWidth(NumberEnum.zTwo.value),
+              child: TitleMediumText(
+                text: _vm.me?.point.toString() ?? AppStrings.empty,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            _vm.me?.isFreePoint == true
+                ? Positioned(
+                    top: NumberEnum.zero.value,
+                    right: NumberEnum.four.value,
+                    child: Container(
+                      height: NumberEnum.twenty.value,
+                      width: NumberEnum.twenty.value,
+                      decoration: BoxDecoration(
+                        color: context.colorScheme.error,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: context.colorScheme.onPrimary,
+                          width: NumberEnum.two.value,
+                        ),
+                      ),
+                    ),
+                  )
+                : const SizedBox.shrink(),
+          ],
+        ),
+        onTap: () => context.navigateToPage(
+          const RewardsView(),
+        ),
+      ),
+    );
+  }
+
+  IconButton appBarFriendsViewButton(BuildContext context) {
+    return IconButton(
+      icon: Showcase(
+        key: _vm.friendRequestKey,
+        description: LocaleKeys.home_youCanSeeYourFriendRequestsHere.tr(),
+        targetShapeBorder: const CircleBorder(),
+        targetPadding: context.paddingLow,
+        child: const Icon(Icons.group_outlined),
+      ),
+      onPressed: () {
+        context.navigateToPage(
+          const FriendsView(),
+        );
+      },
+    );
   }
 }
 
@@ -194,136 +215,6 @@ class NoUsersFound extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: TitleLargeText(text: LocaleKeys.home_noUsersFound.tr()),
-    );
-  }
-}
-
-class UserCard extends StatelessWidget {
-  const UserCard({
-    super.key,
-    required HomeViewModel vm,
-    required this.pageController,
-    required this.userCard,
-  }) : _vm = vm;
-
-  final HomeViewModel _vm;
-  final PageController pageController;
-  final GlobalKey userCard;
-
-  @override
-  Widget build(BuildContext context) {
-    return PageView.builder(
-      itemCount: _vm.users.length,
-      controller: pageController,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        _vm.currentUser = _vm.users[index];
-        return Padding(
-          padding: context.horizontalPaddingLow,
-          child: Showcase(
-            key: userCard,
-            description: LocaleKeys
-                .home_youCanSeeOtherPhotosIfAvailableBySwipingRightAndLeftOrClickingOnThem
-                .tr(),
-            targetBorderRadius: context.normalBorderRadius,
-            targetPadding: context.paddingLow,
-            child: FriendCard(
-              user: _vm.currentUser ?? UserModel(),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-
-class BottomButtons extends StatelessWidget {
-  const BottomButtons({
-    super.key,
-    required HomeViewModel vm,
-    required this.pageController,
-    required this.skipFriendRequest,
-    required this.sendFriendRequest,
-  }) : _vm = vm;
-
-  final HomeViewModel _vm;
-  final PageController pageController;
-  final GlobalKey skipFriendRequest;
-  final GlobalKey sendFriendRequest;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: StandartCircleButton(
-            backgroundColor: context.colorScheme.error,
-            onPressed: () async {
-              final response = await _vm.skipFriendRequest(
-                userId: _vm.currentUser?.id ?? AppStrings.empty,
-                pageController: pageController,
-              );
-              if (response.success == false) {
-                if (context.mounted) {
-                  showStandartDialog(
-                    context,
-                    title: LocaleKeys.thereIsProblem.tr(),
-                    content: Text(
-                      response.message ?? AppStrings.empty,
-                    ),
-                  );
-                }
-              }
-            },
-            child: Showcase(
-              key: skipFriendRequest,
-              description: LocaleKeys.home_youCanUseThisButtonToPassUser.tr(),
-              targetShapeBorder: const CircleBorder(),
-              targetPadding: context.paddingNormal,
-              child: Icon(
-                Icons.cancel_outlined,
-                size: NumberEnum.thirty.value,
-                color: context.colorScheme.onPrimary,
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: StandartCircleButton(
-            backgroundColor: context.colorScheme.secondary,
-            onPressed: () async {
-              final response = await _vm.sendFriendRequest(
-                userId: _vm.currentUser?.id ?? AppStrings.empty,
-                sentType: 1,
-                pageController: pageController,
-              );
-              if (response.success == false) {
-                if (context.mounted) {
-                  showStandartDialog(
-                    context,
-                    title: LocaleKeys.thereIsProblem.tr(),
-                    content: Text(
-                      response.message ?? AppStrings.empty,
-                    ),
-                  );
-                }
-              }
-            },
-            child: Showcase(
-              key: sendFriendRequest,
-              description:
-                  LocaleKeys.home_youCanUseThisButtonToSendRequestToUser.tr(),
-              targetShapeBorder: const CircleBorder(),
-              targetPadding: context.paddingNormal,
-              child: Icon(
-                Icons.verified_outlined,
-                size: NumberEnum.thirty.value,
-                color: context.colorScheme.onPrimary,
-              ),
-            ),
-          ),
-        )
-      ],
     );
   }
 }

@@ -21,6 +21,7 @@ abstract class _HomeViewModelBase with Store {
   final GlobalKey userCardKey = GlobalKey();
   final GlobalKey skipFriendRequestKey = GlobalKey();
   final GlobalKey sendFriendRequestKey = GlobalKey();
+  final GlobalKey sendStarFriendRequestKey = GlobalKey();
 
   @observable
   UserModel? me;
@@ -40,6 +41,7 @@ abstract class _HomeViewModelBase with Store {
         userCardKey,
         skipFriendRequestKey,
         sendFriendRequestKey,
+        sendStarFriendRequestKey,
       ]);
       await HiveManager.save(key: BoxKeyNames.showcase.name, value: false);
     } else {
