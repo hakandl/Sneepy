@@ -45,7 +45,8 @@
     "youCanSeeYourFriendRequestsHere": "Здесь вы можете посмотреть свои запросы в друзья.",
     "youCanSeeOtherPhotosIfAvailableBySwipingRightAndLeftOrClickingOnThem": "Другие фотографии, если они есть, можно просмотреть, проведя пальцем вправо и влево или щелкнув на них.",
     "youCanUseThisButtonToPassUser": "С помощью этой кнопки можно передать пользователю.",
-    "youCanUseThisButtonToSendRequestToUser": "С помощью этой кнопки можно отправить запрос пользователю."
+    "youCanUseThisButtonToSendRequestToUser": "С помощью этой кнопки можно отправить запрос пользователю.",
+    "youCanSendColorRequestToStandOut": "Чтобы больше выделиться, можно отправить запрос на цвет."
   },
   "profile": {
     "profile": "Профиль",

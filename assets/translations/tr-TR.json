@@ -45,7 +45,8 @@
     "youCanSeeYourFriendRequestsHere": "Arkadaşlık isteklerini buradan görebilirsin.",
     "youCanSeeOtherPhotosIfAvailableBySwipingRightAndLeftOrClickingOnThem": "Sağ ve sola kaydırarak veya tıklayarak varsa diğer fotoğrafları görebilirsin.",
     "youCanUseThisButtonToPassUser": "Bir kullanıcıyı geçmek için bu butonu kullanabilirsin.",
-    "youCanUseThisButtonToSendRequestToUser": "Bir kullanıcıya istek göndermek için bu butonu kullanabilirsin."
+    "youCanUseThisButtonToSendRequestToUser": "Bir kullanıcıya istek göndermek için bu butonu kullanabilirsin.",
+    "youCanSendColorRequestToStandOut": "Daha öne çıkmak için renkli istek gönderebilirsin."
   },
   "profile": {
     "profile": "Profil",

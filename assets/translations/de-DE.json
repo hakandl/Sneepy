@@ -45,7 +45,8 @@
     "youCanSeeYourFriendRequestsHere": "Du kannst deine Freundschaftsanfragen hier sehen.",
     "youCanSeeOtherPhotosIfAvailableBySwipingRightAndLeftOrClickingOnThem": "Sie können andere Fotos sehen, indem Sie nach rechts und links streichen oder auf sie klicken.",
     "youCanUseThisButtonToPassUser": "Sie können diese Schaltfläche verwenden, um einen Benutzer zu übergeben.",
-    "youCanUseThisButtonToSendRequestToUser": "Mit dieser Schaltfläche können Sie eine Anfrage an einen Benutzer senden."
+    "youCanUseThisButtonToSendRequestToUser": "Mit dieser Schaltfläche können Sie eine Anfrage an einen Benutzer senden.",
+    "youCanSendColorRequestToStandOut": "Sie können eine Farbanfrage senden, um sich besser abzuheben."
   },
   "profile": {
     "profile": "Profil",

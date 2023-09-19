@@ -45,7 +45,8 @@
     "youCanSeeYourFriendRequestsHere": "You can see your friend requests here.",
     "youCanSeeOtherPhotosIfAvailableBySwipingRightAndLeftOrClickingOnThem": "You can see other photos if available by swiping right and left or clicking on them.",
     "youCanUseThisButtonToPassUser": "You can use this button to pass a user.",
-    "youCanUseThisButtonToSendRequestToUser": "You can use this button to send a request to a user."
+    "youCanUseThisButtonToSendRequestToUser": "You can use this button to send a request to a user.",
+    "youCanSendColorRequestToStandOut": "You can send a color request to stand out more."
   },
   "profile": {
     "profile": "Profile",
