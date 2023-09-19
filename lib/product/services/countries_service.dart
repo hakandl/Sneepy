@@ -1,6 +1,6 @@
 import 'package:sneepy/product/constants/endpoints.dart';
 import 'package:sneepy/product/models/countries_model.dart';
-import 'package:sneepy/product/services/service_manager.dart';
+import 'package:sneepy/product/services/manager/service_manager.dart';
 
 class CountriesService {
   Future<List<CountriesModel>> getAllCountries() async {

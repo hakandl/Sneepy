@@ -2,7 +2,7 @@ import 'package:sneepy/product/cache/hive_manager.dart';
 import 'package:sneepy/product/constants/endpoints.dart';
 import 'package:sneepy/product/models/response_model.dart';
 import 'package:sneepy/product/models/user_model.dart';
-import 'package:sneepy/product/services/service_manager.dart';
+import 'package:sneepy/product/services/manager/service_manager.dart';
 
 class UserService {
   Future<List<UserModel>> getUsers() async {

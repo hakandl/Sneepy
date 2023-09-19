@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:sneepy/product/constants/endpoints.dart';
 import 'package:sneepy/product/models/response_model.dart';
 import 'package:sneepy/product/models/user_model.dart';
-import 'package:sneepy/product/services/service_manager.dart';
+import 'package:sneepy/product/services/manager/service_manager.dart';
 
 class AuthService {
   Future<ResponseModel> checkAuth() async {
