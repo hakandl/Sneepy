@@ -22,6 +22,7 @@ class SneepyThemeColors {
 
   final Brightness brightnessLight = Brightness.light;
   final SystemUiOverlayStyle systemOverlayStyle = SystemUiOverlayStyle.light;
+  final SystemUiOverlayStyle systemOverlayStyleDark = SystemUiOverlayStyle.dark;
 
   final Color transparent = Colors.transparent;
 }
