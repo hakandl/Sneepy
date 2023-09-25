@@ -12,7 +12,7 @@ import 'package:sneepy/product/constants/enums/number.dart';
 import 'package:sneepy/product/constants/service.dart';
 import 'package:sneepy/product/constants/strings.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
-import 'package:sneepy/product/init/product/notification_init.dart';
+import 'package:sneepy/product/init/notification/notification_init.dart';
 import 'package:sneepy/product/models/countries_model.dart';
 import 'package:sneepy/product/models/response_model.dart';
 import 'package:sneepy/product/services/auth_service.dart';

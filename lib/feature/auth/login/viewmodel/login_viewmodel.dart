@@ -4,7 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:sneepy/product/cache/hive_manager.dart';
 import 'package:sneepy/product/constants/strings.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
-import 'package:sneepy/product/init/product/notification_init.dart';
+import 'package:sneepy/product/init/notification/notification_init.dart';
 import 'package:sneepy/product/models/response_model.dart';
 import 'package:sneepy/product/utils/loading.dart';
 import 'package:sneepy/product/widgets/input/standart_textfield.dart';

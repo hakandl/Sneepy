@@ -1,7 +1,7 @@
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:sneepy/product/constants/service.dart';
 
-class RevenueCatInit {
+class PurchaseInit {
   static const apiKey = ServiceConstants.revenueCatApiKey;
 
   Future<void> init() async {

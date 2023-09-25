@@ -24,8 +24,8 @@ class NotificationInit {
   Future<void> init() async {
     await getDeviceId();
     oneSignal.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
-    oneSignal.promptUserForPushNotificationPermission();
     oneSignal.setAppId(ServiceConstants.oneSignalAppId);
+    oneSignal.promptUserForPushNotificationPermission(fallbackToSettings: true);
     oneSignal.setExternalUserId(deviceId);
     await saveDeviceToken();
   }
