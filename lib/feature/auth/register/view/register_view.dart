@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/auth/register/viewmodel/register_viewmodel.dart';
@@ -8,6 +9,7 @@ import 'package:sneepy/product/constants/enums/gender.dart';
 import 'package:sneepy/product/constants/enums/number.dart';
 import 'package:sneepy/product/constants/strings.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
+import 'package:sneepy/product/init/theme/theme_colors.dart';
 import 'package:sneepy/product/models/response_model.dart';
 import 'package:sneepy/product/widgets/button/standart_text_button.dart';
 import 'package:sneepy/product/widgets/card/select_card.dart';
@@ -44,83 +46,87 @@ class _RegisterViewState extends State<RegisterView> {
         return true;
       },
       child: Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: context.horizontalPaddingNormal,
-            child: Column(
-              children: [
-                context.emptySizedHeightBoxLow3x,
-                Observer(builder: (_) {
-                  return LinearProgressIndicator(
-                    value: _vm.registerProgressValue,
-                    color: context.colorScheme.surface,
-                    backgroundColor: context.colorScheme.background,
-                  );
-                }),
-                context.emptySizedHeightBoxLow3x,
-                Observer(
-                  builder: (_) {
-                    return Expanded(
-                      child: Column(
-                        children: [
-                          if (_vm.screenMode == NumberEnum.one.value)
-                            RegisterStep1Section(
-                              vm: _vm,
-                            ),
-                          if (_vm.screenMode == NumberEnum.two.value)
-                            RegisterStep2Section(
-                              vm: _vm,
-                            ),
-                          if (_vm.screenMode == NumberEnum.three.value)
-                            RegisterStep3Section(
-                              vm: _vm,
-                            ),
-                          if (_vm.screenMode == NumberEnum.four.value)
-                            Expanded(
-                              child: RegisterStep4Section(
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SneepyThemeColors().systemOverlayStyleDark,
+          child: SafeArea(
+            child: Padding(
+              padding: context.horizontalPaddingNormal,
+              child: Column(
+                children: [
+                  context.emptySizedHeightBoxLow3x,
+                  Observer(builder: (_) {
+                    return LinearProgressIndicator(
+                      value: _vm.registerProgressValue,
+                      color: context.colorScheme.surface,
+                      backgroundColor: context.colorScheme.background,
+                    );
+                  }),
+                  context.emptySizedHeightBoxLow3x,
+                  Observer(
+                    builder: (_) {
+                      return Expanded(
+                        child: Column(
+                          children: [
+                            if (_vm.screenMode == NumberEnum.one.value)
+                              RegisterStep1Section(
                                 vm: _vm,
                               ),
-                            ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-                Observer(builder: (_) {
-                  return StandartTextButton(
-                    text: _vm.screenMode != NumberEnum.four.value
-                        ? LocaleKeys.buttons_continue.tr()
-                        : LocaleKeys.buttons_complete.tr(),
-                    isLoading: _vm.loading.isLoading,
-                    onPressed: _vm.loading.isLoading
-                        ? () {}
-                        : () async {
-                            if (_vm.screenMode == NumberEnum.one.value) {
-                              await register(context);
-                            } else if (_vm.screenMode == NumberEnum.two.value ||
-                                _vm.screenMode == NumberEnum.three.value) {
-                              await update(context);
-                            } else if (_vm.screenMode ==
-                                NumberEnum.four.value) {
-                              if (_vm.image != null) {
-                                goToHomeView(context);
-                              } else {
-                                showStandartDialog(
-                                  context,
-                                  title: LocaleKeys.thereIsProblem.tr(),
-                                  content: Text(
-                                    LocaleKeys
-                                        .auth_register_toRegisterYouNeedToUploadPhotoToYourProfile
-                                        .tr(),
-                                  ),
-                                );
+                            if (_vm.screenMode == NumberEnum.two.value)
+                              RegisterStep2Section(
+                                vm: _vm,
+                              ),
+                            if (_vm.screenMode == NumberEnum.three.value)
+                              RegisterStep3Section(
+                                vm: _vm,
+                              ),
+                            if (_vm.screenMode == NumberEnum.four.value)
+                              Expanded(
+                                child: RegisterStep4Section(
+                                  vm: _vm,
+                                ),
+                              ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  Observer(builder: (_) {
+                    return StandartTextButton(
+                      text: _vm.screenMode != NumberEnum.four.value
+                          ? LocaleKeys.buttons_continue.tr()
+                          : LocaleKeys.buttons_complete.tr(),
+                      isLoading: _vm.loading.isLoading,
+                      onPressed: _vm.loading.isLoading
+                          ? () {}
+                          : () async {
+                              if (_vm.screenMode == NumberEnum.one.value) {
+                                await register(context);
+                              } else if (_vm.screenMode ==
+                                      NumberEnum.two.value ||
+                                  _vm.screenMode == NumberEnum.three.value) {
+                                await update(context);
+                              } else if (_vm.screenMode ==
+                                  NumberEnum.four.value) {
+                                if (_vm.image != null) {
+                                  goToHomeView(context);
+                                } else {
+                                  showStandartDialog(
+                                    context,
+                                    title: LocaleKeys.thereIsProblem.tr(),
+                                    content: Text(
+                                      LocaleKeys
+                                          .auth_register_toRegisterYouNeedToUploadPhotoToYourProfile
+                                          .tr(),
+                                    ),
+                                  );
+                                }
                               }
-                            }
-                          },
-                  );
-                }),
-                context.emptySizedHeightBoxLow3x,
-              ],
+                            },
+                    );
+                  }),
+                  context.emptySizedHeightBoxLow3x,
+                ],
+              ),
             ),
           ),
         ),

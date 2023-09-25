@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sneepy/feature/auth/login/viewmodel/login_viewmodel.dart';
 import 'package:sneepy/feature/auth/register/view/register_view.dart';
 import 'package:sneepy/feature/home/view/home_view.dart';
 import 'package:sneepy/product/init/language/locale_keys.g.dart';
+import 'package:sneepy/product/init/theme/theme_colors.dart';
 import 'package:sneepy/product/widgets/button/standart_text_button.dart';
 import 'package:sneepy/product/widgets/dialog/standart_dialog.dart';
 import 'package:sneepy/product/widgets/text/title_medium_text.dart';
@@ -20,32 +22,35 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: context.horizontalPaddingNormal,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Spacer(),
-              HeadlineLargeText(
-                text: LocaleKeys.auth_login_login.tr(),
-              ),
-              context.emptySizedHeightBoxNormal,
-              _vm.emailInput,
-              context.emptySizedHeightBoxLow,
-              _vm.passwordInput,
-              context.emptySizedHeightBoxLow3x,
-              Observer(builder: (_) {
-                return StandartTextButton(
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SneepyThemeColors().systemOverlayStyleDark,
+        child: SafeArea(
+          child: Padding(
+            padding: context.horizontalPaddingNormal,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Spacer(),
+                HeadlineLargeText(
                   text: LocaleKeys.auth_login_login.tr(),
-                  isLoading: _vm.loading.isLoading,
-                  onPressed: () => _login(context),
-                );
-              }),
-              const Spacer(),
-              const DontYouHaveAnAccountWidget(),
-            ],
+                ),
+                context.emptySizedHeightBoxNormal,
+                _vm.emailInput,
+                context.emptySizedHeightBoxLow,
+                _vm.passwordInput,
+                context.emptySizedHeightBoxLow3x,
+                Observer(builder: (_) {
+                  return StandartTextButton(
+                    text: LocaleKeys.auth_login_login.tr(),
+                    isLoading: _vm.loading.isLoading,
+                    onPressed: () => _login(context),
+                  );
+                }),
+                const Spacer(),
+                const DontYouHaveAnAccountWidget(),
+              ],
+            ),
           ),
         ),
       ),
