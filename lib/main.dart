@@ -1,38 +1,44 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:kartal/kartal.dart';
-import 'package:sneepy/feature/auth/login/view/login_view.dart';
-import 'package:sneepy/product/constant/colors.dart';
+import 'package:showcaseview/showcaseview.dart';
+import 'package:sneepy/feature/splash/view/splash_view.dart';
+import 'package:sneepy/product/init/product/product_init.dart';
+import 'package:sneepy/product/init/string/string.dart';
+import 'package:sneepy/product/init/theme/theme.dart';
 
-void main() => runApp(const MyApp());
+final navigatorKey = GlobalKey<NavigatorState>();
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+Future<void> main() async {
+  final productInit = ProductInit();
+  await productInit.init();
+
+  runApp(
+    EasyLocalization(
+      supportedLocales: productInit.localizationInit.supportedLocales,
+      path: productInit.localizationInit.path,
+      child: ShowCaseWidget(
+        builder: Builder(
+          builder: (context) => const SneepyApp(),
+        ),
+      ),
+    ),
+  );
+}
+
+class SneepyApp extends StatelessWidget {
+  const SneepyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Material App',
-      home: LoginView(),
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: AppColors.blueRibbon,
-        scaffoldBackgroundColor: AppColors.background,
-        appBarTheme: AppBarTheme(
-          centerTitle: true,
-          backgroundColor: AppColors.blueRibbon,
-          toolbarHeight: 64,
-          scrolledUnderElevation: 15,
-          iconTheme: const IconThemeData(
-            color: AppColors.white,
-          ),
-          actionsIconTheme: const IconThemeData(
-            color: AppColors.white,
-          ),
-          titleTextStyle: context.textTheme.titleLarge?.copyWith(
-            color: AppColors.white,
-          ),
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
+      title: SneepyStringsInit.APP_NAME,
+      home: const SplashView(),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      theme: SneepyTheme(context).theme,
+      navigatorKey: navigatorKey,
     );
   }
 }
