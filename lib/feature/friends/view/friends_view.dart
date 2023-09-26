@@ -17,6 +17,10 @@ import 'package:sneepy/product/widgets/text/title_large_text.dart';
 import 'package:sneepy/product/widgets/text/title_medium_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+part 'module/social_accounts_widget.dart';
+part 'module/user_accept_or_delete_widget.dart';
+part 'module/current_friend_card_widget.dart';
+
 class FriendsView extends StatefulWidget {
   const FriendsView({super.key});
 
@@ -44,7 +48,9 @@ class _FriendsViewState extends State<FriendsView> {
       body: Observer(
         builder: (_) {
           return vm.loading.isLoading
-              ? const Center(child: CircularProgressIndicator())
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
               : RefreshIndicator(
                   onRefresh: getUser,
                   child: vm.user?.friendRequests.isNullOrEmpty == true
@@ -70,40 +76,10 @@ class _FriendsViewState extends State<FriendsView> {
                             } else {
                               tileColor = context.colorScheme.onPrimary;
                             }
-                            return ListTile(
+                            return CurrentFriendCard(
                               tileColor: tileColor,
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: context.verticalPaddingLow.vertical,
-                                horizontal:
-                                    context.horizontalPaddingLow.horizontal,
-                              ),
-                              leading: CircleAvatar(
-                                backgroundImage: CachedNetworkImageProvider(
-                                  currentUser?.photos?.firstOrNull?.photo ??
-                                      AppStrings.userNotPhoto,
-                                ),
-                                radius: NumberEnum.fortyEight.value,
-                              ),
-                              title: Padding(
-                                padding: context.onlyBottomPaddingLow,
-                                child: TitleMediumText(
-                                  text: currentUser?.name ?? AppStrings.empty,
-                                ),
-                              ),
-                              subtitle: currentUser?.sentType ==
-                                          NumberEnum.one.value ||
-                                      currentUser?.sentType ==
-                                          NumberEnum.three.value
-                                  ? UserAcceptOrDeleteWidget(
-                                      vm: vm,
-                                      currentUser: currentUser,
-                                    )
-                                  : SocialAccountsWidget(
-                                      currentUser: currentUser,
-                                    ),
-                              onTap: () {
-                                goToFriendDetailsView(context, currentUser);
-                              },
+                              currentUser: currentUser ?? FriendRequests(),
+                              vm: vm,
                             );
                           },
                         ),
@@ -113,172 +89,10 @@ class _FriendsViewState extends State<FriendsView> {
     );
   }
 
-  Future<Object?> goToFriendDetailsView(
-      BuildContext context, FriendRequests? currentUser) {
-    return context.navigateToPage(
-      FriendDetailsView(
-        id: currentUser?.id ?? AppStrings.empty,
-      ),
-    );
-  }
-
   AppBar _appBar() {
     return AppBar(
       title: Text(
         LocaleKeys.friendRequest_friendRequests.tr(),
-      ),
-    );
-  }
-}
-
-class UserAcceptOrDeleteWidget extends StatelessWidget {
-  const UserAcceptOrDeleteWidget({
-    super.key,
-    required this.vm,
-    required this.currentUser,
-  });
-
-  final FriendsViewModel vm;
-  final FriendRequests? currentUser;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: deleteButton(context),
-        ),
-        context.emptySizedWidthBoxNormal,
-        Expanded(
-          child: acceptButton(context),
-        ),
-      ],
-    );
-  }
-
-  SizedBox deleteButton(BuildContext context) {
-    return SizedBox(
-      height: NumberEnum.forty.value,
-      child: StandartTextButton(
-        text: LocaleKeys.buttons_delete.tr(),
-        backgroundColor: context.colorScheme.error,
-        onPressed: () async {
-          await vm.deleteFriendRequest(
-            userId: currentUser?.id ?? AppStrings.empty,
-          );
-        },
-      ),
-    );
-  }
-
-  SizedBox acceptButton(BuildContext context) {
-    return SizedBox(
-      height: NumberEnum.forty.value,
-      child: StandartTextButton(
-        text: LocaleKeys.buttons_accept.tr(),
-        backgroundColor: context.colorScheme.secondary,
-        onPressed: () async {
-          await vm.acceptFriendRequest(
-            userId: currentUser?.id ?? AppStrings.empty,
-          );
-        },
-      ),
-    );
-  }
-}
-
-class SocialAccountsWidget extends StatelessWidget {
-  const SocialAccountsWidget({
-    super.key,
-    required this.currentUser,
-  });
-
-  final FriendRequests? currentUser;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: snapchatButton(context),
-        ),
-        context.emptySizedWidthBoxNormal,
-        Expanded(
-          child: instagramButton(context),
-        ),
-        context.emptySizedWidthBoxNormal,
-        Expanded(
-          child: twitterButton(context),
-        ),
-      ],
-    );
-  }
-
-  SizedBox snapchatButton(BuildContext context) {
-    return SizedBox(
-      height: NumberEnum.forty.value,
-      child: StandartCircleButton(
-        backgroundColor: context.colorScheme.secondary,
-        onPressed: () {
-          if (currentUser?.snapchat?.isNotNullOrNoEmpty == true) {
-            launchUrl(
-              Uri.parse('${AppStrings.snapchat}${currentUser?.snapchat}'),
-              mode: LaunchMode.externalApplication,
-            );
-          } else {
-            Fluttertoast.showToast(
-              msg: LocaleKeys.friendRequest_usersSnapchatAccountNotFound.tr(),
-            );
-          }
-        },
-        child: Icon(FontAwesomeIcons.snapchat,
-            color: context.colorScheme.onPrimary),
-      ),
-    );
-  }
-
-  SizedBox instagramButton(BuildContext context) {
-    return SizedBox(
-      height: NumberEnum.forty.value,
-      child: StandartCircleButton(
-        backgroundColor: context.colorScheme.secondary,
-        onPressed: () {
-          if (currentUser?.instagram?.isNotNullOrNoEmpty == true) {
-            launchUrl(
-              Uri.parse('${AppStrings.instagram}${currentUser?.instagram}'),
-              mode: LaunchMode.externalApplication,
-            );
-          } else {
-            Fluttertoast.showToast(
-              msg: LocaleKeys.friendRequest_usersInstagramAccountNotFound.tr(),
-            );
-          }
-        },
-        child: Icon(FontAwesomeIcons.instagram,
-            color: context.colorScheme.onPrimary),
-      ),
-    );
-  }
-
-  SizedBox twitterButton(BuildContext context) {
-    return SizedBox(
-      height: NumberEnum.forty.value,
-      child: StandartCircleButton(
-        backgroundColor: context.colorScheme.secondary,
-        onPressed: () {
-          if (currentUser?.twitter?.isNotNullOrNoEmpty == true) {
-            launchUrl(
-              Uri.parse('${AppStrings.twitter}${currentUser?.twitter}'),
-              mode: LaunchMode.externalApplication,
-            );
-          } else {
-            Fluttertoast.showToast(
-              msg: LocaleKeys.friendRequest_usersTwitterAccountNotFound.tr(),
-            );
-          }
-        },
-        child: Icon(FontAwesomeIcons.twitter,
-            color: context.colorScheme.onPrimary),
       ),
     );
   }
