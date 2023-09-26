@@ -79,7 +79,7 @@ class BottomButtons extends StatelessWidget {
               description:
                   LocaleKeys.home_youCanSendColorRequestToStandOut.tr(),
               targetShapeBorder: const CircleBorder(),
-              targetPadding: context.paddingNormal,
+              targetPadding: context.paddingLow,
               child: Icon(
                 Icons.star_border_rounded,
                 size: NumberEnum.fortyEight.value,
