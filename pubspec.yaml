@@ -1,7 +1,7 @@
 name: sneepy
-description: A new Flutter project.
+description: Matching app.
 publish_to: "none"
-version: 1.0.0+15
+version: 1.0.0+20
 
 environment:
   sdk: ">=2.18.5 <3.0.0"
