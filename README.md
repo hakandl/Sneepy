@@ -1,16 +1,32 @@
-# sneepy
+# Sneepy
 
-A new Flutter project.
+A matching app.
 
-## Getting Started
+## Tech and Libraries
 
-This project is a starting point for a Flutter application.
+- State Management: [Mobx](https://pub.dev/packages/mobx)
+- Database: [Hive](https://pub.dev/packages/hive)
+- Network: [Dio](https://pub.dev/packages/dio)
+- Localization: [Easy Localization](https://pub.dev/packages/easy_localization)
+- Purchase: [Revenuecat](https://pub.dev/packages/purchases_flutter)
+- Notification: [OneSignal](https://pub.dev/packages/onesignal_flutter)
+- Ads: [Google Mobile Ads](https://pub.dev/packages/google_mobile_ads)
 
-A few resources to get you started if this is your first Flutter project:
+## Play Store
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<a href="https://play.google.com/store/apps/details?id=com.hdev.sneepy" target="_blank"><img src="screenshots/google-play-badge.png" width="250"></a>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
+
+<table>
+  <tr align="center">
+    <td>Home Screen</td>
+    <td>Friends Screen</td>
+    <td>Profile Screen</td>
+  </tr>
+  <tr align="center">
+    <td><img src="screenshots/home.png" width="250"></td>
+    <td><img src="screenshots/friends.png" width="250"></td>
+    <td><img src="screenshots/profile.png" width="250"></td>
+  </tr>
+ </table>
